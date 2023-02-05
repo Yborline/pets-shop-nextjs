@@ -1,4 +1,4 @@
-const clothes = [
+const type = [
   { id: 1, title: "Overalls", path: "/clothes/overalls/overalls" },
   { id: 2, title: "Hoodies", path: "/clothes/hoodies/hoodies" },
   { id: 3, title: "T-shirts", path: "/clothes/t-shirts/t-shirts" },
@@ -19,18 +19,21 @@ const clothes = [
     path: "/clothes/forLargeDogs/forLargeDogs",
   },
 ];
-import ClotheItem from "./ClothesItem/ClothesItem";
+import ClothesType from "./ClothesType/ClothesType";
+import ClothesItem from "./ClothesList/ClothesList";
 
-const ClothesList = () => {
+const ClothesListType = ({ clothes }) => {
+  console.log(clothes);
   return (
     <>
       <ul>
-        {clothes.map(({ id, title, path }) => (
-          <ClotheItem key={id} title={title} path={path} />
+        {type.map(({ id, title, path }) => (
+          <ClothesType key={id} title={title} path={path} />
         ))}
       </ul>
+      <ClothesItem list={clothes} />
     </>
   );
 };
 
-export default ClothesList;
+export default ClothesListType;

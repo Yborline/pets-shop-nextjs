@@ -31,7 +31,7 @@ display:flex;`
 export const NavLi = styled.li`
 list-style-type: none;
 margin-right: 10px;
- :nth-of-type(3){
+ :nth-of-type(5){
 margin-right: 0px;
 }`
 

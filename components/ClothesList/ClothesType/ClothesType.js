@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { Li } from "./ClothesItem.style";
+import { Li } from "./ClothesType.style";
 
-const ClotheItem = () => {
+const ClothesType = ({ path, title }) => {
   return (
     <>
       <Li>
@@ -10,4 +10,4 @@ const ClotheItem = () => {
     </>
   );
 };
-export default ClotheItem;
+export default ClothesType;

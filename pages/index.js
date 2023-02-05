@@ -8,6 +8,7 @@ import HomeList from "../components/HomeList/HomeList";
 import Counter from "../components/Counter/Counter";
 import dog from "../public/photo/dog.png";
 import { Div, Container, DivList } from "./index.styled";
+import FormAdd from "../components/FormAdd/FormAdd";
 
 export default function Home() {
   return (
@@ -15,6 +16,7 @@ export default function Home() {
       <Head>
         <title>Pet Shop</title>
       </Head>
+      <FormAdd />
       {/* <Heading text="Welcome to PetShop" /> */}
       <Div>
         <Image

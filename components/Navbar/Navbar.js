@@ -23,7 +23,9 @@ import Button from "../Button/Button";
 const navigation = [
   { id: 1, title: "Home", path: "/" },
   { id: 2, title: "Сlothes", path: "/clothes" },
-  { id: 3, title: <HiOutlineShoppingCart size="20px" />, path: "/basket" },
+  { id: 3, title: "Cat", path: "/cat" },
+  { id: 4, title: "Dog", path: "/dog" },
+  { id: 5, title: <HiOutlineShoppingCart size="20px" />, path: "/basket" },
 ];
 
 const Navbar = () => {

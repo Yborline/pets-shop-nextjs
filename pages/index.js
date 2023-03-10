@@ -11,11 +11,13 @@ import { Div, Container, DivList } from "./index.styled";
 import FormAdd from "../components/FormAdd/FormAdd";
 import authOperations from "../redux/auth/auth-operatins";
 import { Provider, useDispatch } from "react-redux";
+import { fetchClothes } from "../redux/clothes/clothes-operations";
 
 export default function Home() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(fetchClothes());
     dispatch(authOperations.fetchCurrentUser());
   }, [dispatch]);
 

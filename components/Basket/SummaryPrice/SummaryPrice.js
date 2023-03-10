@@ -1,6 +1,7 @@
 const SummaryPrice = ({ cards = [] }) => {
   const price = cards.reduce(
-    (totalLikes, card) => totalLikes + Number(card.allprice.price),
+    (totalPrice, card) =>
+      totalPrice + Number(card.allprice.price) * card.amount,
     0
   );
 

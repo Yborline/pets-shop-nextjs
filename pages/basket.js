@@ -5,6 +5,7 @@ import { getBasket } from "../redux/clothes/clothes-selector";
 
 const Basket = () => {
   const clothes = useSelector(getBasket);
+
   return (
     <>
       <Head>

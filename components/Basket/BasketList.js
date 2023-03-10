@@ -1,4 +1,8 @@
-import { getBasket, getClothes } from "../../redux/clothes/clothes-selector";
+import {
+  getBasket,
+  getClothes,
+  getActualCard,
+} from "../../redux/clothes/clothes-selector";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Div,
@@ -22,27 +26,26 @@ import {
 import { MdOutlineDeleteOutline } from "react-icons/md";
 import actualCard from "./actualCard";
 import SummaryPrice from "./summaryPrice/SummaryPrice";
+import { fetchClothes } from "../../redux/clothes/clothes-operations";
 
 const BasketList = ({}) => {
   const dispatch = useDispatch();
   const clothesMain = useSelector(getClothes);
-  const clothes = useSelector(getBasket);
-  const [cloth, setCloth] = useState(actualCard(clothes, clothesMain));
+  const clothesBasket = useSelector(getBasket);
+  const clotheActual = useSelector(getActualCard);
+
   // const [clotesCount, setClothesCount] = useState(clothes);
   // console.log(clotesCount);
 
   useEffect(() => {
-    if (cloth.length > 0) {
-      dispatch(changeActualCard(cloth));
+    if (clotheActual.length !== clothesBasket.length) {
+      dispatch(changeActualCard(clothesBasket));
     }
-  }, [cloth, clothes.length, dispatch]);
+  }, [clothesBasket, dispatch, clothesMain, clotheActual]);
 
-  console.log(clothes);
-
-  const changeCard = (counter) => {
-    const card = clothes.map((item) => console.log(item.allprice.amount));
-    setClothesCount(card);
-  };
+  useEffect(() => {
+    dispatch(fetchClothes());
+  }, [dispatch]);
 
   const deleteCard = (_id) => {
     dispatch(deleteCardBasket(_id));
@@ -51,8 +54,8 @@ const BasketList = ({}) => {
     <>
       <Div>
         <Ul>
-          {clothes !== [] &&
-            clothes.map(
+          {clotheActual.length > 0 &&
+            clotheActual.map(
               ({ amount, name, code, image, model, allprice, _id }, index) => (
                 // <>
 
@@ -78,11 +81,7 @@ const BasketList = ({}) => {
                     </div>
                     <DivDelet>
                       <DivDelCounter>
-                        <Counter
-                          amount={amount}
-                          id={_id}
-                          changeCard={changeCard}
-                        />
+                        <Counter amount={amount} id={_id} />
                       </DivDelCounter>
                       <h3>{amount * allprice.price} грн.</h3>
                       <MdOutlineDeleteOutline
@@ -104,7 +103,7 @@ const BasketList = ({}) => {
               )
             )}
         </Ul>
-        <SummaryPrice cards={clothes} />
+        <SummaryPrice cards={clotheActual} />
       </Div>
     </>
   );

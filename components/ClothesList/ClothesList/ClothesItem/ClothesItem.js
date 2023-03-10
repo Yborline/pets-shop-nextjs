@@ -1,6 +1,11 @@
 import Image from "next/image";
+import Link from "next/link";
+import { Li, Imgg, Div, DivOptions, Title } from "./ClotheItem.styled";
+import { deleteClothes } from "../../../../redux/clothes/clothes-operations";
+import { useDispatch } from "react-redux";
 
 const ClothesItem = ({
+  pathname,
   id,
   code,
   name,
@@ -10,15 +15,29 @@ const ClothesItem = ({
   owner,
   image,
 }) => {
+  const dispatch = useDispatch();
   return (
-    <li>
-      <img src={image.url} alt={name} width={400} height={200} />
-      <h3>{name}</h3>
-      <p>{code}</p>
-      <p>{model}</p>
-      <p>{price}</p>
-      <p>{active}</p>
-    </li>
+    <Li>
+      <Div>
+        <Link href={`/clothes/${id}`}>
+          <Image
+            src={image.url}
+            alt={name}
+            fill
+            sizes="(max-width: 768px) 100vw,
+              (max-width: 1200px) 50vw,
+              33vw"
+          />
+        </Link>
+      </Div>
+      <DivOptions>
+        <Title>{name}</Title>
+        <p>code: {code}</p>
+        {pathname === "" ? <p>{model}</p> : <></>}
+        <p>{price} грн.</p>
+        <button onClick={() => dispatch(deleteClothes(id))}></button>
+      </DivOptions>
+    </Li>
   );
 };
 

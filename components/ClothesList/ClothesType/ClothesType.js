@@ -1,11 +1,21 @@
 import Link from "next/link";
-import { Li } from "./ClothesType.style";
+import { LinkActive, LinkNormal, Li } from "./ClothesType.styled";
+import { useRouter } from "next/router";
 
-const ClothesType = ({ path, title }) => {
+const ClothesType = ({ id, path, title }) => {
+  const { pathname } = useRouter();
+
   return (
     <>
-      <Li>
-        <Link href={path}>{title}</Link>
+      <Li key={id}>
+        <Link href={path}>
+          {pathname === path ? (
+            <LinkActive>{title}</LinkActive>
+          ) : (
+            <LinkNormal>{title}</LinkNormal>
+          )}
+        </Link>
+        {/* <Link href={path}>{title}</Link> */}
       </Li>
     </>
   );

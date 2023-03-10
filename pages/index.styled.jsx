@@ -2,12 +2,13 @@ import styled from "styled-components";
 
 
 export const Div = styled.div`
+
 background-color: ${({ theme }) => theme.gray};
 `
 
 
 export const Container = styled.div`
-margin-top: 15px;
+
 min-height: 100%;
 display: flex;
 justify-content: center;

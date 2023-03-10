@@ -7,6 +7,7 @@ import { useContext } from "react";
 import ctx from "../context/themeContext";
 import { useState, useEffect } from "react";
 import Head from "next/head";
+import { Div } from "./Layout.styled";
 
 const Layout = ({ children }) => {
   const { themes } = useContext(ctx);
@@ -29,7 +30,7 @@ const Layout = ({ children }) => {
         {isMounted && (
           <>
             <Header />
-            {children}
+            <Div>{children}</Div>
             <Footer />
           </>
         )}

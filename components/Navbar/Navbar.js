@@ -9,30 +9,58 @@ import {
   Logo,
   DivLogo,
   DivOther,
+  Ul,
+  DivMenu,
+  ButtonList,
 } from "./Navbar.styled";
 import { useTranslation } from "react-i18next";
 import { useContext } from "react";
 import { HiOutlineShoppingCart } from "react-icons/hi";
+import { AiOutlineUnorderedList } from "react-icons/ai";
 import { BsMoonFill, BsFillSunFill } from "react-icons/bs";
 import { MdPets } from "react-icons/md";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import ctx from "../context/themeContext";
 import i18n from "../../i18n/i18n";
-import Button from "../Button/Button";
+import ButtonSmall from "../ButtonSmall/ButtonSmall";
+import { useState, useEffect } from "react";
+import { useWindowWidth } from "@react-hook/window-size";
+import ButtonUser from "../ButtonUser/ButtonUser";
+import Modal from "../Modal";
+import LoginForm from "../LoginForm/LoginForm";
 
 const navigation = [
   { id: 1, title: "Home", path: "/" },
   { id: 2, title: "Сlothes", path: "/clothes" },
   { id: 3, title: "Cat", path: "/cat" },
   { id: 4, title: "Dog", path: "/dog" },
-  { id: 5, title: <HiOutlineShoppingCart size="20px" />, path: "/basket" },
+  // { id: 5, title: <HiOutlineShoppingCart size="20px" />, path: "/basket" },
 ];
 
 const Navbar = () => {
+  // const [screenWidth, setScreenWidth] = useState(320);
+  const [showModal, setShowModal] = useState(false);
+  const [showMenu, setShowMenu] = useState(false);
   const { themes, toggleTheme } = useContext(ctx);
   const { pathname } = useRouter();
   const { t } = useTranslation();
   const [language, setLanguage] = useLocalStorage("language", "ua");
+  const width = useWindowWidth();
+  // const changeScreen = () => {
+  //   setScreenWidth(window.screen.width);
+  // };
+
+  // useEffect(() => {
+  //   changeScreen();
+  // }, []);
+
+  const toggleModal = () => {
+    setShowModal(!showModal);
+  };
+
+  const toggleMenu = () => {
+    setShowMenu(!showMenu);
+  };
 
   const handleLenguageChange = () => {
     if (language === "en") {
@@ -57,7 +85,7 @@ const Navbar = () => {
 
       <UlNavigation>
         <DivOther>
-          <Button
+          <ButtonSmall
             marginR="5px"
             handleClick={toggleTheme}
             text={
@@ -68,26 +96,73 @@ const Navbar = () => {
               )
             }
           />
-          <Button
+          <ButtonSmall
             text={language === "ua" ? t("EN") : t("UA")}
             handleClick={handleLenguageChange}
           />
         </DivOther>
-        {navigation.map(({ id, title, path }) => (
-          <NavLi key={id}>
-            <Link href={path}>
-              {pathname === path ? (
-                <LinkActive>{title}</LinkActive>
-              ) : (
-                <LinkNormal>{title}</LinkNormal>
-              )}
-              {/* <p className={pathname === path ? s.active : null}>{title}</p> */}
-            </Link>
-          </NavLi>
-        ))}
-
-        {/* <Link href="/purchases">Purchases</Link>
-        <Link href="/basket">Basket</Link> */}
+        {showModal && (
+          <Modal path={pathname} close={toggleModal}>
+            <LoginForm toggleModal={toggleModal} />
+            {/* <CLothesForm onSave={toggleModal} toggleModal={toggleModal} /> */}
+          </Modal>
+        )}
+        <Link href="/basket">
+          {pathname === "/basket" ? (
+            <LinkActive>
+              <HiOutlineShoppingCart size="20px" />
+            </LinkActive>
+          ) : (
+            <LinkNormal>
+              <HiOutlineShoppingCart size="20px" />
+            </LinkNormal>
+          )}
+        </Link>
+        {width > 767 ? (
+          <>
+            {navigation.map(({ id, title, path }) => (
+              <NavLi key={id}>
+                <Link onClick={toggleMenu} href={path}>
+                  {pathname === path ? (
+                    <LinkActive>{title}</LinkActive>
+                  ) : (
+                    <LinkNormal>{title}</LinkNormal>
+                  )}
+                  {/* <p className={pathname === path ? s.active : null}>{title}</p> */}
+                </Link>
+              </NavLi>
+            ))}
+            <ButtonUser toggleModal={toggleModal} />
+          </>
+        ) : (
+          <>
+            <ButtonList onClick={toggleMenu}>
+              <AiOutlineUnorderedList size="20px" />
+            </ButtonList>
+            {showMenu && (
+              <Ul>
+                <DivMenu>
+                  {navigation.map(({ id, title, path }) => (
+                    <NavLi key={id}>
+                      <Link onClick={toggleMenu} href={path}>
+                        {pathname === path ? (
+                          <LinkActive>{title}</LinkActive>
+                        ) : (
+                          <LinkNormal>{title}</LinkNormal>
+                        )}
+                        {/* <p className={pathname === path ? s.active : null}>{title}</p> */}
+                      </Link>
+                    </NavLi>
+                  ))}
+                  <ButtonUser toggleModal={toggleModal} />
+                </DivMenu>
+                <ButtonList onClick={toggleMenu}>
+                  <AiOutlineUnorderedList size="20px" />
+                </ButtonList>
+              </Ul>
+            )}
+          </>
+        )}
       </UlNavigation>
     </Nav>
   );

@@ -7,6 +7,8 @@ margin-right:`
 
 export const LinkActive = styled.span`
 
+
+
 color: ${({theme})=> theme.yelow};
 
 `
@@ -14,6 +16,31 @@ color: ${({theme})=> theme.yelow};
 export const LinkNormal = styled.span`
 color: ${({theme})=> theme.text};
 `
+
+export const SpanBasketNumber = styled.p`
+position: relative;
+color: white;
+background-color: black;
+border-radius: 50%;
+width:100%;
+height: 15px;
+bottom: 22px;
+left:10px;
+text-align: center;
+font-size:10px;
+
+margin: 0px 0px 0px 0pxy;
+
+`
+export const DivNumber = styled.div`
+width:15px;
+postiton: absolute;
+`
+
+
+
+
+
 
 
 
@@ -34,7 +61,8 @@ border-bottom: 1px solid
 
 export const UlNavigation = styled.ul`
 padding: 0px;
-display:flex;`
+display:flex;
+align-items:center;`
 
 export const NavLi = styled.li`
 list-style-type: none;

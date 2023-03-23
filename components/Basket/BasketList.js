@@ -27,6 +27,8 @@ import { MdOutlineDeleteOutline } from "react-icons/md";
 import actualCard from "./actualCard";
 import SummaryPrice from "./summaryPrice/SummaryPrice";
 import { fetchClothes } from "../../redux/clothes/clothes-operations";
+import OnSale from "../OnSale/OnSale";
+import BasketItem from "./BasketItem/BasketItem";
 
 const BasketList = ({}) => {
   const dispatch = useDispatch();
@@ -36,10 +38,11 @@ const BasketList = ({}) => {
 
   // const [clotesCount, setClothesCount] = useState(clothes);
   // console.log(clotesCount);
-
+  console.log(clotheActual.length);
+  console.log(clothesBasket.length);
   useEffect(() => {
     if (clotheActual.length !== clothesBasket.length) {
-      dispatch(changeActualCard(clothesBasket));
+      dispatch(changeActualCard(clotheActual));
     }
   }, [clothesBasket, dispatch, clothesMain, clotheActual]);
 
@@ -47,63 +50,42 @@ const BasketList = ({}) => {
     dispatch(fetchClothes());
   }, [dispatch]);
 
-  const deleteCard = (_id) => {
-    dispatch(deleteCardBasket(_id));
-  };
   return (
     <>
       <Div>
-        <Ul>
-          {clotheActual.length > 0 &&
-            clotheActual.map(
-              ({ amount, name, code, image, model, allprice, _id }, index) => (
-                // <>
+        {clotheActual.length > 0 ? (
+          <>
+            <Ul>
+              {clotheActual.map(
+                (
+                  { amount, name, code, image, model, allprice, _id, discount },
+                  index
+                ) => (
+                  // <>
 
-                <Li key={_id}>
-                  <DivImg>
-                    <Image
-                      style={{ borderRadius: "5px 0px 0px 5px" }}
-                      src={image?.url}
-                      alt={name}
-                      fill
-                      sizes="(max-width: 768px) 100px,
-              (max-width: 1200px) 50vw,
-              33vw"
+                  <Li key={_id}>
+                    {/* <button onClick={}></button> */}
+                    <BasketItem
+                      amount={amount}
+                      name={name}
+                      code={code}
+                      image={image}
+                      model={model}
+                      allprice={allprice}
+                      _id={_id}
+                      discount={discount}
+                      index={index}
                     />
-                  </DivImg>
-                  <DivInfo>
-                    <div>
-                      <P>
-                        {name} : {allprice.size}
-                      </P>
-                      {/* <P>{model}</P> */}
-                      <P>{allprice.price} грн</P>
-                    </div>
-                    <DivDelet>
-                      <DivDelCounter>
-                        <Counter amount={amount} id={_id} />
-                      </DivDelCounter>
-                      <h3>{amount * allprice.price} грн.</h3>
-                      <MdOutlineDeleteOutline
-                        style={{
-                          cursor: "pointer",
-                          marginRight: "10px",
-                        }}
-                        onClick={() => deleteCard(_id)}
-                        size="20px"
-                      />
-                    </DivDelet>
-
-                    {/* <Counter amount={amount} id={_id} changeCard={changeCard} /> */}
-                  </DivInfo>
-
-                  {/* <button onClick={}></button> */}
-                </Li>
-                // </>
-              )
-            )}
-        </Ul>
-        <SummaryPrice cards={clotheActual} />
+                  </Li>
+                  // </>
+                )
+              )}
+            </Ul>
+            <SummaryPrice cards={clotheActual} />
+          </>
+        ) : (
+          <p>Ваша корзина пуста!</p>
+        )}
       </Div>
     </>
   );

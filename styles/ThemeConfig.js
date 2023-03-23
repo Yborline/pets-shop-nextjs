@@ -9,6 +9,8 @@ export const lightTheme = {
   hoverText: "white",
   yelowLight: "#FFF5EE",
   mobilMenu: "#C0C0C0",
+  discount: "gray",
+  hover: "#C71585",
 };
 
 export const darkTheme = {
@@ -20,8 +22,9 @@ export const darkTheme = {
   yelowLight: "#696969",
   text: "white",
   textBlack: "black",
-
+  discount: "gray",
   mobilMenu: "#708090",
+  hover: "#20B2AA",
 };
 
 export const GlobalStyles = createGlobalStyle`

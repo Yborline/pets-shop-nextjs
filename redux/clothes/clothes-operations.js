@@ -14,9 +14,9 @@ const token = {
 
 export const fetchClothes = createAsyncThunk(
   "clothes/fetchClothes",
-  async (_, thunkAPI) => {
+  async ({ page, contentPerPage }, thunkAPI) => {
     try {
-      const { data } = await axios.get(`/clothes`);
+      const { data } = await axios.get(`/clothes?page=${page}&limit=10`);
       return data;
     } catch (error) {
       thunkAPI.rejectWithValue(error.message);
@@ -29,6 +29,23 @@ export const fetchClothesId = createAsyncThunk(
   async (id, thunkAPI) => {
     try {
       const { data } = await axios.get(`/clothes/${id}`);
+      return data;
+    } catch (error) {
+      thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const updateById = createAsyncThunk(
+  "clohes/updateClothesId",
+  async ({ id, values }, thunkAPI) => {
+    console.log(id);
+    console.log(values);
+    const state = thunkAPI.getState();
+    const persistedToken = state.auth.user.token;
+    token.set(persistedToken);
+    try {
+      const { data } = await axios.put(`/clothes/${id}`, values);
       return data;
     } catch (error) {
       thunkAPI.rejectWithValue(error.message);
@@ -61,6 +78,24 @@ export const deleteClothes = createAsyncThunk(
     token.set(persistedToken);
     try {
       const { data } = await axios.delete(`/clothes/${id}`);
+      return data;
+    } catch (error) {
+      thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const updateDiscount = createAsyncThunk(
+  "clothes/updateDiscount",
+  async ({ id, discountState }, thunkAPI) => {
+    const state = thunkAPI.getState();
+    const persistedToken = state.auth.user.token;
+    token.set(persistedToken);
+    try {
+      const { data } = await axios.patch(
+        `/clothes/${id}/discount`,
+        discountState
+      );
       return data;
     } catch (error) {
       thunkAPI.rejectWithValue(error.message);

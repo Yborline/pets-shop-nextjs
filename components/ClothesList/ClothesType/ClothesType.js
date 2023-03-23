@@ -1,6 +1,9 @@
 import Link from "next/link";
 import { LinkActive, LinkNormal, Li } from "./ClothesType.styled";
 import { useRouter } from "next/router";
+import usePagination from "../../../hook";
+import { useSelector } from "react-redux";
+import { getClothes } from "../../../redux/clothes/clothes-selector";
 
 const ClothesType = ({ id, path, title }) => {
   const { pathname } = useRouter();

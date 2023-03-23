@@ -12,6 +12,10 @@ import {
   Ul,
   DivMenu,
   ButtonList,
+  SpanBasketNumber,
+  DivSpan,
+  DivBasket,
+  DivNumber,
 } from "./Navbar.styled";
 import { useTranslation } from "react-i18next";
 import { useContext } from "react";
@@ -28,6 +32,8 @@ import { useWindowWidth } from "@react-hook/window-size";
 import ButtonUser from "../ButtonUser/ButtonUser";
 import Modal from "../Modal";
 import LoginForm from "../LoginForm/LoginForm";
+import { useSelector } from "react-redux";
+import { getActualCard, getBasket } from "../../redux/clothes/clothes-selector";
 
 const navigation = [
   { id: 1, title: "Home", path: "/" },
@@ -42,6 +48,7 @@ const Navbar = () => {
   const [showModal, setShowModal] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
   const { themes, toggleTheme } = useContext(ctx);
+  const clotheActual = useSelector(getActualCard);
   const { pathname } = useRouter();
   const { t } = useTranslation();
   const [language, setLanguage] = useLocalStorage("language", "ua");
@@ -107,17 +114,31 @@ const Navbar = () => {
             {/* <CLothesForm onSave={toggleModal} toggleModal={toggleModal} /> */}
           </Modal>
         )}
+
         <Link href="/basket">
           {pathname === "/basket" ? (
             <LinkActive>
-              <HiOutlineShoppingCart size="20px" />
+              <HiOutlineShoppingCart
+                style={{ position: "relative", top: "8px" }}
+                size="20px"
+              />
+              <DivNumber>
+                <SpanBasketNumber>{clotheActual.length}</SpanBasketNumber>
+              </DivNumber>
             </LinkActive>
           ) : (
             <LinkNormal>
-              <HiOutlineShoppingCart size="20px" />
+              <HiOutlineShoppingCart
+                size="20px"
+                style={{ position: "relative", top: "10px" }}
+              />
+              <DivNumber>
+                <SpanBasketNumber>{clotheActual.length}</SpanBasketNumber>
+              </DivNumber>
             </LinkNormal>
           )}
         </Link>
+
         {width > 767 ? (
           <>
             {navigation.map(({ id, title, path }) => (

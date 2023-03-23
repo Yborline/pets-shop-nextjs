@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "../../redux/auth/auth-selectors";
 import Link from "next/link";
 import { fetchClothes } from "../../redux/clothes/clothes-operations";
+import FilterName from "../Filter/FilterName/FilterName";
 // import { useSelector } from "react-redux";
 // import { getClothes } from "../../redux/clothes/clothes-selector";
 
@@ -20,11 +21,11 @@ const ClothesListType = () => {
   //   setShowModal(!showModal);
   // };
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(fetchClothes());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(fetchClothes());
+  // }, [dispatch]);
 
   return (
     <Div>
@@ -41,6 +42,7 @@ const ClothesListType = () => {
         </Ul>
       </DivType>
       {user?.user === "admin" && <Link href="/create">Create</Link>}
+      <FilterName />
 
       <ClothesList />
     </Div>

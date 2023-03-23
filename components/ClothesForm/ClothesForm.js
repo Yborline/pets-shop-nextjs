@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   addClothes,
   fetchClothes,
+  updateById,
 } from "../../redux/clothes/clothes-operations";
 import {
   Form,
@@ -14,87 +15,58 @@ import {
   InputImg,
   DivInputTop,
 } from "./ClothesForm.styled";
+
 import LabelInput from "./LabelInput/LabelInput";
 import { formDataAppend } from "./auxiliaryForms/formDataAppend";
 import { options } from "./auxiliaryForms/options";
 import Button from "../Button/Button";
 import { DivInput } from "./LabelInput/LabelInput.styled";
-import { getClothes } from "../../redux/clothes/clothes-selector";
+import { getClothes, getClothesId } from "../../redux/clothes/clothes-selector";
 import { useEffect } from "react";
 import validationSchema from "../../validation/clothes";
+import { useRouter } from "next/router";
 
-const CLothesForm = () => {
+const CLothesForm = ({ initial, notify, cloth, id }) => {
   const dispatch = useDispatch();
+  // const cloth = useSelector(getClothesId);
   const clothes = useSelector(getClothes);
+
+  const { pathname } = useRouter();
   const [img, setImage] = useState(null);
+  // useEffect(() => {
+  //   const thisCloth = clothes.filter((item) => item._id === id);
+  // }, [clothes, id]);
 
   // useEffect(() => {
   //   dispatch(fetchClothes());
   // }, [dispatch]);
+  // const thisCloth = clothes.filter((item) => console.log(item._id));c
+  // console.log(cloth);
+
+  console.log(pathname);
 
   return (
     <Formik
-      initialValues={{
-        name: "",
-        code: "",
-        allprice: {
-          xs: { price: "", opt: "", active: false },
-          s: { price: "", opt: "", active: false },
-          sm: { price: "", opt: "", active: false },
-          m: { price: "", opt: "", active: false },
-          ml: { price: "", opt: "", active: false },
-          l: { price: "", opt: "", active: false },
-          xl: { price: "", opt: "", active: false },
-          xxl: { price: "", opt: "", active: false },
-          xl3: { price: "", opt: "", active: false },
-          xl4: { price: "", opt: "", active: false },
-          xl5: { price: "", opt: "", active: false },
-          xl6: { price: "", opt: "", active: false },
-          xl7: { price: "", opt: "", active: false },
-        },
-
-        // price: {},
-        active: false,
-        model: "",
-        description: "",
-        // image: {},
-      }}
-      // validate={(values) => {
-      //   const errors = {};
-      //   if (!values.name) {
-      //     errors.name = "Required";
-      //   }
-
-      //   if (!values.code) {
-      //     errors.code = "Required";
-      //   } else if (/^[0-9]{9}$/i.test(values.code))
-      //     if (!values.model) {
-      //       errors.model = "Required";
-      //     }
-      //   // if (!values.price) {
-      //   //   errors.price = "Required";
-      //   // }
-      //   if (!values.active) {
-      //     errors.active = "Required";
-      //   }
-      //   if (!values.description) {
-      //     errors.description = "Required";
-      //   }
-      //   if (!values.allprice) {
-      //     errors.allprice = "Required";
-      //   }
-      //   return errors;
-      // }}
+      initialValues={initial}
       alidateOnBlur
       validationSchema={validationSchema}
       onSubmit={(values, formikProps) => {
-        console.log(clothes);
+        console.log(values);
         const exit = clothes.find((item) => item.code === values.code);
-        if (exit) {
-          alert("Такой код уже есть");
-          return;
+
+        if (pathname === "/create") {
+          if (exit) {
+            alert("Такой код уже есть");
+            return;
+          }
+          dispatch(addClothes(formDataAppend(values, img)));
+          formikProps.resetForm(initial);
+          notify(values);
+        } else {
+          dispatch(updateById({ id, values: formDataAppend(values, img) }));
+          notify(values);
+          formikProps.resetForm("");
         }
-        dispatch(addClothes(formDataAppend(values, img)));
       }}
     >
       {({
@@ -169,8 +141,9 @@ const CLothesForm = () => {
                 name="active"
                 onChange={handleChange}
                 onBlur={handleBlur}
-                value={values.active}
-              />
+                value={values.active ? true : false}
+                checked={values.active === true}
+              ></input>
               {errors.active && touched.active && errors.active}
             </DivInputTop>
             <DivInputTop>

@@ -1,10 +1,12 @@
 import { createSelector } from "@reduxjs/toolkit";
 
 export const getClothes = (state) => state.clothes.items.clothes;
+export const getCount = (state) => state.clothes.items.count;
 export const getClothesId = (state) => state.clothes.items.id;
 export const getLoadingCloth = (state) => state.clothes.loadingCloth;
 export const getBasket = (state) => state.shopping.clothes;
 export const getAmount = (state) => state.shopping.clothes.amount;
+export const getFilterName = (state) => state.clothes.changeFilter.filterName;
 
 export const getActualCard = createSelector(
   [getClothes, getBasket],
@@ -26,5 +28,24 @@ export const getActualCard = createSelector(
     });
 
     return newArray;
+  }
+);
+
+export const getVisibleClothes = createSelector(
+  [getClothes, getFilterName],
+  (clothes, filter) => {
+    const normalizedFilter = filter.toLowerCase();
+
+    const visible = clothes.filter(
+      (cloth) =>
+        cloth.name.toLowerCase().includes(normalizedFilter) ||
+        cloth.code.includes(normalizedFilter)
+    );
+
+    // if (visible.length === 0) {
+    //   const visibleCode = clothes.filter((cloth) => )
+    // }
+
+    return visible;
   }
 );

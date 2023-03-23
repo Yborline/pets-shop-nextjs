@@ -1,7 +1,7 @@
 const SummaryPrice = ({ cards = [] }) => {
   const price = cards.reduce(
     (totalPrice, card) =>
-      totalPrice + Number(card.allprice.price) * card.amount,
+      totalPrice + Number(card.allprice.price - card.discount) * card.amount,
     0
   );
 

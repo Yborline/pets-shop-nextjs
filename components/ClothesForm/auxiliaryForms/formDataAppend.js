@@ -6,6 +6,7 @@ export const formDataAppend = (values, img) => {
   data.append("name", values.name);
   data.append("code", values.code);
   data.append("model", values.model);
+  data.append("active", values.active);
   data.append("allprice[xs][price]", values.allprice.xs.price);
   data.append("allprice[xs][opt]", values.allprice.xs.opt);
   data.append("allprice[xs][active]", values.allprice.xs.active);

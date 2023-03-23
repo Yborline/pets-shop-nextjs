@@ -27,7 +27,7 @@ const validationSchema = yup.object().shape({
   //   .max(4, "Не більше 4 цифр")
   //   .matches(/^[^-\s=]([0-9])/, "Поле не  може починатися з пробілу або дефісу")
   //   .required(""),
-  active: yup.boolean(),
+  active: yup.boolean().required("Данне поле обов*язкове"),
   model: yup
     .string()
     .oneOf([

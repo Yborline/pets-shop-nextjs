@@ -7,6 +7,9 @@ import { ThreeDots } from "react-loader-spinner";
 import { getLoadingCloth } from "../redux/clothes/clothes-selector";
 import { use, useEffect } from "react";
 import { fetchClothes } from "../redux/clothes/clothes-operations";
+import { notifySuccess } from "../notify/notify";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 
 const Create = () => {
   const type = useSelector(getUser);
@@ -16,9 +19,31 @@ const Create = () => {
     dispatch(fetchClothes());
   }, [dispatch]);
 
+  const create = {
+    name: "",
+    code: "",
+    allprice: {
+      xs: { price: "", opt: "", active: false },
+      s: { price: "", opt: "", active: false },
+      sm: { price: "", opt: "", active: false },
+      m: { price: "", opt: "", active: false },
+      ml: { price: "", opt: "", active: false },
+      l: { price: "", opt: "", active: false },
+      xl: { price: "", opt: "", active: false },
+      xxl: { price: "", opt: "", active: false },
+      xl3: { price: "", opt: "", active: false },
+      xl4: { price: "", opt: "", active: false },
+      xl5: { price: "", opt: "", active: false },
+      xl6: { price: "", opt: "", active: false },
+      xl7: { price: "", opt: "", active: false },
+    },
+    active: false,
+    model: "",
+    description: "",
+  };
   return (
     <>
-      {loading ? (
+      {/* {loading ? (
         <DivSpinner>
           <ThreeDots
             height="80"
@@ -31,15 +56,26 @@ const Create = () => {
             visible={true}
           />
         </DivSpinner>
-      ) : (
-        <>
-          {type?.user === "admin" ? (
-            <CLothesForm />
-          ) : (
-            <h2>Такой страницы нет</h2>
-          )}
-        </>
-      )}
+      ) : ( */}
+      <>
+        {type?.user === "admin" ? (
+          <CLothesForm notify={notifySuccess} initial={create} />
+        ) : (
+          <h2>Такой страницы нет</h2>
+        )}
+        <ToastContainer
+          position="top-center"
+          autoClose={2000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss={false}
+          draggable
+          pauseOnHover={false}
+        />
+      </>
+      {/* )} */}
     </>
   );
 };

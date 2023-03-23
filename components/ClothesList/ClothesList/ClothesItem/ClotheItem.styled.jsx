@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Image from "next/image";
+
 
 export const Title = styled.h3`
 word-break: break-all;`
@@ -16,7 +16,6 @@ margin-bottom: 10px;
 
 `
 
-
 export const DivOptions = styled.div`
 text-align: center;
 padding:10px;
@@ -32,3 +31,6 @@ min-width: 230px;
 position: relative;
 
 `
+
+export const P = styled.p`
+margin-bottom: 7px;`

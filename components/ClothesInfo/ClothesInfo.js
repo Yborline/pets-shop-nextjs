@@ -1,14 +1,17 @@
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
-import { Div, DivMain, DivImage, Ul } from "./ClothesInfo.styled";
+import { Div, DivMain, DivImage, Ul, Span } from "./ClothesInfo.styled";
 import { getUser } from "../../redux/auth/auth-selectors";
 import { useEffect, useState } from "react";
 import authOperations from "../../redux/auth/auth-operatins";
 import { HiOutlineShoppingCart } from "react-icons/hi";
 import { changeShoppingCard } from "../../redux/clothes/clothes-actions";
 import { getClothesId, getBasket } from "../../redux/clothes/clothes-selector";
+import Link from "next/link";
+import DiscountForm from "../discountForm/discountForm";
+import onSale from "../../calculation/makeDiscount";
 
-const ClothesInfo = () => {
+const ClothesInfo = ({ notifyError, notifySuccess }) => {
   const size = [
     "xs",
     "s",
@@ -25,17 +28,28 @@ const ClothesInfo = () => {
     "xl7",
   ];
 
-  const user = useSelector(getUser);
+  const [openMenu, setOpenMenu] = useState(false);
+  const { user } = useSelector(getUser);
   const clothBasket = useSelector(getBasket);
   const cloth = useSelector(getClothesId);
   const dispatch = useDispatch();
-  const { _id, name, code, allprice = {}, active, model, image } = cloth;
+  const {
+    _id,
+    name,
+    code,
+    allprice = {},
+    active,
+    model,
+    image,
+    discount,
+  } = cloth;
   const { xs, s, sm, m, ml, l, xl, xxl, xl3, xl4, xl5, xl6, xl7 } = allprice;
 
   const [currentBtn, setCurrentBtn] = useState({});
   useEffect(() => {
     setCurrentBtn(
-      user?.user === "wholesaler"
+      // user?.user === "wholesaler"
+      user === "wholesaler"
         ? {
             ...cloth,
             amount: 1,
@@ -49,7 +63,13 @@ const ClothesInfo = () => {
             allprice: { price: xs?.price, size: "xs" },
           }
     );
-  }, [cloth, user?.user, xs?.opt, xs?.price]);
+  }, [cloth, user, xs?.opt, xs?.price]);
+
+  const toggleMenu = () => {
+    setOpenMenu(!openMenu);
+  };
+  // }, [cloth, user?.user, xs?.opt, xs?.price]);
+
   // const [currentBtn, setCurrentBtn] = useState({
   //   size: "",
   //   price: 0,
@@ -67,7 +87,7 @@ const ClothesInfo = () => {
     // }
 
     setCurrentBtn(
-      user?.user === "wholesaler"
+      user === "wholesaler"
         ? {
             ...cloth,
             amount: 1,
@@ -85,12 +105,13 @@ const ClothesInfo = () => {
     // setCurrentBtn(e.currentTarget.name);
   };
 
-  const saveShoppingCart = (clothes) => {
+  const saveShoppingCart = () => {
     const reapet = clothBasket.find((item) => currentBtn._id === item._id);
     if (reapet) {
-      return;
+      return notifyError(currentBtn, "корзині");
     }
-    return dispatch(changeShoppingCard(currentBtn));
+    dispatch(changeShoppingCard(currentBtn));
+    notifySuccess(currentBtn, "корзину");
   };
 
   const changePrice = (e) => {
@@ -126,41 +147,48 @@ const ClothesInfo = () => {
 
   return (
     <>
-      {cloth && cloth.name ? (
-        <DivMain>
-          <Div>
-            <DivImage>
-              <Image
-                src={image?.url}
-                alt={name}
-                fill
-                sizes="(max-width: 768px) 100vw,
+      <>
+        {cloth && cloth.name ? (
+          <DivMain>
+            <Div>
+              <DivImage>
+                <Image
+                  src={image?.url}
+                  alt={name}
+                  fill
+                  sizes="(max-width: 768px) 100vw,
               (max-width: 1200px) 50vw,
               33vw"
-                style={{ objectFit: "contain" }}
-              />
-            </DivImage>
-            <div>
-              <h2>{name}</h2>
-              <p>{code}</p>
-              <p>{model}</p>
-              <Ul>
-                {size.map((item, index) => (
-                  <li key={index}>
-                    <button name={item} onClick={changePrice}>
-                      {item}
-                    </button>
-                  </li>
-                ))}
-              </Ul>
-              {/* <p>
+                  style={{ objectFit: "contain" }}
+                />
+              </DivImage>
+              <div>
+                <h2>{name}</h2>
+                <p>{code}</p>
+                <p>{model}</p>
+                <Ul>
+                  {size.map((item, index) => (
+                    <li key={index}>
+                      <button name={item} onClick={changePrice}>
+                        {item}
+                      </button>
+                    </li>
+                  ))}
+                </Ul>
+                {/* <p>
                 {currentBtn.allprice.size} :{currentBtn.allprice.price} грн
               </p> */}
-              <p>
-                {currentBtn?.allprice?.size} :{currentBtn?.allprice?.price} грн
-              </p>
+                <p>
+                  {currentBtn?.allprice?.size} :
+                  {currentBtn.discount > 0 ? (
+                    <Span>{currentBtn?.allprice?.price} грн </Span>
+                  ) : (
+                    <></>
+                  )}
+                  {onSale(currentBtn?.allprice?.price, currentBtn.discount)} грн
+                </p>
 
-              {/* {currentBtn?.allprice?.price ? (
+                {/* {currentBtn?.allprice?.price ? (
 
               ) : (
                 <p>
@@ -172,16 +200,35 @@ const ClothesInfo = () => {
                 </p>
               )} */}
 
-              <button onClick={() => saveShoppingCart()}>
-                <HiOutlineShoppingCart size="20px" />
-              </button>
-            </div>
-          </Div>
-          <p>{cloth.description}</p>
-        </DivMain>
-      ) : (
-        ""
-      )}
+                <button onClick={() => saveShoppingCart()}>
+                  <HiOutlineShoppingCart size="20px" />
+                </button>
+              </div>
+            </Div>
+            <p>{cloth.description}</p>
+            {user === "admin" ? (
+              <>
+                <button onClick={toggleMenu}>Open</button>
+                {openMenu ? (
+                  <>
+                    <Link href={`/create/${_id}`}> редактировать</Link>
+                    <div>
+                      <p>Скидка {discount} грн</p>
+                      <DiscountForm id={_id} />
+                    </div>
+                  </>
+                ) : (
+                  <></>
+                )}
+              </>
+            ) : (
+              <></>
+            )}
+          </DivMain>
+        ) : (
+          ""
+        )}
+      </>
     </>
   );
 };

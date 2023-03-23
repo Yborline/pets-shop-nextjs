@@ -7,14 +7,19 @@ import { useState, useContext, useEffect } from "react";
 import HomeList from "../components/HomeList/HomeList";
 import Counter from "../components/Counter/Counter";
 import dog from "../public/photo/dog.png";
-import { Div, Container, DivList } from "./index.styled";
+import { Div, Container, DivList, Ul } from "./index.styled";
 import FormAdd from "../components/FormAdd/FormAdd";
 import authOperations from "../redux/auth/auth-operatins";
-import { Provider, useDispatch } from "react-redux";
+import { Provider, useDispatch, useSelector } from "react-redux";
 import { fetchClothes } from "../redux/clothes/clothes-operations";
+import { getClothes } from "../redux/clothes/clothes-selector";
+import { getUser } from "../redux/auth/auth-selectors";
+import ClothesItem from "../components/ClothesList/ClothesList/ClothesItem/ClothesItem";
 
 export default function Home() {
   const dispatch = useDispatch();
+  const clothes = useSelector(getClothes);
+  const { user } = useSelector(getUser);
 
   useEffect(() => {
     dispatch(fetchClothes());
@@ -28,7 +33,7 @@ export default function Home() {
       </Head>
       {/* <FormAdd /> */}
       {/* <Heading text="Welcome to PetShop" /> */}
-      <Div>
+      {/* <Div>
         <Image
           src={dog}
           width={400}
@@ -36,8 +41,35 @@ export default function Home() {
           alt="dog"
           placeholder="blur"
         />
-      </Div>
+      </Div> */}
 
+      <Ul>
+        {clothes.map((item) =>
+          item.discount > 0 ? (
+            <ClothesItem
+              type={user}
+              id={item._id}
+              key={item._id}
+              name={item.name}
+              active={item.active}
+              code={item.code}
+              image={item.image}
+              owner={item.owner}
+              model={item.model}
+              discount={item.discount}
+              prices={
+                item.allprice?.xs
+                // user === "wholesaler"
+                //   ? item.allprice?.xs?.opt
+                //   : item.allprice?.xs?.price
+              }
+              dell={() => dispatch(deleteClothes(item._id))}
+            />
+          ) : (
+            <></>
+          )
+        )}
+      </Ul>
       <DivList>
         <HomeList />
       </DivList>

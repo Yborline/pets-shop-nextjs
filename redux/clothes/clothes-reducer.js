@@ -5,6 +5,8 @@ import {
   deleteClothes,
   fetchClothes,
   fetchClothesId,
+  updateById,
+  updateDiscount,
 } from "./clothes-operations";
 import {
   changeShoppingCard,
@@ -12,10 +14,11 @@ import {
   changeCardDecrement,
   deleteCardBasket,
   changeActualCard,
+  changeFilterName,
 } from "./clothes-actions";
 
 export const items = createReducer(
-  { clothes: [], id: "" },
+  { clothes: [], id: {} },
   {
     // [fetchClothes.fulfilled]: (state, { payload = {} }) => ({
     //   ...state,
@@ -24,20 +27,37 @@ export const items = createReducer(
     [fetchClothes.fulfilled]: (state, { payload = {} }) => ({
       ...state,
       clothes: [...payload.data.clothes],
+      count: payload.allElements,
     }),
     [fetchClothesId.fulfilled]: (state, { payload = {} }) => ({
       ...state,
-      id: { ...payload.data?.result },
+      id: { ...payload.data.result },
     }),
     [addClothes.fulfilled]: (state, { payload }) => ({
       ...state,
       clothes: [...state.clothes, payload.data],
+    }),
+
+    [updateById.fulfilled]: (state, { payload }) => ({
+      ...state,
+      clothes: [
+        ...state.clothes.filter((item) => item._id !== payload._id),
+        payload.data.result,
+      ],
     }),
     [deleteClothes.fulfilled]: (state, { payload }) => ({
       ...state,
       clothes: [
         ...state.clothes.filter((item) => payload?.data?._id !== item._id),
       ],
+    }),
+    [updateDiscount.fulfilled]: (state, { payload }) => ({
+      ...state,
+      clothes: [
+        ...state.clothes.filter((item) => payload.data._id !== item._id),
+        payload.data,
+      ],
+      id: { ...payload.data },
     }),
   }
 );
@@ -87,6 +107,16 @@ export const shoppingCart = createReducer(
     [deleteCardBasket]: (state, { payload }) => ({
       ...state,
       clothes: [...state.clothes.filter((card) => card._id !== payload)],
+    }),
+  }
+);
+
+export const changeFilter = createReducer(
+  { filterName: "" },
+  {
+    [changeFilterName]: (state, { payload = "" }) => ({
+      ...state,
+      filterName: payload,
     }),
   }
 );

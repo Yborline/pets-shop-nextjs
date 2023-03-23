@@ -5,6 +5,12 @@ margin-top:20px;
 
 `
 
+export const Span = styled.span`
+text-decoration:line-through;
+margin: 0px 5px 0px 5px;
+color: ${({theme}) => theme.discount};
+`
+
 export const Ul = styled.ul`
 width:250px;
 display:flex;
@@ -32,3 +38,7 @@ display: flex;
 
 
 `
+
+// export const DivSpinner = styled.div`
+// display: flex; 
+// justify-content: center;`

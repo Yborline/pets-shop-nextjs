@@ -24,6 +24,20 @@ export const fetchClothes = createAsyncThunk(
   }
 );
 
+export const fetchType = createAsyncThunk(
+  "clothes/fetchType",
+  async ({ page, path }, thunkAPI) => {
+    try {
+      const { data } = await axios.get(
+        `/clothes/${path}?page=${page}&limit=10`
+      );
+      return data;
+    } catch (error) {
+      thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
 export const fetchClothesId = createAsyncThunk(
   "clohes/fetchClothesId",
   async (id, thunkAPI) => {

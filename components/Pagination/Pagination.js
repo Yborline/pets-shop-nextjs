@@ -6,53 +6,16 @@ import axios from "axios";
 import { getCount } from "../../redux/clothes/clothes-selector";
 import Link from "next/link";
 
-const Pagination = ({ clothes }) => {
-  const dispatch = useDispatch();
-  const [allPage, setAllPage] = useState(0);
-  axios.defaults.baseURL = "https://petshop-api-dqwd.onrender.com/api/";
-
-  //   useEffect(() => {
-  //     axios.get(`/clothes?&limit=1000`).then(function (response) {
-  //       console.log(response.data.data.clothes.length);
-  //       setAllPage(response.data.data.clothes.length);
-  //     });
-
-  //   }, []);
-  //   const allClothes = async (_, thunkAPI) => {
-  //     try {
-  //       await axios.get(`/clothes?&limit=1000`).then(function (response) {
-  //         console.log(response.data.data.clothes.length);
-  //         return response.data.data.clothes.length;
-  //       });
-  //     } catch (error) {}
-  //   };
-
-  //   console.log(allClothes());
-
-  const count = useSelector(getCount);
-  console.log(count);
-
-  const {
-    firstContentIndex,
-    lastContentIndex,
-    nextPage,
-    prevPage,
-    page,
-    setPage,
-    totalPages,
-  } = usePagination({
-    contentPerPage: 10,
-    count: count === undefined ? 0 : count,
-  });
-
-  // const pageCount = Math.ceil(count / 10);
-
-  //   const dispatch = useDispatch();
-  //   console.log(nextPage);
-
-  useEffect(() => {
-    dispatch(fetchClothes({ page }));
-  }, [dispatch, page]);
+const Pagination = ({
+  clothes,
+  firstContentIndex,
+  lastContentIndex,
+  nextPage,
+  prevPage,
+  page,
+  setPage,
+  totalPages,
+}) => {
   return (
     <>
       <div className="items">

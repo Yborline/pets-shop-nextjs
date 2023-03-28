@@ -12,7 +12,7 @@ import { fetchClothes } from "../redux/clothes/clothes-operations";
 import { useRouter } from "next/router";
 import usePagination from "../hook";
 import { useSelector } from "react-redux";
-import { getClothes } from "../redux/clothes/clothes-selector";
+import { getClothes, getCount } from "../redux/clothes/clothes-selector";
 import Pagination from "../components/Pagination/Pagination";
 // export const getStaticProprs = async (context) => {
 //   const response = await fetch(
@@ -30,40 +30,64 @@ import Pagination from "../components/Pagination/Pagination";
 //     props: { clothes: data },
 //   };
 // };
-
+console.log(fetchClothes);
 const Clothes = () => {
+  // const [pages, setPage] = useState(1);
   const clothes = useSelector(getClothes);
+  const count = useSelector(getCount);
   const { pathname } = useRouter();
   const dispatch = useDispatch();
-  // const {
-  //   firstContentIndex,
-  //   lastContentIndex,
-  //   nextPage,
-  //   prevPage,
-  //   page,
-  //   setPage,
-  //   totalPages,
-  // } = usePagination({
-  //   contentPerPage: 11,
-  //   count: clothes.length,
-  // });
 
+  // const changePage = (page) => {
+  //   setPage(page);
+  // };
+
+  const {
+    firstContentIndex,
+    lastContentIndex,
+    nextPage,
+    prevPage,
+    page,
+    setPage,
+    totalPages,
+  } = usePagination({
+    contentPerPage: 10,
+    // count: clothes.length,
+    count: count === undefined ? 0 : count,
+  });
+
+  useEffect(() => {
+    dispatch(fetchClothes({ page }));
+  }, [dispatch, page]);
   return (
     <>
       <Head>
         <title>Clothes</title>
       </Head>
 
-      <ClothesListType />
-      <Pagination
+      <ClothesListType clothes={clothes} count={count} fetch={fetchClothes} />
+      {/* <Pagination
         clothes={clothes}
-        // page={page}
-        // totalPages={totalPages}
-        // nextPage={nextPage}
-        // firstContentIndex={firstContentIndex}
-        // lastContentIndex={lastContentIndex}
-        // prevPage={prevPage}
-        // setPage={setPage}
+        count={count}
+        page={page}
+        totalPages={totalPages}
+        nextPage={nextPage}
+        firstContentIndex={firstContentIndex}
+        lastContentIndex={lastContentIndex}
+        prevPage={prevPage}
+        setPage={setPage}
+      /> */}
+      <Pagination
+        firstContentIndex={firstContentIndex}
+        lastContentIndex={lastContentIndex}
+        nextPage={nextPage}
+        prevPage={prevPage}
+        page={page}
+        setPage={setPage}
+        totalPages={totalPages}
+        clothes={clothes}
+        count={count}
+        // changePage={changePage}
       />
     </>
   );

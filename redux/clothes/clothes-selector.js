@@ -2,6 +2,8 @@ import { createSelector } from "@reduxjs/toolkit";
 
 export const getClothes = (state) => state.clothes.items.clothes;
 export const getCount = (state) => state.clothes.items.count;
+export const getType = (state) => state.clothes.items.type;
+export const getCountType = (state) => state.clothes.items.countType;
 export const getClothesId = (state) => state.clothes.items.id;
 export const getLoadingCloth = (state) => state.clothes.loadingCloth;
 export const getBasket = (state) => state.shopping.clothes;

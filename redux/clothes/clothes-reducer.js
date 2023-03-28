@@ -5,6 +5,7 @@ import {
   deleteClothes,
   fetchClothes,
   fetchClothesId,
+  fetchType,
   updateById,
   updateDiscount,
 } from "./clothes-operations";
@@ -18,7 +19,7 @@ import {
 } from "./clothes-actions";
 
 export const items = createReducer(
-  { clothes: [], id: {} },
+  { clothes: [], id: {}, type: [], countType: 0 },
   {
     // [fetchClothes.fulfilled]: (state, { payload = {} }) => ({
     //   ...state,
@@ -28,6 +29,11 @@ export const items = createReducer(
       ...state,
       clothes: [...payload.data.clothes],
       count: payload.allElements,
+    }),
+    [fetchType.fulfilled]: (state, { payload = {} }) => ({
+      ...state,
+      type: [...payload.type],
+      countType: payload.allElements,
     }),
     [fetchClothesId.fulfilled]: (state, { payload = {} }) => ({
       ...state,
@@ -134,4 +140,7 @@ export const loadingCloth = createReducer(false, {
   [fetchClothesId.pending]: () => true,
   [fetchClothesId.fulfilled]: () => false,
   [fetchClothesId.rejected]: () => false,
+  [fetchType.pending]: () => true,
+  [fetchType.fulfilled]: () => false,
+  [fetchType.rejected]: () => false,
 });

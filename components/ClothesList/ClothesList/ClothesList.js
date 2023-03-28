@@ -11,8 +11,9 @@ import { getLocationOrigin } from "next/dist/shared/lib/utils";
 import { getLoggedIn, getUser } from "../../../redux/auth/auth-selectors";
 import changeGroup from "./changeGroup";
 import { deleteClothes } from "../../../redux/clothes/clothes-operations";
+import Pagination from "../../Pagination/Pagination";
 
-const ClothesList = () => {
+const ClothesList = ({ clothes }) => {
   // const dispatch = useDispatch();
 
   // useEffect(() => {
@@ -20,7 +21,7 @@ const ClothesList = () => {
   // }, [dispatch]);
 
   const { user } = useSelector(getUser);
-  const clothes = useSelector(getVisibleClothes);
+  // const clothes = useSelector(getVisibleClothes);
   const router = useRouter();
   const dispatch = useDispatch();
   const pathname = router.pathname.slice(9);
@@ -28,30 +29,35 @@ const ClothesList = () => {
   return (
     <>
       <Ul>
-        {changeGroup(pathname, clothes) &&
-          changeGroup(pathname, clothes).map((item) => (
-            <ClothesItem
-              type={user}
-              pathname={pathname}
-              id={item._id}
-              key={item._id}
-              name={item.name}
-              active={item.active}
-              code={item.code}
-              image={item.image}
-              owner={item.owner}
-              model={item.model}
-              discount={item.discount}
-              prices={
-                item.allprice?.xs
-                // user === "wholesaler"
-                //   ? item.allprice?.xs?.opt
-                //   : item.allprice?.xs?.price
-              }
-              dell={() => dispatch(deleteClothes(item._id))}
-            />
-          ))}
+        {
+          // changeGroup(pathname, clothes) &&
+          // changeGroup(pathname, clothes).map((item) => (
+          clothes.length > 0 &&
+            clothes.map((item) => (
+              <ClothesItem
+                type={user}
+                pathname={pathname}
+                id={item._id}
+                key={item._id}
+                name={item.name}
+                active={item.active}
+                code={item.code}
+                image={item.image}
+                owner={item.owner}
+                model={item.model}
+                discount={item.discount}
+                prices={
+                  item.allprice?.xs
+                  // user === "wholesaler"
+                  //   ? item.allprice?.xs?.opt
+                  //   : item.allprice?.xs?.price
+                }
+                dell={() => dispatch(deleteClothes(item._id))}
+              />
+            ))
+        }
       </Ul>
+      <Pagination clothes={changeGroup(pathname, clothes)} />
       {/* <Li>
         <Link href={path}>{title}</Link>
       </Li> */}

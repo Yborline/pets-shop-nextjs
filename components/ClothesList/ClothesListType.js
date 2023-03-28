@@ -10,11 +10,13 @@ import { getUser } from "../../redux/auth/auth-selectors";
 import Link from "next/link";
 import { fetchClothes } from "../../redux/clothes/clothes-operations";
 import FilterName from "../Filter/FilterName/FilterName";
+import Pagination from "../Pagination/Pagination";
 // import { useSelector } from "react-redux";
 // import { getClothes } from "../../redux/clothes/clothes-selector";
 
-const ClothesListType = () => {
+const ClothesListType = ({ clothes, count, fetch }) => {
   const user = useSelector(getUser);
+
   // const [showModal, setShowModal] = useState(false);
 
   // const toggleModal = () => {
@@ -44,7 +46,7 @@ const ClothesListType = () => {
       {user?.user === "admin" && <Link href="/create">Create</Link>}
       <FilterName />
 
-      <ClothesList />
+      <ClothesList clothes={clothes} />
     </Div>
   );
 };

@@ -3,6 +3,7 @@ import { createReducer } from "@reduxjs/toolkit";
 import {
   addClothes,
   deleteClothes,
+  fetchAllClothes,
   fetchClothes,
   fetchClothesId,
   fetchType,
@@ -19,7 +20,7 @@ import {
 } from "./clothes-actions";
 
 export const items = createReducer(
-  { clothes: [], id: {}, type: [], countType: 0 },
+  { clothes: [], count: 0, id: {}, type: [], countType: 0, allClothes: [] },
   {
     // [fetchClothes.fulfilled]: (state, { payload = {} }) => ({
     //   ...state,
@@ -29,6 +30,10 @@ export const items = createReducer(
       ...state,
       clothes: [...payload.data.clothes],
       count: payload.allElements,
+    }),
+    [fetchAllClothes.fulfilled]: (state, { payload = {} }) => ({
+      ...state,
+      allClothes: [...payload.data.clothes],
     }),
     [fetchType.fulfilled]: (state, { payload = {} }) => ({
       ...state,

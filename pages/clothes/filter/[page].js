@@ -19,7 +19,7 @@ const IdPages = () => {
 
   return (
     <div>
-      <ClothesListType />
+      <ClothesListType clothes={clothes} />
       <Pagination clothes={clothes} count={count} />
     </div>
   );

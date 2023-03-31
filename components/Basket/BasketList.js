@@ -29,12 +29,14 @@ import SummaryPrice from "./summaryPrice/SummaryPrice";
 import { fetchClothes } from "../../redux/clothes/clothes-operations";
 import OnSale from "../OnSale/OnSale";
 import BasketItem from "./BasketItem/BasketItem";
+import MakeOnOrder from "../MakeOnOrder/MakeOnOrder";
 
 const BasketList = ({}) => {
   const dispatch = useDispatch();
   const clothesMain = useSelector(getClothes);
   const clothesBasket = useSelector(getBasket);
   const clotheActual = useSelector(getActualCard);
+  const [openOrder, setOpenOrder] = useState(false);
 
   // const [clotesCount, setClothesCount] = useState(clothes);
   // console.log(clotesCount);
@@ -82,9 +84,15 @@ const BasketList = ({}) => {
               )}
             </Ul>
             <SummaryPrice cards={clotheActual} />
+            <button onClick={() => setOpenOrder(!openOrder)}>
+              Зробити замовлення
+            </button>
+            {openOrder && (
+              <MakeOnOrder clothes={clotheActual}>pppp</MakeOnOrder>
+            )}
           </>
         ) : (
-          <p>Ваша корзина пуста!</p>
+          <p>Ваша корзина порожня!</p>
         )}
       </Div>
     </>

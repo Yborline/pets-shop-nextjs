@@ -10,12 +10,14 @@ import { Provider, useDispatch } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import authOperations from "../redux/auth/auth-operatins";
 import MyDocument from "./_document";
+import { fetchAllClothes } from "../redux/clothes/clothes-operations";
 
 const MyApp = ({ Component, pageProps }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(authOperations.fetchCurrentUser());
+    dispatch(fetchAllClothes());
   }, [dispatch]);
 
   return (

@@ -24,6 +24,18 @@ export const fetchClothes = createAsyncThunk(
   }
 );
 
+export const fetchAllClothes = createAsyncThunk(
+  "clothes/fetchAllClothes",
+  async (_, thunkAPI) => {
+    try {
+      const { data } = await axios.get(`/clothes/all`);
+      return data;
+    } catch (error) {
+      thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
 export const fetchType = createAsyncThunk(
   "clothes/fetchType",
   async ({ page, path }, thunkAPI) => {

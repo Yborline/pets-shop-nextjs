@@ -1,6 +1,7 @@
 import { createSelector } from "@reduxjs/toolkit";
 
 export const getClothes = (state) => state.clothes.items.clothes;
+export const getAllClothes = (state) => state.clothes.items.allClothes;
 export const getCount = (state) => state.clothes.items.count;
 export const getType = (state) => state.clothes.items.type;
 export const getCountType = (state) => state.clothes.items.countType;
@@ -11,7 +12,7 @@ export const getAmount = (state) => state.shopping.clothes.amount;
 export const getFilterName = (state) => state.clothes.changeFilter.filterName;
 
 export const getActualCard = createSelector(
-  [getClothes, getBasket],
+  [getAllClothes, getBasket],
   (clothes, basket) => {
     if (clothes.length === 0) {
       return basket;

@@ -6,10 +6,7 @@ import ClothesListType from "../../../components/ClothesList/ClothesListType";
 import Pagination from "../../../components/Pagination/Pagination";
 import usePagination from "../../../hook";
 import { fetchType } from "../../../redux/clothes/clothes-operations";
-import {
-  getCount,
-  getCountType,
-} from "../../../redux/clothes/clothes-selector";
+import { getCountType } from "../../../redux/clothes/clothes-selector";
 
 const Skinny = () => {
   const dispatch = useDispatch();
@@ -30,7 +27,7 @@ const Skinny = () => {
   } = usePagination({
     contentPerPage: 10,
     // count: clothes.length,
-    count: count,
+    count: count === undefined ? 0 : count,
   });
 
   useEffect(() => {

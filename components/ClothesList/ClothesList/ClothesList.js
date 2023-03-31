@@ -57,7 +57,7 @@ const ClothesList = ({ clothes }) => {
             ))
         }
       </Ul>
-      <Pagination clothes={changeGroup(pathname, clothes)} />
+      {/* <Pagination clothes={changeGroup(pathname, clothes)} /> */}
       {/* <Li>
         <Link href={path}>{title}</Link>
       </Li> */}

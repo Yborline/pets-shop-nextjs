@@ -41,7 +41,7 @@ export const fetchType = createAsyncThunk(
   async ({ page, path }, thunkAPI) => {
     try {
       const { data } = await axios.get(
-        `/clothes/${path}?page=${page}&limit=15`
+        `/clothes/${path}?page=${page}&limit=30`
       );
       return data;
     } catch (error) {

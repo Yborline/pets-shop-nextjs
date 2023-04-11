@@ -27,9 +27,14 @@ const FilterName = () => {
   // }, 300);
 
   const handleChange = (e) => {
+    const b = e.target.value.includes("\\");
+    const a = e.target.value.includes("[");
     const normalValue = e.target.value.trim();
-    debouncedChangeHandler(normalValue);
 
+    if (!a && !b) {
+      debouncedChangeHandler(normalValue);
+    }
+    return;
     // setValue(normalValue);
   };
 

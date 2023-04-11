@@ -6,8 +6,8 @@ const HomeList = () => {
   return (
     <>
       <Ul>
-        {clothesMenu.map(({ path, id, title }) => (
-          <HomeItem key={id} path={path} title={title} />
+        {clothesMenu.map(({ type, id, title, page }) => (
+          <HomeItem key={id} page={page} type={type} title={title} />
         ))}
       </Ul>
     </>

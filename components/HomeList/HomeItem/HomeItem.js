@@ -1,11 +1,18 @@
 import Link from "next/link";
 import { Li } from "./HomeItem.styled";
 
-const HomeItem = ({ path, title }) => {
+const HomeItem = ({ type, title, page }) => {
   return (
     <>
       <Li>
-        <Link href={path}>{title}</Link>
+        <Link
+          href={{
+            pathname: "/clothes/type",
+            query: { page: page, type: type },
+          }}
+        >
+          {title}
+        </Link>
       </Li>
     </>
   );

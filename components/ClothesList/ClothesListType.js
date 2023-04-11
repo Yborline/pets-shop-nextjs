@@ -41,12 +41,11 @@ const ClothesListType = ({ clothes }) => {
       )} */}
       <DivType>
         <Ul>
-          {clothesMenu.map(({ page, type, id, title, path }) => (
+          {clothesMenu.map(({ page, type, id, title }) => (
             <ClothesType
               key={id}
               id={id}
               title={title}
-              path={path}
               page={page}
               type={type}
             />

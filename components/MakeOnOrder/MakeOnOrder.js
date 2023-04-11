@@ -2,7 +2,7 @@ import { Field, Formik, FormikProps, useFormikContext } from "formik";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import validationSchema from "../../validation/login";
+import validationSchema from "../../validation/shopping";
 import {
   getCity,
   getCityUAPoshta,
@@ -14,11 +14,22 @@ import summaryFunction from "../Basket/SummaryPrice/summaryFunction";
 import { useCallback } from "react";
 import NovaPoshta from "./NovaPoshta/NovaPoshta";
 import UkrPoshta from "./UkrPoshta/UkrPoshta";
+import Button from "../Button/Button";
 
-const MakeOnOrder = ({ clothes }) => {
+import {
+  Form,
+  Ul,
+  DivButton,
+  InputNumber,
+  Li,
+  DivUp,
+  DivDown,
+  Input,
+} from "./MakeOnOrder.styled";
+import { clearShoppingCard } from "../../redux/clothes/clothes-actions";
+
+const MakeOnOrder = ({ clothes, setOpenOrder, notify }) => {
   //   const [signUpForm, setSignUpForm] = useState(false);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [adresses, setAdresses] = useState([]);
   const [inputCity, setInputCity] = useState("");
   const [status, setStatus] = useState("idle");
@@ -50,13 +61,13 @@ const MakeOnOrder = ({ clothes }) => {
   //     setSignUpForm(!signUpForm);
   //   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    dispatch(authOperations.login({ email, password }));
-    toggleModal();
-    setEmail("");
-    setPassword("");
-  };
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   dispatch(authOperations.login({ email, password }));
+  //   toggleModal();
+  //   setEmail("");
+  //   setPassword("");
+  // };
 
   useEffect(() => {
     if (inputCity.length > 0) {
@@ -105,35 +116,46 @@ const MakeOnOrder = ({ clothes }) => {
 
   //   console.log(adresses);
 
-  console.log(number);
+  const handleSubmit = (values, formikProps) => {
+    const order = {
+      name: values.name,
+      surname: values.surname,
+      email: values.email,
+      phone: values.phone,
+      city: inputCity,
+      number: number,
+      clothes: clothes,
+      summary: summaryFunction(clothes),
+      service: radio,
+    };
 
-  const changeRadio = (handleChange) => {};
+    postMail(order).then((data) => {
+      console.log(data);
+    });
+
+    notify(`Ваше замовлення відправленно, найближчим часом з вами зв'яжуться!`);
+
+    formikProps.resetForm();
+    setInputCity("");
+    setNumber("");
+    setRadio("");
+    setOpenOrder(false);
+  };
+
   return (
     <Formik
       initialValues={{
         email: "",
-        number: "",
+        phone: "",
         name: "",
         surname: "",
         picked: "",
       }}
       validateOnBlur
-      //   validationSchema={validationSchema}
-      onSubmit={(values) => {
-        const order = {
-          name: values.name,
-          surname: values.surname,
-          email: values.email,
-          phone: values.number,
-          city: inputCity,
-          number: number,
-          clothes: clothes,
-          summary: summaryFunction(clothes),
-          service: radio,
-        };
-        postMail(order).then((data) => {
-          console.log(data);
-        });
+      validationSchema={validationSchema}
+      onSubmit={(values, formikProps) => {
+        handleSubmit(values, formikProps);
+
         // const { email, password } = values;
 
         // dispatch(authOperations.login({ email, password }));
@@ -152,7 +174,7 @@ const MakeOnOrder = ({ clothes }) => {
         handleBlur,
         handleSubmit,
       }) => (
-        <form
+        <Form
           onSubmit={(e) => {
             e.preventDefault();
             handleSubmit();
@@ -164,119 +186,126 @@ const MakeOnOrder = ({ clothes }) => {
           //   }
           // }}
         >
-          <ul>
+          <Ul>
             {/* <GoogleAuthBtn /> */}
-            <li>
-              <label htmlFor="name">
-                Ім'я
-                {!values.name.length || errors.name ? <span> *</span> : <></>}
-              </label>
-              <br />
-              <input
-                type="name"
-                name="name"
-                placeholder="Ім'я"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.name}
-              />
-              <br />
-              <span>{touched.name && errors.name ? errors.name : ""}</span>
-            </li>
-            <li>
-              <label htmlFor="surname">
-                Прізвище
-                {!values.surname.length || errors.surname ? (
-                  <span> *</span>
-                ) : (
-                  <></>
-                )}
-              </label>
-              <br />
-              <input
-                type="surname"
-                name="surname"
-                placeholder="Прізвище"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.surname}
-              />
-              <br />
-              <span>
-                {touched.surname && errors.surname ? errors.surname : ""}
-              </span>
-            </li>
-
-            <li>
-              <label htmlFor="email">
-                Електронна адреса
-                {!values.email.length || errors.email ? <span> *</span> : <></>}
-              </label>
-              <br />
-              <input
-                type="email"
-                name="email"
-                placeholder="your@email.com"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.email}
-              />
-              <br />
-              <span>{touched.email && errors.email ? errors.email : ""}</span>
-            </li>
-
-            <li>
-              <label htmlFor="number">
-                Номер телефона
-                {!values.number.length || errors.number ? (
-                  <span> *</span>
-                ) : (
-                  <></>
-                )}
-              </label>
-
-              <br />
-              <input
-                type="tel"
-                name="number"
-                placeholder="..."
-                maxLength="30"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                // value={values.number}
-              />
-              <br />
-
-              <span>
-                {touched.number && errors.number ? errors.number : ""}
-              </span>
-            </li>
-            <div id="my-radio-group">Виберіть спосіб доставки</div>
-
-            <div role="group" aria-labelledby="my-radio-group">
-              <label>
-                <Field
-                  type="radio"
-                  name="picked"
-                  value="nova"
-                  onChange={handleDepartment}
-                  checked={radio === "nova"}
+            <DivUp>
+              <Li>
+                <label htmlFor="name">
+                  Ім'я
+                  {!values.name.length || errors.name ? <span> *</span> : <></>}
+                </label>
+                <br />
+                <Input
+                  type="name"
+                  name="name"
+                  placeholder="Ім'я"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.name}
                 />
-                Нова почта
-              </label>
-              <label>
-                <Field
-                  type="radio"
-                  name="picked"
-                  value="ukr"
-                  checked={radio === "ukr"}
-                  onChange={handleDepartment}
+                <br />
+                <span>{touched.name && errors.name ? errors.name : ""}</span>
+              </Li>
+              <Li>
+                <label htmlFor="surname">
+                  Прізвище
+                  {!values.surname.length || errors.surname ? (
+                    <span> *</span>
+                  ) : (
+                    <></>
+                  )}
+                </label>
+                <br />
+                <Input
+                  type="surname"
+                  name="surname"
+                  placeholder="Прізвище"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.surname}
                 />
-                Укрпошта
-              </label>
-            </div>
+                <br />
+                <span>
+                  {touched.surname && errors.surname ? errors.surname : ""}
+                </span>
+              </Li>
 
-            {/* 
+              <Li>
+                <label htmlFor="email">
+                  Електронна адреса
+                  {!values.email.length || errors.email ? (
+                    <span> *</span>
+                  ) : (
+                    <></>
+                  )}
+                </label>
+                <br />
+                <Input
+                  type="email"
+                  name="email"
+                  placeholder="your@email.com"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.email}
+                />
+                <br />
+                <span>{touched.email && errors.email ? errors.email : ""}</span>
+              </Li>
+
+              <Li>
+                <label htmlFor="phone">
+                  Номер телефона
+                  {!values.phone.length || errors.phone ? (
+                    <span> *</span>
+                  ) : (
+                    <></>
+                  )}
+                </label>
+
+                <br />
+                <div>
+                  <span>+38</span>
+                  <InputNumber
+                    type="tel"
+                    name="phone"
+                    placeholder="..."
+                    maxLength="30"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.number}
+                  />
+                </div>
+
+                <span>{touched.phone && errors.phone ? errors.phone : ""}</span>
+              </Li>
+            </DivUp>
+            <DivDown>
+              <div id="my-radio-group">Виберіть спосіб доставки</div>
+
+              <Li role="group" aria-labelledby="my-radio-group">
+                <label>
+                  <Field
+                    type="radio"
+                    name="picked"
+                    value="nova"
+                    onChange={handleDepartment}
+                    checked={radio === "nova"}
+                  />
+                  Нова почта
+                </label>
+                <label>
+                  <Field
+                    type="radio"
+                    name="picked"
+                    value="ukr"
+                    checked={radio === "ukr"}
+                    onChange={handleDepartment}
+                  />
+                  Укрпошта
+                </label>
+              </Li>
+
+              {/* 
             <div role="group" aria-labelledby="my-radio-group">
               <label>
                 <Field
@@ -297,22 +326,23 @@ const MakeOnOrder = ({ clothes }) => {
                 Укрпошта
               </label>
             </div> */}
-            {radio === "" ? (
-              <></>
-            ) : radio === "nova" ? (
-              <NovaPoshta
-                handleInput={handleInput}
-                adresses={adresses}
-                department={department}
-                inputCity={inputCity}
-              />
-            ) : (
-              <UkrPoshta
-                handleInput={handleInput}
-                adresses={adresses}
-                inputCity={inputCity}
-              />
-            )}
+              {radio === "" ? (
+                <></>
+              ) : radio === "nova" ? (
+                <NovaPoshta
+                  handleInput={handleInput}
+                  adresses={adresses}
+                  department={department}
+                  inputCity={inputCity}
+                />
+              ) : (
+                <UkrPoshta
+                  handleInput={handleInput}
+                  adresses={adresses}
+                  inputCity={inputCity}
+                />
+              )}
+            </DivDown>
 
             {/* <NovaPoshta
               handleInput={handleInput}
@@ -334,22 +364,21 @@ const MakeOnOrder = ({ clothes }) => {
                   >
                     Увійти
                   </Button> */}
-            <button
-              height="30px"
-              marginB="15px"
-              text="Увійти"
-              width="100%"
-              type="submit"
-              onClick={handleSubmit}
-            >
-              Замовити
-            </button>
 
             {/* <button type="submit" onClick={changeForm}>
               SignUp
             </button> */}
-          </ul>
-        </form>
+          </Ul>
+          <br />
+          <DivButton>
+            <Button
+              height="30px"
+              width="200px"
+              text={"Замовити"}
+              handleClick={handleSubmit}
+            ></Button>
+          </DivButton>
+        </Form>
       )}
     </Formik>
   );

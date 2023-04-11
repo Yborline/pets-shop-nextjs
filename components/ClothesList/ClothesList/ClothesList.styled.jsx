@@ -10,6 +10,6 @@ padding:20px;
    grid-row-gap: 1em;
     }
        @media screen and (min-width: 1280px) {
-   grid-template-columns: repeat(5, 1fr);
+   grid-template-columns: repeat(6, 1fr);
        }
 `

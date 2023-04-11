@@ -57,4 +57,6 @@ export const P = styled.p`
   margin-bottom: 10px;
 }
 `
-
+export const DivButton = styled.div`
+display: flex;
+justify-content:center;`

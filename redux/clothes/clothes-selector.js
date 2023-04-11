@@ -10,6 +10,7 @@ export const getLoadingCloth = (state) => state.clothes.loadingCloth;
 export const getBasket = (state) => state.shopping.clothes;
 export const getAmount = (state) => state.shopping.clothes.amount;
 export const getFilterName = (state) => state.clothes.changeFilter.filterName;
+export const getLoadingClothe = (state) => state.clothes.loadingCloth;
 
 export const getActualCard = createSelector(
   [getAllClothes, getBasket],

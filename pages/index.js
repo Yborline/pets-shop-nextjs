@@ -11,18 +11,21 @@ import { Div, Container, DivList, Ul } from "./index.styled";
 import FormAdd from "../components/FormAdd/FormAdd";
 import authOperations from "../redux/auth/auth-operatins";
 import { Provider, useDispatch, useSelector } from "react-redux";
-import { fetchClothes } from "../redux/clothes/clothes-operations";
-import { getClothes } from "../redux/clothes/clothes-selector";
+import {
+  // deleteClothes,
+  fetchAllClothes,
+} from "../redux/clothes/clothes-operations";
+import { getAllClothes, getClothes } from "../redux/clothes/clothes-selector";
 import { getUser } from "../redux/auth/auth-selectors";
 import ClothesItem from "../components/ClothesList/ClothesList/ClothesItem/ClothesItem";
 
 export default function Home() {
   const dispatch = useDispatch();
-  const clothes = useSelector(getClothes);
+  const clothes = useSelector(getAllClothes);
   const { user } = useSelector(getUser);
 
   useEffect(() => {
-    dispatch(fetchClothes());
+    dispatch(fetchAllClothes());
     dispatch(authOperations.fetchCurrentUser());
   }, [dispatch]);
 
@@ -44,31 +47,31 @@ export default function Home() {
       </Div> */}
 
       <Ul>
-        {clothes.map((item) =>
-          item.discount > 0 ? (
-            <ClothesItem
-              type={user}
-              id={item._id}
-              key={item._id}
-              name={item.name}
-              active={item.active}
-              code={item.code}
-              image={item.image}
-              owner={item.owner}
-              model={item.model}
-              discount={item.discount}
-              prices={
-                item.allprice?.xs
-                // user === "wholesaler"
-                //   ? item.allprice?.xs?.opt
-                //   : item.allprice?.xs?.price
-              }
-              dell={() => dispatch(deleteClothes(item._id))}
-            />
-          ) : (
-            <></>
-          )
-        )}
+        {clothes &&
+          clothes.map(
+            (item) =>
+              item.discount > 0 && (
+                <ClothesItem
+                  type={user}
+                  id={item._id}
+                  key={item._id}
+                  name={item.name}
+                  active={item.active}
+                  code={item.code}
+                  image={item.image}
+                  owner={item.owner}
+                  model={item.model}
+                  discount={item.discount}
+                  prices={
+                    item.allprice?.xs
+                    // user === "wholesaler"
+                    //   ? item.allprice?.xs?.opt
+                    //   : item.allprice?.xs?.price
+                  }
+                  // dell={() => dispatch(deleteClothes(item._id))}
+                />
+              )
+          )}
       </Ul>
       <DivList>
         <HomeList />

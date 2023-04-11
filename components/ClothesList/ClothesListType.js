@@ -13,9 +13,12 @@ import FilterName from "../Filter/FilterName/FilterName";
 import Pagination from "../Pagination/Pagination";
 // import { useSelector } from "react-redux";
 // import { getClothes } from "../../redux/clothes/clothes-selector";
+import { getLoadingCloth } from "../../redux/clothes/clothes-selector";
+import { ColorRing } from "react-loader-spinner";
 
-const ClothesListType = ({ clothes, count, fetch }) => {
+const ClothesListType = ({ clothes }) => {
   const user = useSelector(getUser);
+  const loading = useSelector(getLoadingCloth);
 
   // const [showModal, setShowModal] = useState(false);
 
@@ -38,15 +41,33 @@ const ClothesListType = ({ clothes, count, fetch }) => {
       )} */}
       <DivType>
         <Ul>
-          {clothesMenu.map(({ id, title, path }) => (
-            <ClothesType key={id} id={id} title={title} path={path} />
+          {clothesMenu.map(({ page, type, id, title, path }) => (
+            <ClothesType
+              key={id}
+              id={id}
+              title={title}
+              path={path}
+              page={page}
+              type={type}
+            />
           ))}
         </Ul>
       </DivType>
       {user?.user === "admin" && <Link href="/create">Create</Link>}
-      <FilterName />
 
-      <ClothesList clothes={clothes} />
+      {loading ? (
+        <ColorRing
+          visible={true}
+          height="80"
+          width="80"
+          ariaLabel="blocks-loading"
+          wrapperStyle={{}}
+          wrapperClass="blocks-wrapper"
+          colors={["#e15b64", "#f47e60", "#f8b26a", "#abbd81", "#849b87"]}
+        />
+      ) : (
+        <ClothesList clothes={clothes} />
+      )}
     </Div>
   );
 };

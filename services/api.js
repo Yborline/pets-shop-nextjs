@@ -36,6 +36,42 @@ export const getNumberMail = async ({ city, number }) =>
     return response.json();
   });
 
+export const getComments = async (id) => {
+  try {
+    const { data } = await axios.get(`/comments/${id}`);
+    return data.data.result;
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+export const getClothById = async (id) => {
+  try {
+    const { data } = await axios.get(`/clothes/${id}`);
+    return data;
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export const fetchAll = async (id) => {
+  try {
+    const { data } = await axios.get(`/clothes/all`);
+
+    return data;
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export const fetchType = async ({ page, path }) => {
+  try {
+    const { data } = await axios.get(`/clothes/${path}?${page}&limit=30`);
+    return data;
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
 // export const postMail = async ({
 //   name,
 //   surname,
@@ -71,6 +107,7 @@ export const postMail = async ({
   number,
   clothes,
   summary,
+  service,
 }) => {
   try {
     const { data } = await axios.post(`/clothes/mail`, {
@@ -82,6 +119,7 @@ export const postMail = async ({
       number,
       clothes,
       summary,
+      service,
     });
     return data;
   } catch (error) {

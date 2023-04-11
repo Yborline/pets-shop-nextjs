@@ -1,14 +1,14 @@
 import debounce from "lodash.debounce";
-import { Field, Formik, FormikProps, useFormikContext } from "formik";
+import { Li, Input } from "../NovaPoshta/NovaPoshta.styled";
 
 const UkrPoshta = ({ handleInput, adresses, inputCity }) => {
   return (
     <>
       {" "}
-      <li>
+      <Li>
         <label htmlFor="city">Місто / населений пункт</label>
         <br />
-        <input
+        <Input
           // onChange={debounce(changeCity, 300)}
           onChange={debounce(handleInput, 300)}
           type="text"
@@ -32,25 +32,26 @@ const UkrPoshta = ({ handleInput, adresses, inputCity }) => {
             })}
           </datalist>
         )}
-      </li>
+      </Li>
       {inputCity.length <= 1 ||
       adresses?.length === 0 ||
       adresses === undefined ? (
         <></>
       ) : (
-        <li>
+        <Li>
           <label htmlFor="department">Індекс відділення</label>
           <br />
-          <input
+          <Input
             // onChange={debounce(changeDepartment, 300)}
+            type="text"
             onChange={debounce(handleInput, 300)}
-            type="number"
             name="department"
             id="department"
-            list="num"
-            max="99999"
+            pattern="/^[0-9]{5}$/"
+            maxLength="5"
+            // maxLength="5"
           />
-        </li>
+        </Li>
       )}
     </>
   );

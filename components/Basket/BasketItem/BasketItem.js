@@ -9,9 +9,11 @@ import Image from "next/image";
 import OnSale from "../../OnSale/OnSale";
 import Counter from "../../Counter/Counter";
 import { MdOutlineDeleteOutline } from "react-icons/md";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { deleteCardBasket } from "../../../redux/clothes/clothes-actions";
+import { fetchAllClothes } from "../../../redux/clothes/clothes-operations";
+import s from "./BasketItem.module.css";
 
 const BasketItem = ({
   amount,
@@ -33,6 +35,10 @@ const BasketItem = ({
   // const changePrice = (price) => {
   //   setCurrentPrice(price);
   // };
+
+  useEffect(() => {
+    dispatch(fetchAllClothes());
+  }, [dispatch]);
 
   return (
     <>
@@ -67,12 +73,15 @@ const BasketItem = ({
           </DivDelCounter>
           <h3>{amount * (allprice.price - discount)} грн.</h3>
           <MdOutlineDeleteOutline
-            style={{
-              cursor: "pointer",
-              marginRight: "10px",
-            }}
+            className={s.delete}
+            // style={{
+            //   cursor: "pointer",
+            //   marginRight: "10px",
+            //   onmouseover: "backgroundColor='#55555'",
+            //   onmouseout: "backgroundColor='#33333'",
+            // }}
             onClick={() => deleteCard(_id)}
-            size="20px"
+            size="30px"
           />
         </DivDelet>
 

@@ -14,6 +14,7 @@ import {
   Ul,
   DivDelet,
   P,
+  DivButton,
 } from "./BasketList.styled";
 import Image from "next/image";
 import Counter from "../Counter/Counter";
@@ -21,6 +22,7 @@ import { useEffect, useState } from "react";
 import {
   changeActualCard,
   changeShoppingCart,
+  clearShoppingCard,
   deleteCardBasket,
 } from "../../redux/clothes/clothes-actions";
 import { MdOutlineDeleteOutline } from "react-icons/md";
@@ -30,6 +32,10 @@ import { fetchClothes } from "../../redux/clothes/clothes-operations";
 import OnSale from "../OnSale/OnSale";
 import BasketItem from "./BasketItem/BasketItem";
 import MakeOnOrder from "../MakeOnOrder/MakeOnOrder";
+import { notifySuccessOrder } from "../../notify/notify";
+import { ToastContainer } from "react-toastify";
+import Button from "../Button/Button";
+import "react-toastify/dist/ReactToastify.css";
 
 const BasketList = ({}) => {
   const dispatch = useDispatch();
@@ -51,6 +57,11 @@ const BasketList = ({}) => {
   useEffect(() => {
     dispatch(fetchClothes());
   }, [dispatch]);
+
+  const notify = (text) => {
+    dispatch(clearShoppingCard());
+    notifySuccessOrder(text);
+  };
 
   return (
     <>
@@ -84,11 +95,32 @@ const BasketList = ({}) => {
               )}
             </Ul>
             <SummaryPrice cards={clotheActual} />
-            <button onClick={() => setOpenOrder(!openOrder)}>
-              Зробити замовлення
-            </button>
+            <DivButton>
+              <Button
+                height="30px"
+                width="200px"
+                text={!openOrder ? "Зробити замовлення" : "Закрити замовлення"}
+                handleClick={() => setOpenOrder(!openOrder)}
+              ></Button>
+            </DivButton>
+            <ToastContainer
+              position="top-center"
+              autoClose={2000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss={false}
+              draggable
+              pauseOnHover={false}
+            />
             {openOrder && (
-              <MakeOnOrder clothes={clotheActual}>pppp</MakeOnOrder>
+              <MakeOnOrder
+                setOpenOrder={setOpenOrder}
+                clothes={clotheActual}
+                notify={notify}
+              />
+
             )}
           </>
         ) : (

@@ -1,9 +1,20 @@
 import { ToastContainer, toast } from "react-toastify";
 
-export const notifySuccess = (values, text) =>
-  toast.success(`Товар ${values.name} доданий в вашу ${text}!`, {
+export const notifySuccessOrder = (text) =>
+  toast.success(text, {
     position: "top-center",
     autoClose: 2000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: false,
+    draggable: true,
+    progress: undefined,
+  });
+
+export const notifySuccess = (values, text) =>
+  toast.success(`Товар ${values} доданий в вашу ${text}!`, {
+    position: "top-center",
+    autoClose: 3000,
     hideProgressBar: false,
     closeOnClick: true,
     pauseOnHover: false,

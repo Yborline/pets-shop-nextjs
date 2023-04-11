@@ -12,42 +12,43 @@ import {
   Li,
   Input,
   ButtonClose,
+  H3,
 } from "./SignUpForm.styled";
 import LoginForm from "../LoginForm/LoginForm";
 import { getLoggedIn } from "../../redux/auth/auth-selectors";
 
 const SignUpForm = ({ changeForm, toggleModal, signUpForm }) => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  // const [name, setName] = useState("");
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
   const logged = useSelector(getLoggedIn);
   const dispatch = useDispatch();
 
-  const handleChange = ({ target: { name, value } }) => {
-    switch (name) {
-      case "name":
-        return setName(value);
-      case "email":
-        return setEmail(value);
-      case "password":
-        return setPassword(value);
-      default:
-        return;
-    }
-  };
+  // const handleChange = ({ target: { name, value } }) => {
+  //   switch (name) {
+  //     case "name":
+  //       return setName(value);
+  //     case "email":
+  //       return setEmail(value);
+  //     case "password":
+  //       return setPassword(value);
+  //     default:
+  //       return;
+  //   }
+  // };
 
-  const clearState = () => {
-    setName("");
-    setEmail("");
-    setPassword("");
-  };
+  // const clearState = () => {
+  //   setName("");
+  //   setEmail("");
+  //   setPassword("");
+  // };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    dispatch(authOperations.register({ name, email, password }));
-    toggleModal();
-    clearState();
-  };
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   dispatch(authOperations.register({ name, email, password }));
+  //   toggleModal();
+  //   clearState();
+  // };
 
   return (
     <Div>
@@ -56,12 +57,13 @@ const SignUpForm = ({ changeForm, toggleModal, signUpForm }) => {
       ) : (
         <>
           <DivClose>
-            <h3>Register</h3>
+            <H3>Register</H3>
             <ButtonClose onClick={toggleModal}>X</ButtonClose>
           </DivClose>
           <Formik
             initialValues={{
               name: "",
+              lastName: "",
               email: "",
               password: "",
               confirmPassword: "",
@@ -69,8 +71,15 @@ const SignUpForm = ({ changeForm, toggleModal, signUpForm }) => {
             validateOnBlur
             validationSchema={validationSchema}
             onSubmit={(values) => {
-              const { name, email, password } = values;
-              dispatch(authOperations.register({ name, email, password }));
+              const { name, lastName, email, password } = values;
+              dispatch(
+                authOperations.register({
+                  name: name.toLowerCase().trim(),
+                  lastName: lastName.toLowerCase().trim(),
+                  email: email.toLowerCase().trim(),
+                  password,
+                })
+              );
               changeForm();
               toggleModal();
               // console.log(values);
@@ -102,7 +111,7 @@ const SignUpForm = ({ changeForm, toggleModal, signUpForm }) => {
                       className="form__label"
                       style={{ marginTop: "28px" }}
                     >
-                      І'я
+                      Ім'я
                       {!values.name.length || errors.name ? (
                         <span> *</span>
                       ) : (
@@ -123,6 +132,39 @@ const SignUpForm = ({ changeForm, toggleModal, signUpForm }) => {
 
                     <span className="input__error">
                       {touched.name && errors.name ? errors.name : ""}
+                    </span>
+
+                    <br />
+                  </Li>
+                  <Li>
+                    <label
+                      htmlFor="name"
+                      className="form__label"
+                      style={{ marginTop: "28px" }}
+                    >
+                      Прізвище
+                      {!values.name.length || errors.name ? (
+                        <span> *</span>
+                      ) : (
+                        <></>
+                      )}
+                    </label>
+
+                    <br />
+                    <Input
+                      type="text"
+                      name="lastName"
+                      placeholder="..."
+                      maxLength="100"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      value={values.lastName}
+                    />
+
+                    <span>
+                      {touched.lastName && errors.lastName
+                        ? errors.lastName
+                        : ""}
                     </span>
 
                     <br />

@@ -1,6 +1,15 @@
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
-import { Div, DivMain, DivImage, Ul, Span } from "./ClothesInfo.styled";
+import {
+  Div,
+  DivMain,
+  DivImage,
+  Ul,
+  Span,
+  Description,
+  Li,
+  P,
+} from "./ClothesInfo.styled";
 import { getUser } from "../../redux/auth/auth-selectors";
 import { useEffect, useState } from "react";
 import authOperations from "../../redux/auth/auth-operatins";
@@ -10,8 +19,10 @@ import { getClothesId, getBasket } from "../../redux/clothes/clothes-selector";
 import Link from "next/link";
 import DiscountForm from "../discountForm/discountForm";
 import onSale from "../../calculation/makeDiscount";
+import Button from "../Button/Button";
+import { Suspense } from "react";
 
-const ClothesInfo = ({ notifyError, notifySuccess }) => {
+const ClothesInfo = ({ cloth, notifyError, notifySuccess }) => {
   const size = [
     "xs",
     "s",
@@ -31,7 +42,7 @@ const ClothesInfo = ({ notifyError, notifySuccess }) => {
   const [openMenu, setOpenMenu] = useState(false);
   const { user } = useSelector(getUser);
   const clothBasket = useSelector(getBasket);
-  const cloth = useSelector(getClothesId);
+  // const cloth = useSelector(getClothesId);
   const dispatch = useDispatch();
   const {
     _id,
@@ -108,10 +119,10 @@ const ClothesInfo = ({ notifyError, notifySuccess }) => {
   const saveShoppingCart = () => {
     const reapet = clothBasket.find((item) => currentBtn._id === item._id);
     if (reapet) {
-      return notifyError(currentBtn, "корзині");
+      return notifyError(currentBtn.name, "корзині");
     }
     dispatch(changeShoppingCard(currentBtn));
-    notifySuccess(currentBtn, "корзину");
+    notifySuccess(currentBtn.name, "корзину");
   };
 
   const changePrice = (e) => {
@@ -144,7 +155,7 @@ const ClothesInfo = ({ notifyError, notifySuccess }) => {
         return changeBtn(xl7, "xl7");
     }
   };
-
+  console.log(currentBtn);
   return (
     <>
       <>
@@ -164,21 +175,27 @@ const ClothesInfo = ({ notifyError, notifySuccess }) => {
               </DivImage>
               <div>
                 <h2>{name}</h2>
-                <p>{code}</p>
-                <p>{model}</p>
+                <P>Код :{code}</P>
+                <P>Модель :{model}</P>
                 <Ul>
                   {size.map((item, index) => (
-                    <li key={index}>
-                      <button name={item} onClick={changePrice}>
-                        {item}
-                      </button>
-                    </li>
+                    <Li key={index}>
+                      <Button
+                        active={
+                          currentBtn?.allprice?.size === item ? true : false
+                        }
+                        height="25px"
+                        text={item}
+                        name={item}
+                        handleClick={changePrice}
+                      />
+                    </Li>
                   ))}
                 </Ul>
                 {/* <p>
                 {currentBtn.allprice.size} :{currentBtn.allprice.price} грн
               </p> */}
-                <p>
+                <P>
                   {currentBtn?.allprice?.size} :
                   {currentBtn.discount > 0 ? (
                     <Span>{currentBtn?.allprice?.price} грн </Span>
@@ -186,7 +203,7 @@ const ClothesInfo = ({ notifyError, notifySuccess }) => {
                     <></>
                   )}
                   {onSale(currentBtn?.allprice?.price, currentBtn.discount)} грн
-                </p>
+                </P>
 
                 {/* {currentBtn?.allprice?.price ? (
 
@@ -199,13 +216,18 @@ const ClothesInfo = ({ notifyError, notifySuccess }) => {
                   грн
                 </p>
               )} */}
+                <Button
+                  handleClick={saveShoppingCart}
+                  text={<HiOutlineShoppingCart size="20px" />}
+                ></Button>
 
-                <button onClick={() => saveShoppingCart()}>
+                {/* <button onClick={saveShoppingCart}>
                   <HiOutlineShoppingCart size="20px" />
-                </button>
+                </button> */}
               </div>
             </Div>
-            <p>{cloth.description}</p>
+            <h4>Опис</h4>
+            <Description>{cloth.description}</Description>
             {user === "admin" ? (
               <>
                 <button onClick={toggleMenu}>Open</button>

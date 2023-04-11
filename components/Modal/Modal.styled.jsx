@@ -5,6 +5,7 @@ export const Backdrop = styled.div`
 position: fixed;
 top: 0;
 left:0;
+z-index:5;
 
 width: 100%;
 height: 100%;
@@ -24,11 +25,11 @@ margin-top: 60px;
     width: 100%;
     height: 100%;
     @media screen and (min-width: 768px) {
-      max-height:450px;
+      max-height:500px;
 max-width:310px;
-
+z-index:5;
         left: 50%;
-    top: 50%;
+    top: 40%;
     margin-left: -120px;
     margin-top: -155px;
     

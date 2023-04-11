@@ -1,6 +1,8 @@
 import { Btn } from "./Button.styled";
 
 const Button = ({
+  active,
+  name,
   type,
   width,
   marginT,
@@ -12,6 +14,8 @@ const Button = ({
   return (
     <>
       <Btn
+        active={active}
+        name={name}
         type={type}
         width={width}
         height={height}

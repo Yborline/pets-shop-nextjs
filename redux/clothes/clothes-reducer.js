@@ -7,6 +7,7 @@ import {
   fetchClothes,
   fetchClothesId,
   fetchType,
+  filterSearch,
   updateById,
   updateDiscount,
 } from "./clothes-operations";
@@ -17,6 +18,7 @@ import {
   deleteCardBasket,
   changeActualCard,
   changeFilterName,
+  clearShoppingCard,
 } from "./clothes-actions";
 
 export const items = createReducer(
@@ -26,19 +28,24 @@ export const items = createReducer(
     //   ...state,
     //   clothes: [...payload.data.clothes],
     // }),
-    [fetchClothes.fulfilled]: (state, { payload = {} }) => ({
+    [filterSearch.fulfilled]: (state, { payload = [] }) => ({
       ...state,
-      clothes: [...payload.data.clothes],
-      count: payload.allElements,
+      clothes: [...payload.data],
+      count: payload.allPage,
     }),
-    [fetchAllClothes.fulfilled]: (state, { payload = {} }) => ({
+    [fetchClothes.fulfilled]: (state, { payload = [] }) => ({
       ...state,
-      allClothes: [...payload.data.clothes],
+      clothes: [...payload.data],
+      count: payload.allPage,
     }),
-    [fetchType.fulfilled]: (state, { payload = {} }) => ({
+    [fetchAllClothes.fulfilled]: (state, { payload = [] }) => ({
+      ...state,
+      allClothes: [...payload.data],
+    }),
+    [fetchType.fulfilled]: (state, { payload = [] }) => ({
       ...state,
       type: [...payload.type],
-      countType: payload.allElements,
+      countType: payload.allPage,
     }),
     [fetchClothesId.fulfilled]: (state, { payload = {} }) => ({
       ...state,
@@ -83,8 +90,14 @@ export const shoppingCart = createReducer(
           return payload.some((item2) => item._id === item2._id);
         }),
       ],
-      // clothes: [...state.clothes, payload],
+      clothes: [...state.clothes, payload],
     }),
+
+    [clearShoppingCard]: (state, { payload }) => ({
+      ...state,
+      clothes: [],
+    }),
+
     [changeShoppingCard]: (state, { payload = {} }) => ({
       ...state,
       clothes: [...state.clothes, payload],
@@ -133,12 +146,16 @@ export const changeFilter = createReducer(
 );
 
 export const loadingCloth = createReducer(false, {
+  [filterSearch.pending]: () => true,
+  [filterSearch.fulfilled]: () => false,
+  [filterSearch.rejected]: () => false,
   [fetchClothes.pending]: () => true,
   [fetchClothes.fulfilled]: () => false,
   [fetchClothes.rejected]: () => false,
-  // [fetchClothes.pending]: () => true,
-  // [fetchClothes.fulfilled]: () => false,
-  // [fetchClothes.rejected]: () => false,
+  [fetchAllClothes.pending]: () => true,
+  [fetchAllClothes.fulfilled]: () => false,
+  [fetchAllClothes.rejected]: () => false,
+
   [addClothes.pending]: () => true,
   [addClothes.fulfilled]: () => false,
   [addClothes.rejected]: () => false,
@@ -148,4 +165,17 @@ export const loadingCloth = createReducer(false, {
   [fetchType.pending]: () => true,
   [fetchType.fulfilled]: () => false,
   [fetchType.rejected]: () => false,
+});
+
+export const errorCloth = createReducer(null, {
+  [fetchAllClothes.rejected]: (_, action) => action.payload,
+  [fetchAllClothes.pending]: () => null,
+  [fetchType.rejected]: (_, action) => action.payload,
+  [fetchType.pending]: () => null,
+  [fetchClothes.rejected]: (_, action) => action.payload,
+  [fetchClothes.pending]: () => null,
+  [filterSearch.rejected]: (_, action) => action.payload,
+  [filterSearch.pending]: () => null,
+  [filterSearch.rejected]: (_, action) => action.payload,
+  [filterSearch.pending]: () => null,
 });

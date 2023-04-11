@@ -13,7 +13,9 @@ import { useRouter } from "next/router";
 import usePagination from "../hook";
 import { useSelector } from "react-redux";
 import { getClothes, getCount } from "../redux/clothes/clothes-selector";
-import Pagination from "../components/Pagination/Pagination";
+
+import PaginationCloth from "../components/Pagination/Pagination";
+import FilterName from "../components/Filter/FilterName/FilterName";
 // export const getStaticProprs = async (context) => {
 //   const response = await fetch(
 //     "https://petshop-api-dqwd.onrender.com/api/clothes"
@@ -42,54 +44,45 @@ const Clothes = () => {
   //   setPage(page);
   // };
 
-  const {
-    firstContentIndex,
-    lastContentIndex,
-    nextPage,
-    prevPage,
-    page,
-    setPage,
-    totalPages,
-  } = usePagination({
-    contentPerPage: 10,
-    // count: clothes.length,
-    count: count === undefined ? 0 : count,
-  });
-
+  // const {
+  //   firstContentIndex,
+  //   lastContentIndex,
+  //   nextPage,
+  //   prevPage,
+  //   page,
+  //   setPage,
+  //   totalPages,
+  // } = usePagination({
+  //   contentPerPage: 10,
+  //   // count: clothes.length,
+  //   count: count === undefined ? 0 : count,
+  // });
+  const [currentPage, setCurrentPage] = useState(1);
+  const handleChange = (event, value) => {
+    setCurrentPage(value);
+  };
   useEffect(() => {
-    dispatch(fetchClothes({ page }));
-  }, [dispatch, page]);
+    dispatch(fetchClothes({ page: currentPage }));
+  }, [dispatch, currentPage]);
   return (
-    <>
+    <div>
       <Head>
         <title>Clothes</title>
       </Head>
-
+      <FilterName />
       <ClothesListType clothes={clothes} count={count} fetch={fetchClothes} />
-      {/* <Pagination
-        clothes={clothes}
-        count={count}
-        page={page}
-        totalPages={totalPages}
-        nextPage={nextPage}
-        firstContentIndex={firstContentIndex}
-        lastContentIndex={lastContentIndex}
-        prevPage={prevPage}
-        setPage={setPage}
-      /> */}
-      <Pagination
-        firstContentIndex={firstContentIndex}
-        lastContentIndex={lastContentIndex}
-        nextPage={nextPage}
-        prevPage={prevPage}
-        page={page}
-        setPage={setPage}
-        totalPages={totalPages}
-        clothes={clothes}
-        count={count}
-        // changePage={changePage}
-      />
-    </>
+
+      {clothes.length === 0 ? (
+        <></>
+      ) : (
+        <PaginationCloth
+          clothes={clothes}
+          count={count}
+          handleChange={handleChange}
+          currentPage={currentPage}
+        />
+      )}
+    </div>
   );
 };
 

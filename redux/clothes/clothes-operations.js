@@ -16,7 +16,7 @@ export const fetchClothes = createAsyncThunk(
   "clothes/fetchClothes",
   async ({ page, contentPerPage }, thunkAPI) => {
     try {
-      const { data } = await axios.get(`/clothes?page=${page}&limit=10`);
+      const { data } = await axios.get(`/clothes?page=${page}&limit=30`);
       return data;
     } catch (error) {
       thunkAPI.rejectWithValue(error.message);
@@ -41,7 +41,7 @@ export const fetchType = createAsyncThunk(
   async ({ page, path }, thunkAPI) => {
     try {
       const { data } = await axios.get(
-        `/clothes/${path}?page=${page}&limit=10`
+        `/clothes/${path}?page=${page}&limit=15`
       );
       return data;
     } catch (error) {
@@ -122,6 +122,18 @@ export const updateDiscount = createAsyncThunk(
         `/clothes/${id}/discount`,
         discountState
       );
+      return data;
+    } catch (error) {
+      thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const filterSearch = createAsyncThunk(
+  "clothes/fiterSearch",
+  async (value, thunkAPI) => {
+    try {
+      const { data } = await axios.post(`clothes/filter`, { text: value });
       return data;
     } catch (error) {
       thunkAPI.rejectWithValue(error.message);

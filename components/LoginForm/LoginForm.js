@@ -20,32 +20,11 @@ const LoginForm = ({ toggleModal }) => {
   //   const [name, setName] = useState("");
   const logged = useSelector(getLoggedIn);
   const [signUpForm, setSignUpForm] = useState(false);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
 
   const dispatch = useDispatch();
 
-  const handleChange = ({ target: { name, value } }) => {
-    switch (name) {
-      case "email":
-        return setEmail(value);
-      case "password":
-        return setPassword(value);
-      default:
-        return;
-    }
-  };
-
   const changeForm = () => {
     setSignUpForm(!signUpForm);
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    dispatch(authOperations.login({ email, password }));
-    toggleModal();
-    setEmail("");
-    setPassword("");
   };
 
   return (
@@ -93,6 +72,7 @@ const LoginForm = ({ toggleModal }) => {
                   e.preventDefault();
                   handleSubmit();
                 }}
+
                 // onKeyDown={(e) => {
                 //   if (e.key === "Enter") {
                 //     e.preventDefault();
@@ -176,17 +156,28 @@ const LoginForm = ({ toggleModal }) => {
                     text="Увійти"
                     width="100%"
                     type="submit"
-                    onClick={handleSubmit}
+                    handleClick={handleSubmit}
                   />
 
-                  <button onClick={changeForm}>SignUp</button>
+                  <Button
+                    height="30px"
+                    marginB="15px"
+                    text="SignUp"
+                    width="100%"
+                    type="submit"
+                    handleClick={changeForm}
+                  ></Button>
                   {logged && (
-                    <button
-                      type="button"
-                      onClick={() => dispatch(authOperations.logout())}
+                    <Button
+                      height="30px"
+                      marginB="15px"
+                      text="Exit"
+                      width="100%"
+                      type="submit"
+                      handleClick={() => dispatch(authOperations.logout())}
                     >
                       exit
-                    </button>
+                    </Button>
                   )}
                 </Ul>
               </form>

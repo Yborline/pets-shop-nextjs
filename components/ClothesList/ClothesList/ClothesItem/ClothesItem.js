@@ -10,10 +10,13 @@ import {
   P,
 } from "./ClotheItem.styled";
 import { useDispatch } from "react-redux";
-import { TbDiscount2 } from "react-icons/tb";
+import { TbDiscount } from "react-icons/tb";
+
 import { fetchClothesId } from "../../../../redux/clothes/clothes-operations";
 import { useRouter } from "next/router";
 import OnSale from "../../../OnSale/OnSale";
+import { useEffect, useState } from "react";
+import { getComments } from "../../../../services/api";
 const ClothesItem = ({
   pathname,
   id,
@@ -37,9 +40,15 @@ const ClothesItem = ({
       <Div>
         <Link href={`/clothes/${id}`}>
           {discount > 0 ? (
-            <TbDiscount2
-              style={{ position: "relative", zIndex: "2", color: "yellow" }}
+            <TbDiscount
+              style={{
+                position: "relative",
+                left: "80%",
+                zIndex: "1",
+                color: "yellow",
+              }}
               size="40px"
+              title=""
             />
           ) : (
             <></>

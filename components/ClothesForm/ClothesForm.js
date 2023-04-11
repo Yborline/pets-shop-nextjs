@@ -61,10 +61,10 @@ const CLothesForm = ({ initial, notify, cloth, id }) => {
           }
           dispatch(addClothes(formDataAppend(values, img)));
           formikProps.resetForm(initial);
-          notify(values);
+          notify(values.name);
         } else {
           dispatch(updateById({ id, values: formDataAppend(values, img) }));
-          notify(values);
+          notify(values.name);
           formikProps.resetForm("");
         }
       }}

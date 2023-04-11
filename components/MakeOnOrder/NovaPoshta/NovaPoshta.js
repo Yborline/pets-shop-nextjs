@@ -1,12 +1,13 @@
 import debounce from "lodash.debounce";
+import { Li, Input } from "./NovaPoshta.styled";
 
 const NovaPoshta = ({ handleInput, adresses, inputCity, department }) => {
   return (
     <>
-      <li>
+      <Li>
         <label htmlFor="city">Місто / населений пункт</label>
         <br />
-        <input
+        <Input
           // onChange={debounce(changeCity, 300)}
           onChange={debounce(handleInput, 300)}
           type="text"
@@ -17,7 +18,7 @@ const NovaPoshta = ({ handleInput, adresses, inputCity, department }) => {
           // value={inputCity}
         />
         {adresses === undefined || adresses.length === 0 ? (
-          <p>Писати тільки українською мовою</p>
+          <p>Тільки українською мовою</p>
         ) : (
           <datalist id="select">
             {adresses.map((item, index) => {
@@ -30,7 +31,7 @@ const NovaPoshta = ({ handleInput, adresses, inputCity, department }) => {
             })}
           </datalist>
         )}
-      </li>
+      </Li>
       {/* <li>
               <label name="city" for="ajax">
                 City:
@@ -69,10 +70,10 @@ const NovaPoshta = ({ handleInput, adresses, inputCity, department }) => {
       adresses === undefined ? (
         <></>
       ) : (
-        <li>
+        <Li>
           <label htmlFor="department">Номер відділення</label>
           <br />
-          <input
+          <Input
             // onChange={debounce(changeDepartment, 300)}
             onChange={debounce(handleInput, 300)}
             type="text"
@@ -92,7 +93,7 @@ const NovaPoshta = ({ handleInput, adresses, inputCity, department }) => {
             {/* ); })} */}
           </datalist>
           {/* )} */}
-        </li>
+        </Li>
       )}
     </>
   );

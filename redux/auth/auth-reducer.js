@@ -52,7 +52,7 @@ export const authReducer = createReducer(initialState, {
   }),
 });
 
-export const loadingCloth = createReducer(false, {
+export const loading = createReducer(false, {
   [authOperations.register.pending]: () => true,
   [authOperations.register.fulfilled]: () => false,
   [authOperations.register.rejected]: () => false,

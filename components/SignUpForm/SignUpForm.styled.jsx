@@ -3,6 +3,9 @@ import styled from "styled-components";
 export const Div = styled.div`
 
 `
+
+export const H3 = styled.h3`
+margin: 0px;`
 export const Ul = styled.ul`
 display: flex;
 flex-direction:column;

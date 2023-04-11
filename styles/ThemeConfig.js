@@ -11,6 +11,7 @@ export const lightTheme = {
   mobilMenu: "#C0C0C0",
   discount: "gray",
   hover: "#C71585",
+  hoverButton: "#FFB6C1",
 };
 
 export const darkTheme = {
@@ -25,6 +26,7 @@ export const darkTheme = {
   discount: "gray",
   mobilMenu: "#708090",
   hover: "#20B2AA",
+  hoverButton: "#708090",
 };
 
 export const GlobalStyles = createGlobalStyle`

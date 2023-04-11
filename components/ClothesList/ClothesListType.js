@@ -15,8 +15,9 @@ import Pagination from "../Pagination/Pagination";
 // import { getClothes } from "../../redux/clothes/clothes-selector";
 import { getLoadingCloth } from "../../redux/clothes/clothes-selector";
 import { ColorRing } from "react-loader-spinner";
+import { Suspense } from "react";
 
-const ClothesListType = ({ clothes }) => {
+const ClothesListType = () => {
   const user = useSelector(getUser);
   const loading = useSelector(getLoadingCloth);
 
@@ -54,7 +55,7 @@ const ClothesListType = ({ clothes }) => {
       </DivType>
       {user?.user === "admin" && <Link href="/create">Create</Link>}
 
-      {loading ? (
+      {/* {loading ? (
         <ColorRing
           visible={true}
           height="80"
@@ -64,9 +65,9 @@ const ClothesListType = ({ clothes }) => {
           wrapperClass="blocks-wrapper"
           colors={["#e15b64", "#f47e60", "#f8b26a", "#abbd81", "#849b87"]}
         />
-      ) : (
-        <ClothesList clothes={clothes} />
-      )}
+      ) : ( */}
+
+      {/* )} */}
     </Div>
   );
 };

@@ -22,7 +22,7 @@ import {
 } from "./clothes-actions";
 
 export const items = createReducer(
-  { clothes: [], count: 0, id: {}, type: [], countType: 0, allClothes: [] },
+  { clothes: [], count: 0, allClothes: [] },
   {
     // [fetchClothes.fulfilled]: (state, { payload = {} }) => ({
     //   ...state,
@@ -42,15 +42,15 @@ export const items = createReducer(
       ...state,
       allClothes: [...payload.data],
     }),
-    [fetchType.fulfilled]: (state, { payload = [] }) => ({
-      ...state,
-      type: [...payload.type],
-      countType: payload.allPage,
-    }),
-    [fetchClothesId.fulfilled]: (state, { payload = {} }) => ({
-      ...state,
-      id: { ...payload.data.result },
-    }),
+    // [fetchType.fulfilled]: (state, { payload = [] }) => ({
+    //   ...state,
+    //   type: [...payload.type],
+    //   countType: payload.allPage,
+    // }),
+    // [fetchClothesId.fulfilled]: (state, { payload = {} }) => ({
+    //   ...state,
+    //   id: { ...payload.data.result },
+    // }),
     [addClothes.fulfilled]: (state, { payload }) => ({
       ...state,
       clothes: [...state.clothes, payload.data],

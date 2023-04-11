@@ -7,22 +7,32 @@ import Pagination from "../../../components/Pagination/Pagination";
 import usePagination from "../../../hook";
 import { fetchType } from "../../../redux/clothes/clothes-operations";
 import { getCountType } from "../../../redux/clothes/clothes-selector";
-import { useState } from "react";
+
 const Embroidery = () => {
   const dispatch = useDispatch();
   const clothes = useSelector(getType);
   const count = useSelector(getCountType);
   const router = useRouter();
-  const path = router.pathname.slice(9);
-  const [page, setPage] = useState("Page=1");
+  const searchPage = router.query.page;
+  const type = router.query.type;
+
   const handleChange = (event, value) => {
-    // setPage(value);
-    router.push(router.pathname + `/page=${value}`);
+    if (value) {
+      router.query.page = value;
+      router.push(router);
+      // router.push(router.pathname + `/page=${value}&type=${type}`);
+    } else {
+      router.query.page = stringPage;
+      router.push(router);
+      // router.push(router.pathname + `/page=${stringPage}`);
+    }
   };
 
   useEffect(() => {
-    dispatch(fetchType({ page, path }));
-  }, [dispatch, page, path]);
+    if (searchPage) {
+      dispatch(fetchType({ searchPage, path: type }));
+    }
+  }, [dispatch, searchPage, type]);
 
   return (
     <>
@@ -31,7 +41,7 @@ const Embroidery = () => {
         <></>
       ) : (
         <Pagination
-          currentPage={page}
+          currentPage={Number(searchPage)}
           clothes={clothes}
           count={count}
           handleChange={handleChange}

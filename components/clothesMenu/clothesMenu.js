@@ -22,25 +22,22 @@
 //   { id: 21, title: "Couch", path: "/clothes/couch" },
 // ];
 const clothesMenu = [
-  { id: 1, title: "Overalls", path: "/clothes/type", query: "Page=1" },
+  { id: 1, title: "Overalls", page: "1", type: "overalls" },
   {
     id: 2,
     title: "Vest",
-
     page: "1",
     type: "vest",
   },
   {
     id: 3,
     title: "Blanket",
-
     page: "1",
     type: "blanket",
   },
   {
     id: 4,
     title: "Jacket",
-
     page: "1",
     type: "jacket",
   },
@@ -48,81 +45,70 @@ const clothesMenu = [
   {
     id: 6,
     title: "Skinny",
-
     page: "1",
     type: "skinny",
   },
   {
     id: 7,
     title: "Bomber",
-
     page: "1",
     type: "bomber",
   },
   {
     id: 8,
     title: "Sweatshirt",
-
     page: "1",
     type: "sweatshirt",
   },
   {
     id: 9,
     title: "Trousers",
-
     page: "1",
     type: "trousers",
   },
-  { id: 10, title: "Hats",  page: "1", type: "hats" },
+  { id: 10, title: "Hats", page: "1", type: "hats" },
   {
     id: 11,
     title: "Scarves",
-  
     page: "1",
     type: "scarves",
   },
   {
     id: 12,
     title: "T-shirts",
-
     page: "1",
     type: "tShirt",
   },
   {
     id: 13,
     title: "Singlet",
-
     page: "1",
     type: "singlet",
   },
-  { id: 14, title: "Shirt",  page: "1", type: "shirt" },
+  { id: 14, title: "Shirt", page: "1", type: "shirt" },
   {
     id: 15,
     title: "Embroidery",
- 
     page: "1",
     type: "embroidery",
   },
-  { id: 16, title: "Dress",  page: "1", type: "dress" },
-  { id: 17, title: "Skirt",  page: "1", type: "skirt" },
+  { id: 16, title: "Dress", page: "1", type: "dress" },
+  { id: 17, title: "Skirt", page: "1", type: "skirt" },
   {
     id: 18,
     title: "Briefs",
- 
     page: "1",
     type: "briefs",
   },
   {
     id: 19,
     title: "Hoodies",
-
     page: "1",
     type: "hoodies",
   },
   {
     id: 20,
     title: "Footwear",
-
     page: "1",
     type: "footwear",
   },

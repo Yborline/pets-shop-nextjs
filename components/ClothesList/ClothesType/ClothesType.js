@@ -7,8 +7,9 @@ import { getClothes } from "../../../redux/clothes/clothes-selector";
 
 const ClothesType = ({ id, title, page, type }) => {
   const { query } = useRouter();
-  console.log(page);
+  // console.log(page);
   console.log(type);
+  console.log(query.type);
 
   return (
     <>

@@ -164,12 +164,13 @@ const ClothesInfo = ({ cloth, notifyError, notifySuccess }) => {
             <Div>
               <DivImage>
                 <Image
-                  src={image?.url}
+                  src={image?.secure_url}
                   alt={name}
                   fill
-                  sizes="(max-width: 768px) 100vw,
-              (max-width: 1200px) 50vw,
-              33vw"
+                  // srcset="small.jpg 500w, medium.jpg 1000w, large.jpg 1500w"
+                  sizes="(max-width: 768px)400px ,
+              (max-width: 1200px) 600px,
+              300px"
                   style={{ objectFit: "contain" }}
                 />
               </DivImage>

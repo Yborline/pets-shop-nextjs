@@ -63,9 +63,9 @@ export const fetchAll = async (id) => {
   }
 };
 
-export const fetchType = async ({ page, path }) => {
+export const getFetchType = async ({ page, path }) => {
   try {
-    const { data } = await axios.get(`/clothes/${path}?${page}&limit=30`);
+    const { data } = await axios.get(`/clothes/${path}?page=${page}&limit=30`);
     return data;
   } catch (error) {
     console.log(error.message);

@@ -16,6 +16,8 @@ import { getClothes, getCount } from "../redux/clothes/clothes-selector";
 
 import PaginationCloth from "../components/Pagination/Pagination";
 import FilterName from "../components/Filter/FilterName/FilterName";
+import ClothesList from "../components/ClothesList/ClothesList/ClothesList";
+import { Div } from "./clothes.styled";
 // export const getStaticProprs = async (context) => {
 //   const response = await fetch(
 //     "https://petshop-api-dqwd.onrender.com/api/clothes"
@@ -65,12 +67,13 @@ const Clothes = () => {
     dispatch(fetchClothes({ page: currentPage }));
   }, [dispatch, currentPage]);
   return (
-    <div>
+    <Div>
       <Head>
         <title>Clothes</title>
       </Head>
       <FilterName />
       <ClothesListType clothes={clothes} count={count} fetch={fetchClothes} />
+      <ClothesList clothes={clothes} />
 
       {clothes.length === 0 ? (
         <></>
@@ -82,7 +85,7 @@ const Clothes = () => {
           currentPage={currentPage}
         />
       )}
-    </div>
+    </Div>
   );
 };
 

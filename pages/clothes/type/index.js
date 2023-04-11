@@ -1,42 +1,46 @@
 import ClothesListType from "../../../components/ClothesList/ClothesListType";
 import { getType } from "../../../redux/clothes/clothes-selector";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Pagination from "../../../components/Pagination/Pagination";
 import usePagination from "../../../hook";
 import { fetchType } from "../../../redux/clothes/clothes-operations";
 import { getCountType } from "../../../redux/clothes/clothes-selector";
+import { getFetchType } from "../../../services/api";
+import ClothesList from "../../../components/ClothesList/ClothesList/ClothesList";
+import { Div } from "./index.styled";
 
-const Embroidery = () => {
-  const dispatch = useDispatch();
-  const clothes = useSelector(getType);
-  const count = useSelector(getCountType);
+const Embroidery = ({ clothes, count }) => {
+  // const dispatch = useDispatch();
+  // const clothes = useSelector(getType);
+  // const count = useSelector(getCountType);
   const router = useRouter();
   const searchPage = router.query.page;
   const type = router.query.type;
-
+  console.log(clothes);
   const handleChange = (event, value) => {
     if (value) {
       router.query.page = value;
       router.push(router);
-      // router.push(router.pathname + `/page=${value}&type=${type}`);
     } else {
       router.query.page = stringPage;
       router.push(router);
-      // router.push(router.pathname + `/page=${stringPage}`);
     }
   };
 
-  useEffect(() => {
-    if (searchPage) {
-      dispatch(fetchType({ searchPage, path: type }));
-    }
-  }, [dispatch, searchPage, type]);
+  // useEffect(() => {
+  //   if (searchPage) {
+  //     dispatch(fetchType({ searchPage, path: type }));
+  //   }
+  // }, [dispatch, searchPage, type]);
 
   return (
-    <>
-      <ClothesListType clothes={clothes} />
+    <Div>
+      <ClothesListType />
+      <Suspense fallback={<h1>Loading...</h1>}>
+        <ClothesList clothes={clothes} />
+      </Suspense>
       {clothes.length === 0 ? (
         <></>
       ) : (
@@ -47,7 +51,7 @@ const Embroidery = () => {
           handleChange={handleChange}
         />
       )}
-    </>
+    </Div>
   );
 };
 
@@ -58,15 +62,25 @@ const Embroidery = () => {
 //   }));
 //   return { paths, fallback: true };
 // }
-// export async function getStaticProps({ params }) {
-//   const data = await getComments(params.id);
-//   const { data: result } = await getClothById(params.id);
+
+export async function getServerSideProps({ query }) {
+  const data = await getFetchType({ page: query.page, path: query.type });
+
+  return {
+    props: {
+      clothes: data.type || null,
+      count: data.allPage || null,
+    },
+  };
+}
+
+// Embroidery.getServerSideProps = async ({ query }) => {
+//   const data = await getFetchType({ page: query.page, path: query.type });
+
 //   return {
-//     props: {
-//       cloth: result.result || null,
-//       comments: data || null,
-//     },
+//     clothes: data.type || null,
+//     count: data.allPage || null,
 //   };
-// }
+// };
 
 export default Embroidery;

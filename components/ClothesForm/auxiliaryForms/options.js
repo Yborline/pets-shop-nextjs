@@ -18,4 +18,7 @@ export const options = [
   { value: "dress", label: "Сукня" },
   { value: "skirt", label: "Спідниця" },
   { value: "briefs", label: "Гігієнічні труси" },
+  { value: "hoodies", label: "Худі" },
+  { value: "footwear", label: "Взуття" },
+  { value: "couch", label: "Лежанка" },
 ];

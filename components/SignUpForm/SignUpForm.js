@@ -15,14 +15,17 @@ import {
   H3,
 } from "./SignUpForm.styled";
 import LoginForm from "../LoginForm/LoginForm";
-import { getLoggedIn } from "../../redux/auth/auth-selectors";
+import { getLoggedIn, getUser } from "../../redux/auth/auth-selectors";
+import { useTranslation } from "react-i18next";
 
 const SignUpForm = ({ changeForm, toggleModal, signUpForm }) => {
   // const [name, setName] = useState("");
   // const [email, setEmail] = useState("");
   // const [password, setPassword] = useState("");
+  const { t } = useTranslation();
   const logged = useSelector(getLoggedIn);
   const dispatch = useDispatch();
+  const type = useSelector(getUser);
 
   // const handleChange = ({ target: { name, value } }) => {
   //   switch (name) {
@@ -57,7 +60,7 @@ const SignUpForm = ({ changeForm, toggleModal, signUpForm }) => {
       ) : (
         <>
           <DivClose>
-            <H3>Register</H3>
+            <H3>{t("Sign up")}</H3>
             <ButtonClose onClick={toggleModal}>X</ButtonClose>
           </DivClose>
           <Formik
@@ -67,17 +70,19 @@ const SignUpForm = ({ changeForm, toggleModal, signUpForm }) => {
               email: "",
               password: "",
               confirmPassword: "",
+              user: false,
             }}
             validateOnBlur
             validationSchema={validationSchema}
             onSubmit={(values) => {
-              const { name, lastName, email, password } = values;
+              const { name, lastName, email, password, user } = values;
               dispatch(
                 authOperations.register({
                   name: name.toLowerCase().trim(),
                   lastName: lastName.toLowerCase().trim(),
                   email: email.toLowerCase().trim(),
                   password,
+                  user: user === false ? "user" : "wholesaler",
                 })
               );
               changeForm();
@@ -111,7 +116,7 @@ const SignUpForm = ({ changeForm, toggleModal, signUpForm }) => {
                       className="form__label"
                       style={{ marginTop: "28px" }}
                     >
-                      Ім'я
+                      {t("Name")}
                       {!values.name.length || errors.name ? (
                         <span> *</span>
                       ) : (
@@ -142,7 +147,7 @@ const SignUpForm = ({ changeForm, toggleModal, signUpForm }) => {
                       className="form__label"
                       style={{ marginTop: "28px" }}
                     >
-                      Прізвище
+                      {t("SurName")}
                       {!values.name.length || errors.name ? (
                         <span> *</span>
                       ) : (
@@ -172,7 +177,7 @@ const SignUpForm = ({ changeForm, toggleModal, signUpForm }) => {
 
                   <Li>
                     <label htmlFor="email" className="form__label">
-                      Електронна адреса
+                      {t("Email")}
                       {!values.email.length || errors.email ? (
                         <span> *</span>
                       ) : (
@@ -198,7 +203,7 @@ const SignUpForm = ({ changeForm, toggleModal, signUpForm }) => {
 
                   <Li>
                     <label htmlFor="password" className="form__label">
-                      Пароль
+                      {t("Password")}
                       {!values.password.length || errors.password ? (
                         <span> *</span>
                       ) : (
@@ -226,7 +231,7 @@ const SignUpForm = ({ changeForm, toggleModal, signUpForm }) => {
 
                   <Li>
                     <label htmlFor="confirmPassword" className="form__label">
-                      Підтвердити пароль
+                      {t("Confirm password")}
                       {!values.confirmPassword.length ||
                       errors.confirmPassword ? (
                         <span> *</span>
@@ -255,6 +260,17 @@ const SignUpForm = ({ changeForm, toggleModal, signUpForm }) => {
                         : ""}
                     </span>
                   </Li>
+                  {type.user === "admin" ? (
+                    <Li>
+                      <label>
+                        <Field type="checkbox" name="user" />
+                        Опт
+                      </label>
+                    </Li>
+                  ) : (
+                    <></>
+                  )}
+
                   <Button
                     // disabled={
                     //   (!isValid && dirty) ||
@@ -264,21 +280,32 @@ const SignUpForm = ({ changeForm, toggleModal, signUpForm }) => {
                     // }
                     height="30px"
                     marginB="15px"
-                    text="Зареєструватися"
+                    text={t("Sign up")}
                     width="100%"
                     type="submit"
-                    onClick={handleSubmit}
+                    handleClick={handleSubmit}
                   />
 
-                  <button onClick={changeForm}>Login</button>
+                  <Button
+                    height="30px"
+                    marginB="15px"
+                    text={t("Sign in")}
+                    width="100%"
+                    type="submit"
+                    handleClick={changeForm}
+                  >
+                    Login
+                  </Button>
 
                   {logged && (
-                    <button
-                      type="button"
-                      onClick={() => dispatch(authOperations.logout())}
-                    >
-                      exit
-                    </button>
+                    <Button
+                      height="30px"
+                      marginB="15px"
+                      text={t("Exit")}
+                      width="100%"
+                      type="submit"
+                      handleClick={() => dispatch(authOperations.logout())}
+                    ></Button>
                   )}
                   {/* <p>
                     Вже з нами? <a href="./login">Увійти</a>

@@ -14,11 +14,13 @@ import { FaViber } from "react-icons/fa";
 import { BsTelegram } from "react-icons/bs";
 import { GoMail } from "react-icons/go";
 import { FiPhoneCall } from "react-icons/fi";
+import { useTranslation } from "react-i18next";
 const Footer = () => {
+  const { t } = useTranslation();
   return (
     <FooterDiv>
       <DivContact>
-        <Heading tag="h4" text="Контактна інформація" />
+        <Heading tag="h4" text={t("Contact Information")} />
         <DivInfo>
           <Div>
             <FiPhoneCall size="20px" />

@@ -10,8 +10,12 @@ import debounce from "lodash.debounce";
 import { useEffect } from "react";
 import { useMemo } from "react";
 import { Div, Input } from "./FilterName.styled";
+import { FiSearch } from "react-icons/fi";
 
-const FilterName = () => {
+import { useTranslation } from "react-i18next";
+
+const FilterName = ({ saveInput }) => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   // const filterName = useSelector(getFilterName);
   // const [text, setText] = useState("");
@@ -32,31 +36,43 @@ const FilterName = () => {
     const normalValue = e.target.value.trim();
 
     if (!a && !b) {
-      debouncedChangeHandler(normalValue);
+      saveInput(normalValue);
+      // debouncedChangeHandler({ normalValue, page: "1" });
     }
     return;
     // setValue(normalValue);
   };
 
-  const debouncedChangeHandler = useMemo(
-    () => debounce((normalValue) => dispatch(filterSearch(normalValue)), 350),
-    [dispatch]
-  );
-
-  useEffect(() => {
-    return () => {
-      debouncedChangeHandler.cancel();
-    };
-  }, [debouncedChangeHandler]);
+  const debouncedOnChange = debounce(handleChange, 350);
 
   return (
     <Div>
       <label>
-        Поиск
-        <Input name="filter" type="text" onChange={handleChange} />
+        {/* {t("Search")} */}
+        {/* <FcSearch /> */}
+
+        <Input name="filter" type="text" onChange={debouncedOnChange} />
+        <FiSearch style={{ position: "relative", right: "25px", top: "3px" }} />
       </label>
     </Div>
   );
 };
 
 export default FilterName;
+
+// const debouncedChangeHandler = useMemo(
+//   () =>
+//     debounce(
+//       ({ normalValue, page }) =>
+//         () =>
+//           dispatch(filterSearch({ text: normalValue, page })),
+//       1350
+//     ),
+//   [dispatch]
+// );
+
+// useEffect(() => {
+//   return () => {
+//     debouncedChangeHandler.cancel();
+//   };
+// }, [debouncedChangeHandler]);

@@ -34,3 +34,7 @@ padding:20px;
    grid-template-columns: repeat(5, 1fr);
        }
 `
+
+export const DivSpinner = styled.div`
+display: flex; 
+justify-content: center;`

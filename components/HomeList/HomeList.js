@@ -1,6 +1,6 @@
 import HomeItem from "./HomeItem/HomeItem";
 import { Ul, Div } from "./HomeList.styled";
-import clothesMenu from "../ClothesMenu/ClothesMenu";
+import clothesMenu from "../clothesMenu/clothesMenu";
 
 const HomeList = () => {
   return (

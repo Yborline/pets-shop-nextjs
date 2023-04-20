@@ -17,10 +17,11 @@ export const register = createAsyncThunk(
   async (credentials, thunkAPI) => {
     try {
       const { data } = await axios.post("/auth/signup", credentials);
+
       // console.log(data);
       return data;
     } catch (error) {
-      thunkAPI.rejectWithValue(error.message);
+      return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
@@ -52,7 +53,7 @@ const fetchCurrentUser = createAsyncThunk(
     const persistedToken = state.auth.user.token;
 
     if (persistedToken === null) {
-      return thunkAPI.rejectWithValue();
+      return thunkAPI.rejectWithValue(error.message);
     }
 
     token.set(persistedToken);
@@ -62,7 +63,7 @@ const fetchCurrentUser = createAsyncThunk(
       return data;
     } catch (error) {
       window.localStorage.removeItem("persist:user");
-      thunkAPI.rejectWithValue(error.message);
+      return thunkAPI.rejectWithValue(error.message);
     }
   }
 );

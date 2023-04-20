@@ -4,6 +4,7 @@ import {
   P,
   DivImg,
   DivInfo,
+  TitleCard,
 } from "./BasketItem.styled";
 import Image from "next/image";
 import OnSale from "../../OnSale/OnSale";
@@ -14,6 +15,8 @@ import { useDispatch } from "react-redux";
 import { deleteCardBasket } from "../../../redux/clothes/clothes-actions";
 import { fetchAllClothes } from "../../../redux/clothes/clothes-operations";
 import s from "./BasketItem.module.css";
+import Link from "next/link";
+import { ColorRing } from "react-loader-spinner";
 
 const BasketItem = ({
   amount,
@@ -43,21 +46,23 @@ const BasketItem = ({
   return (
     <>
       <DivImg>
-        <Image
-          style={{ borderRadius: "5px 0px 0px 5px" }}
-          src={image?.url}
-          alt={name}
-          fill
-          sizes="(max-width: 768px) 100px,
+        <Link href={`/clothes/${_id.split("-")[0]}`}>
+          <Image
+            style={{ borderRadius: "5px 0px 0px 5px" }}
+            src={image?.url}
+            alt={name}
+            fill
+            sizes="(max-width: 768px) 100px,
               (max-width: 1200px) 50vw,
               33vw"
-        />
+          />
+        </Link>
       </DivImg>
       <DivInfo>
         <div>
-          <P>
+          <TitleCard>
             {name} : {allprice.size}
-          </P>
+          </TitleCard>
           {/* <P>{model}</P> */}
           <OnSale
             // changePrice={changePrice}

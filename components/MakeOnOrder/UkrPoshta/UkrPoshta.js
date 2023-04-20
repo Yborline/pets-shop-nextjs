@@ -33,7 +33,7 @@ const UkrPoshta = ({ handleInput, adresses, inputCity }) => {
           </datalist>
         )}
       </Li>
-      {inputCity.length <= 1 ||
+      {inputCity === null ||
       adresses?.length === 0 ||
       adresses === undefined ? (
         <></>

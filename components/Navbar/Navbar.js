@@ -34,14 +34,7 @@ import Modal from "../Modal";
 import LoginForm from "../LoginForm/LoginForm";
 import { useSelector } from "react-redux";
 import { getActualCard, getBasket } from "../../redux/clothes/clothes-selector";
-
-const navigation = [
-  { id: 1, title: "Home", path: "/" },
-  { id: 2, title: "Сlothes", path: "/clothes" },
-  { id: 3, title: "Cat", path: "/cat" },
-  { id: 4, title: "Dog", path: "/dog" },
-  // { id: 5, title: <HiOutlineShoppingCart size="20px" />, path: "/basket" },
-];
+import { AiOutlineHome } from "react-icons/ai";
 
 const Navbar = () => {
   // const [screenWidth, setScreenWidth] = useState(320);
@@ -53,6 +46,15 @@ const Navbar = () => {
   const { t } = useTranslation();
   const [language, setLanguage] = useLocalStorage("language", "ua");
   const width = useWindowWidth();
+
+  const navigation = [
+    { id: 1, title: <AiOutlineHome size="25px" />, path: "/" },
+    { id: 2, title: t(`Clothes`), path: "/clothes", page: "1" },
+    { id: 3, title: t(`Cat`), path: "/cat" },
+    { id: 4, title: t(`Dog`), path: "/dog" },
+    // { id: 5, title: <HiOutlineShoppingCart size="20px" />, path: "/basket" },
+  ];
+
   // const changeScreen = () => {
   //   setScreenWidth(window.screen.width);
   // };
@@ -141,9 +143,12 @@ const Navbar = () => {
 
         {width > 767 ? (
           <>
-            {navigation.map(({ id, title, path }) => (
+            {navigation.map(({ id, title, path, page }) => (
               <NavLi key={id}>
-                <Link onClick={toggleMenu} href={path}>
+                <Link
+                  onClick={toggleMenu}
+                  href={{ pathname: path, query: { page: page } }}
+                >
                   {pathname === path ? (
                     <LinkActive>{title}</LinkActive>
                   ) : (
@@ -167,6 +172,9 @@ const Navbar = () => {
                     <NavLi key={id}>
                       <Link onClick={toggleMenu} href={path}>
                         {pathname === path ? (
+                          //   <LinkActive>{t(`${title}`)}</LinkActive>
+                          // ) : (
+                          //   <LinkNormal>{t(`${title}`)}</LinkNormal>
                           <LinkActive>{title}</LinkActive>
                         ) : (
                           <LinkNormal>{title}</LinkNormal>

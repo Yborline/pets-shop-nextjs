@@ -8,30 +8,43 @@ import {
 } from "../../redux/clothes/clothes-selector";
 import { getClothesId } from "../../redux/clothes/clothes-selector";
 import { fetchClothesId } from "../../redux/clothes/clothes-operations";
-import { DivMain } from "./[id].styled";
+import { DivMain } from "../../styles/[id].styled";
 import { notifySuccess, notifyError } from "../../notify/notify";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { DivSpinner } from "./[id].styled";
-import { ThreeDots } from "react-loader-spinner";
+import { DivSpinner } from "../../styles/[id].styled";
+import { ColorRing, ThreeDots } from "react-loader-spinner";
 import { fetchAll, getClothById, getComments } from "../../services/api";
-import Comments from "../../components/Coments/Coments";
-import dynamic from "next/dynamic";
-import { Suspense } from "react";
-import { lazy } from "react";
-const ClothesInfo = lazy(() =>
-  import("../../components/ClothesInfo/ClothesInfo")
-);
+import Comments from "../../components/Comments/Comments";
+import { usePageLoading } from "../../hook";
+import ClothesInfo from "../../components/ClothesInfo/ClothesInfo";
+import CommentAdd from "../../components/CommentAdd/CommentAdd";
 
-const ClothPage = ({ cloth, comments = null }) => {
+const ClothPage = ({ cloth, comments = [] }) => {
+  const [newComment, setNewComment] = useState({});
+
+  console.log(newComment);
+  const changeComment = (text) => {
+    setNewComment(text);
+  };
+  const { isPageLoading } = usePageLoading();
+  const dispatch = useDispatch();
+
+  // const router = useRouter();
+  // const loading = useSelector(getLoadingCloth);
+  // const { id } = router.query;
+  // console.log(comments);
+  // console.log(cloth);
+  // const [coment, setComent] = useState(null);
+
   // useEffect(() => {
   //   console.log(id);
   //   if (id) {
   //     dispatch(fetchClothesId(id));
 
-  // getComments(id).then((data) =>
-  //   data === undefined ? null : setComent(data)
-  // );
+  //     getComments(id).then((data) =>
+  //       data === undefined ? null : setComent(data)
+  //     );
   //   }
   // }, [dispatch, id]);
   // console.log(coment);
@@ -52,22 +65,19 @@ const ClothPage = ({ cloth, comments = null }) => {
           />
         </DivSpinner>
       ) : ( */}
-      <Suspense
-        fallback={
-          <DivSpinner>
-            <ThreeDots
-              height="80"
-              width="80"
-              radius="9"
-              color="#800000"
-              ariaLabel="three-dots-loading"
-              wrapperStyle={{}}
-              wrapperClassName=""
-              visible={true}
-            />
-          </DivSpinner>
-        }
-      >
+      {isPageLoading ? (
+        <DivSpinner>
+          <ColorRing
+            visible={true}
+            height="80"
+            width="80"
+            ariaLabel="blocks-loading"
+            wrapperStyle={{}}
+            wrapperClass="blocks-wrapper"
+            colors={["#e15b64", "#f47e60", "#f8b26a", "#abbd81", "#849b87"]}
+          />
+        </DivSpinner>
+      ) : (
         <DivMain>
           <ClothesInfo
             cloth={cloth}
@@ -76,24 +86,22 @@ const ClothPage = ({ cloth, comments = null }) => {
           />
 
           <ToastContainer />
-          {comments ? <Comments coments={comments} /> : <></>}
+          <CommentAdd save={changeComment} id={cloth} />
+          <Comments
+            newComment={newComment}
+            comments={comments ? comments : []}
+          />
         </DivMain>
-      </Suspense>
+      )}
       {/* )} */}
     </>
   );
 };
 
-export async function getStaticPaths() {
-  const { data } = await fetchAll();
-  const paths = data.map((cloth) => ({
-    params: { id: cloth._id },
-  }));
-  return { paths, fallback: true };
-}
-export async function getStaticProps({ params }) {
+export async function getServerSideProps({ params }) {
   const data = await getComments(params.id);
   const { data: result } = await getClothById(params.id);
+
   return {
     props: {
       cloth: result.result || null,

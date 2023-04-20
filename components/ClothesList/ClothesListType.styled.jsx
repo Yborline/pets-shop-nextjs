@@ -8,17 +8,18 @@ export const DivType = styled.div`
 
 
 export const Ul = styled.ul`
-padding-left: 0px;
-
+margin-left: 10px;
+background-color:#B0C4DE;
+position:fixed;
+top: 60px;
+left:0px;
+border-radius :5px;
+border-right: 2px solid #808080;
+border-bottom: 2px solid #808080;
+width: 240px;
 display:flex;
 flex-direction: column;
 text-align: center;
-    @media screen and (min-width: 768px) {
-flex-direction: row;
- flex-wrap:wrap;
- justify-content:center;
-
-    }
 
 
 `
@@ -30,4 +31,17 @@ flex-direction: column;
 align-items: center;
 
 
+
+
 `
+export const Select = styled.select`
+
+border-radius: 10px;
+height: 30px;
+width: 200px;
+margin-bottom: 15px;
+`
+
+
+export const Option = styled.option`
+    overflow-y:scroll;`

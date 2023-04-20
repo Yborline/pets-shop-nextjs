@@ -5,7 +5,8 @@ import {
   changeCardDecrement,
 } from "../../redux/clothes/clothes-actions";
 import { Div, Button, Span } from "./Counter.styled";
-import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
+import { AiOutlinePlus } from "react-icons/ai";
+import { BiMinus } from "react-icons/bi";
 
 const Counter = ({ amount, id, changeCard }) => {
   // const [number, setNumber] = useState(1);
@@ -29,13 +30,13 @@ const Counter = ({ amount, id, changeCard }) => {
   return (
     <Div>
       <Button name="decrement" onClick={changeNumber}>
-        <AiOutlineArrowLeft />
+        <BiMinus />
       </Button>
 
       <Span>{amount}</Span>
 
       <Button name="increment" onClick={changeNumber}>
-        <AiOutlineArrowRight />
+        <AiOutlinePlus />
       </Button>
     </Div>
   );

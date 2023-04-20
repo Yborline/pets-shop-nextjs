@@ -145,10 +145,7 @@ const Navbar = () => {
           <>
             {navigation.map(({ id, title, path, page }) => (
               <NavLi key={id}>
-                <Link
-                  onClick={toggleMenu}
-                  href={{ pathname: path, query: { page: page } }}
-                >
+                <Link onClick={toggleMenu} href={{ pathname: path }}>
                   {pathname === path ? (
                     <LinkActive>{title}</LinkActive>
                   ) : (

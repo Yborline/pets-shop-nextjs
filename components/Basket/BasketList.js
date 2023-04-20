@@ -57,9 +57,9 @@ const BasketList = ({}) => {
     }
   }, [clotheActual, clothesBasket, dispatch]);
 
-  useEffect(() => {
-    dispatch(fetchClothes());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(fetchClothes());
+  // }, [dispatch]);
 
   const notify = (text) => {
     notifySuccessOrder(text);

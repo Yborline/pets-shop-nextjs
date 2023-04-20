@@ -73,7 +73,11 @@ const Clothes = () =>
 
     useEffect(() => {
       if (input === "") {
-        dispatch(fetchClothes({ page: searchPage }));
+        if (searchPage) {
+          dispatch(fetchClothes({ page: searchPage }));
+        } else {
+          dispatch(fetchClothes({ page: "1" }));
+        }
       } else {
         dispatch(filterSearch({ text: input, page: searchPage }));
       }
@@ -127,15 +131,15 @@ const Clothes = () =>
     );
   };
 
-export async function getServerSideProps({ query }) {
-  const data = await getFetchClothes({ page: query.page });
+// export async function getServerSideProps({ query }) {
+//   const data = await getFetchClothes({ page: query.page });
 
-  return {
-    props: {
-      clothes: data.data || null,
-      count: data.allPage || null,
-    },
-  };
-}
+//   return {
+//     props: {
+//       clothes: data?.data || null,
+//       count: data?.allPage || null,
+//     },
+//   };
+// }
 
 export default Clothes;

@@ -28,12 +28,12 @@ import {
 } from "./MakeOnOrder.styled";
 import { clearShoppingCard } from "../../redux/clothes/clothes-actions";
 
-const MakeOnOrder = ({ clothes, setOpenOrder, notify }) => {
+const MakeOnOrder = ({ clothes, setOpenOrder, notify, deleteBasket }) => {
   //   const [signUpForm, setSignUpForm] = useState(false);
   const [adresses, setAdresses] = useState([]);
   const [inputCity, setInputCity] = useState("");
   const [status, setStatus] = useState("idle");
-  const [number, setNumber] = useState(null);
+  const [number, setNumber] = useState("");
   const [department, setDepartment] = useState(null);
   const [radio, setRadio] = useState("");
   // const [service, setService] = useState("");
@@ -117,6 +117,16 @@ const MakeOnOrder = ({ clothes, setOpenOrder, notify }) => {
   //   console.log(adresses);
 
   const handleSubmit = (values, formikProps) => {
+    console.log(inputCity);
+    console.log(number);
+    console.log(radio);
+
+    if (inputCity === "" || radio === "" || number === "") {
+      console.log("YRA");
+      notify(`Заповніть всю інформацію !!`);
+
+      return;
+    }
     const order = {
       name: values.name,
       surname: values.surname,
@@ -132,8 +142,11 @@ const MakeOnOrder = ({ clothes, setOpenOrder, notify }) => {
     postMail(order).then((data) => {
       console.log(data);
     });
+    deleteBasket();
 
-    notify(`Ваше замовлення відправленно, найближчим часом з вами зв'яжуться!`);
+    notify(
+      `Ваше замовлення відправленнinputCityо, найближчим часом з вами зв'яжуться!`
+    );
 
     formikProps.resetForm();
     setInputCity("");
@@ -177,7 +190,8 @@ const MakeOnOrder = ({ clothes, setOpenOrder, notify }) => {
         <Form
           onSubmit={(e) => {
             e.preventDefault();
-            handleSubmit();
+
+            // handleSubmit();
           }}
           // onKeyDown={(e) => {
           //   if (e.key === "Enter") {
@@ -191,7 +205,7 @@ const MakeOnOrder = ({ clothes, setOpenOrder, notify }) => {
             <DivUp>
               <Li>
                 <label htmlFor="name">
-                  Ім'я
+                  {"Ім'я"}
                   {!values.name.length || errors.name ? <span> *</span> : <></>}
                 </label>
                 <br />
@@ -372,6 +386,7 @@ const MakeOnOrder = ({ clothes, setOpenOrder, notify }) => {
           <br />
           <DivButton>
             <Button
+              type="submit"
               height="30px"
               width="200px"
               text={"Замовити"}

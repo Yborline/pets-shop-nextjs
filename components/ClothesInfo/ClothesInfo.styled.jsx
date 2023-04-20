@@ -2,6 +2,13 @@ import styled from "styled-components";
 
 export const DivMain = styled.div`
 margin-top:20px;
+display:flex; 
+flex-direction: column;
+align-items: center;
+ @media screen and (min-width: 768px) {
+display:block;
+}
+
 `
 
 export const P = styled.p`
@@ -30,26 +37,56 @@ margin-bottom: 15px;
 `
 
 export const DivImage = styled.div`
-min-height: 200px;
-min-width: 280px;
-position: relative;
- @media screen and (min-width: 768px) {
+
+max-width: 100px;
 height: 350px;
-width: 700px;
+
+
+
+ @media screen and (min-width: 768px) {
+  min-width:350px;
+min-height: 350px;
+max-width: 700px;
 }
  @media screen and (min-width: 1280px) {
-height: 400px;
-width: 1000px;
+min-height: 400px;
+max-width: 1000px;
+}
+
+`
+
+export const DivSizes = styled.div`
+@media screen and (min-width: 768px){
+margin-left: 50px;
 }
 `
+
+//  @media screen and (min-width: 768px) {
+// height: 350px;
+// width: 700px;
+// }
+//  @media screen and (min-width: 1280px) {
+// height: 400px;
+// width: 1000px;
+// }
+
 
 export const Div = styled.div`
     @media screen and (min-width: 768px) {
 display: flex;
+
+justify-content: space-around;
     }
 
 
 `
+
+export const DivCorrection = styled.div`
+background-color: ${({ theme }) => theme.hoverButton};
+border-radius: 5px;
+border : 1px solid;
+text-align:center;
+width: 200px;`
 
 export const Description = styled.p`
 margin-top: 15px;

@@ -30,7 +30,9 @@ min-height: 230px;
 min-width: 230px;
 position: relative;
 
+
 `
+
 
 export const P = styled.p`
 margin-bottom: 7px;`

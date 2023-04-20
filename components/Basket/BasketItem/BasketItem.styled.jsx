@@ -29,16 +29,28 @@ align-items: center;
 width: 100%;`
 
 export const DivImg = styled.div`
+
 position: relative;
-height: 150px;
-min-width: 110px;`
+height: 140px;
+min-width: 110px;
+      @media screen and (min-width: 768px) {
+height: 180px;
+min-width: 150px;
+    }
+
+      @media screen and (min-width: 1280px) {
+height: 200px;
+min-width: 200px;
+    }
+
+`
 
 
 export const DivInfo = styled.div`
+padding: 10px;
 display:flex; 
 align-items: center;
 position:relative;
-margin-left: 10px;
 justify-content: space-between;
 width: 100%;
 
@@ -48,11 +60,15 @@ export const DivDelCounter = styled.div`
 
 `
 export const DivDelet = styled.div`
-margin-right: 10px;
+margin-left: 10px;
+display:flex;
+flex-direction:column ;
+align-items: flex-end;
 
 
 `
-export const P = styled.p`
+export const TitleCard = styled.h3`
+ word-break: break-all; 
 :not(:last-child){
   margin-bottom: 10px;
 }

@@ -5,29 +5,28 @@ import usePagination from "../../../hook";
 import { useSelector } from "react-redux";
 import { getClothes } from "../../../redux/clothes/clothes-selector";
 
-const ClothesType = ({ id, title, page, type }) => {
+const ClothesType = ({ id, title, page, type, parent }) => {
   const { query } = useRouter();
-  // console.log(page);
-  console.log(type);
-  console.log(query.type);
-
   return (
     <>
-      <Li key={id}>
-        <Link
-          href={{
-            pathname: "/clothes/type",
-            query: { page: page, type: type },
-          }}
-        >
+      {" "}
+      <Link
+        key={id}
+        href={{
+          pathname: "/clothes/type",
+          query: { page: page, type: type },
+        }}
+      >
+        <Li parent={parent}>
           {type === query.type ? (
             <LinkActive>{title}</LinkActive>
           ) : (
-            <LinkNormal>{title}</LinkNormal>
+            <LinkNormal parent={parent}>{title}</LinkNormal>
           )}
-        </Link>
-        {/* <Link href={path}>{title}</Link> */}
-      </Li>
+
+          {/* <Link href={path}>{title}</Link> */}
+        </Li>
+      </Link>
     </>
   );
 };

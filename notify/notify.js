@@ -1,5 +1,38 @@
 import { ToastContainer, toast } from "react-toastify";
 
+export const notifyDiscount = () =>
+  toast.success("Знижка змінена/добавлена", {
+    position: "top-center",
+    autoClose: 2000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: false,
+    draggable: true,
+    progress: undefined,
+  });
+
+export const notifySuccessAll = (text) =>
+  toast.success(text, {
+    position: "top-center",
+    autoClose: 2000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: false,
+    draggable: true,
+    progress: undefined,
+  });
+
+export const notifyErrorAll = (text) =>
+  toast.error(text, {
+    position: "top-center",
+    autoClose: 2000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: false,
+    draggable: true,
+    progress: undefined,
+  });
+
 export const notifySuccessOrder = (text) =>
   toast.success(text, {
     position: "top-center",
@@ -23,7 +56,7 @@ export const notifySuccess = (values, text) =>
   });
 
 export const notifyError = (values, text, position) =>
-  toast.error(`${values.name} вже є в вашій ${text}!`, {
+  toast.error(`${values} вже є в вашій ${text}!`, {
     position: "top-center",
     autoClose: 2000,
     hideProgressBar: false,

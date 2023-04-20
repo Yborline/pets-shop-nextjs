@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Div = styled.div`
-
+color: ${({theme})=> theme.textBlack}
 `
 
 export const H3 = styled.h3`
@@ -30,7 +30,7 @@ justify-content: space-between`
 
 
 export const Li = styled.li`
-margin-bottom: 20px;
+margin-bottom: 10px;
 width:100%;`
 
 

@@ -9,6 +9,8 @@ import {
   Description,
   Li,
   P,
+  DivCorrection,
+  DivSizes,
 } from "./ClothesInfo.styled";
 import { getUser } from "../../redux/auth/auth-selectors";
 import { useEffect, useState } from "react";
@@ -21,8 +23,16 @@ import DiscountForm from "../discountForm/discountForm";
 import onSale from "../../calculation/makeDiscount";
 import Button from "../Button/Button";
 import { Suspense } from "react";
+import { ColorRing } from "react-loader-spinner";
+import { useTranslation } from "react-i18next";
 
-const ClothesInfo = ({ cloth, notifyError, notifySuccess }) => {
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import { Carousel } from "react-responsive-carousel";
+import { useRef } from "react";
+
+const ClothesInfo = ({ id, cloth, notifyError, notifySuccess }) => {
+  const windowWidth = useRef(window.innerWidth);
+  const { t } = useTranslation();
   const size = [
     "xs",
     "s",
@@ -119,6 +129,7 @@ const ClothesInfo = ({ cloth, notifyError, notifySuccess }) => {
   const saveShoppingCart = () => {
     const reapet = clothBasket.find((item) => currentBtn._id === item._id);
     if (reapet) {
+      console.log(currentBtn);
       return notifyError(currentBtn.name, "корзині");
     }
     dispatch(changeShoppingCard(currentBtn));
@@ -162,22 +173,89 @@ const ClothesInfo = ({ cloth, notifyError, notifySuccess }) => {
         {cloth && cloth.name ? (
           <DivMain>
             <Div>
-              <DivImage>
-                <Image
-                  src={image?.secure_url}
-                  alt={name}
-                  fill
-                  // srcset="small.jpg 500w, medium.jpg 1000w, large.jpg 1500w"
-                  sizes="(max-width: 768px)400px ,
-              (max-width: 1200px) 600px,
-              300px"
-                  style={{ objectFit: "contain" }}
-                />
-              </DivImage>
-              <div>
+              <Carousel
+                // width={windowWidth.current < 768 ? "70%" : "100%"}
+                showArrows={true}
+                showThumbs={false}
+              >
+                {image.length > 1 ? (
+                  image.map((item, index) => (
+                    <DivImage key={index}>
+                      <Image
+                        src={
+                          item.secure_url ? (
+                            item.secure_url
+                          ) : (
+                            <ColorRing
+                              visible={true}
+                              height="80"
+                              width="80"
+                              ariaLabel="blocks-loading"
+                              wrapperStyle={{}}
+                              wrapperClass="blocks-wrapper"
+                              colors={[
+                                "#e15b64",
+                                "#f47e60",
+                                "#f8b26a",
+                                "#abbd81",
+                                "#849b87",
+                              ]}
+                            />
+                          )
+                        }
+                        alt={name}
+                        fill
+                        // srcset="small.jpg 500w, medium.jpg 1000w, large.jpg 1500w"
+                        sizes="(max-width: 768px) 50vw,
+              (max-width: 1200px) 100vw,
+              33vw"
+                        // style={{ objectFit: "contain" }}
+                      />
+                    </DivImage>
+                  ))
+                ) : (
+                  <DivImage>
+                    <Image
+                      src={
+                        image.secure_url ? (
+                          image.secure_url
+                        ) : (
+                          <ColorRing
+                            visible={true}
+                            height="80"
+                            width="80"
+                            ariaLabel="blocks-loading"
+                            wrapperStyle={{}}
+                            wrapperClass="blocks-wrapper"
+                            colors={[
+                              "#e15b64",
+                              "#f47e60",
+                              "#f8b26a",
+                              "#abbd81",
+                              "#849b87",
+                            ]}
+                          />
+                        )
+                      }
+                      alt={name}
+                      fill
+                      // srcset="small.jpg 500w, medium.jpg 1000w, large.jpg 1500w"
+                      sizes="(max-width: 768px) 100vw,
+              (max-width: 1200px) 50vw,
+              33vw"
+                      // style={{ objectFit: "contain" }}
+                    />
+                  </DivImage>
+                )}
+              </Carousel>
+              <DivSizes>
                 <h2>{name}</h2>
-                <P>Код :{code}</P>
-                <P>Модель :{model}</P>
+                <P>
+                  {t(`Code`)} : {code}
+                </P>
+                <P>
+                  {t(`Model`)} : {t(`${model}`)}
+                </P>
                 <Ul>
                   {size.map((item, index) => (
                     <Li key={index}>
@@ -186,7 +264,7 @@ const ClothesInfo = ({ cloth, notifyError, notifySuccess }) => {
                           currentBtn?.allprice?.size === item ? true : false
                         }
                         height="25px"
-                        text={item}
+                        text={item.toLocaleUpperCase()}
                         name={item}
                         handleClick={changePrice}
                       />
@@ -225,18 +303,31 @@ const ClothesInfo = ({ cloth, notifyError, notifySuccess }) => {
                 {/* <button onClick={saveShoppingCart}>
                   <HiOutlineShoppingCart size="20px" />
                 </button> */}
-              </div>
+              </DivSizes>
             </Div>
-            <h4>Опис</h4>
+            <h4>{t("Description")}</h4>
             <Description>{cloth.description}</Description>
             {user === "admin" ? (
               <>
-                <button onClick={toggleMenu}>Open</button>
+                <button onClick={toggleMenu}>
+                  {openMenu ? t("Closed") : t("Amend")}
+                </button>
                 {openMenu ? (
                   <>
-                    <Link href={`/create/${_id}`}> редактировать</Link>
+                    <DivCorrection>
+                      <Link
+                        href={{
+                          pathname: `/create/update`,
+                          query: { id: _id },
+                        }}
+                      >
+                        {t("Edit")}
+                      </Link>
+                    </DivCorrection>
                     <div>
-                      <p>Скидка {discount} грн</p>
+                      <p>
+                        {t("Discount")} {discount} грн
+                      </p>
                       <DiscountForm id={_id} />
                     </div>
                   </>

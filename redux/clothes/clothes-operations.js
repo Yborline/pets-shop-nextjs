@@ -14,7 +14,7 @@ const token = {
 
 export const fetchClothes = createAsyncThunk(
   "clothes/fetchClothes",
-  async ({ page, contentPerPage }, thunkAPI) => {
+  async ({ page }, thunkAPI) => {
     try {
       const { data } = await axios.get(`/clothes?page=${page}&limit=30`);
       return data;
@@ -131,9 +131,14 @@ export const updateDiscount = createAsyncThunk(
 
 export const filterSearch = createAsyncThunk(
   "clothes/fiterSearch",
-  async (value, thunkAPI) => {
+  async ({ text, page }, thunkAPI) => {
     try {
-      const { data } = await axios.post(`clothes/filter`, { text: value });
+      const { data } = await axios.post(
+        `clothes/filter?page=${page}&limit=30`,
+        {
+          text: text,
+        }
+      );
       return data;
     } catch (error) {
       thunkAPI.rejectWithValue(error.message);

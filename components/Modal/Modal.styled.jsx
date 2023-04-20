@@ -25,7 +25,7 @@ margin-top: 60px;
     width: 100%;
     height: 100%;
     @media screen and (min-width: 768px) {
-      max-height:500px;
+      max-height:550px;
 max-width:310px;
 z-index:5;
         left: 50%;

@@ -12,6 +12,20 @@ export const lightTheme = {
   discount: "gray",
   hover: "#C71585",
   hoverButton: "#FFB6C1",
+  error: "#FFB6C1",
+  li1: "#ffffff",
+  li2: "#fffff7",
+  li3: "#fffeef",
+  li4: "#fffee8",
+  li5: "#fffee0",
+  li6: "#fffdd8",
+  li7: "#fffdd0",
+  li8: "#fffdd0",
+  li9: "#fbf9d4",
+  li10: "#f8f6d8",
+  li11: "#f4f2dc",
+  li12: "#f0efe0",
+  li13: "#ecebe4",
 };
 
 export const darkTheme = {
@@ -27,6 +41,20 @@ export const darkTheme = {
   mobilMenu: "#708090",
   hover: "#20B2AA",
   hoverButton: "#708090",
+  error: "#FFB6C1",
+  li1: "#ffffff",
+  li2: "#fffff7",
+  li3: "#fffeef",
+  li4: "#fffee8",
+  li5: "#fffee0",
+  li6: "#fffdd8",
+  li7: "#fffdd0",
+  li8: "#fffdd0",
+  li9: "#fbf9d4",
+  li10: "#f8f6d8",
+  li11: "#f4f2dc",
+  li12: "#f0efe0",
+  li13: "#ecebe4",
 };
 
 export const GlobalStyles = createGlobalStyle`

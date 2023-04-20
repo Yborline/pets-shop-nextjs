@@ -14,7 +14,7 @@ export const authReducer = createReducer(initialState, {
     // payload === undefined ?
     ({
       ...state,
-      user: payload.user,
+      // user: payload.user,
     }),
   // : {
   //     ...state,
@@ -72,7 +72,7 @@ export const error = createReducer(null, {
   [authOperations.register.pending]: () => null,
   [authOperations.login.rejected]: (_, action) => action.payload,
   [authOperations.login.pending]: () => null,
-  [authOperations.logout.rejected]: (_, action) => action.payload,
+  [authOperations.logout.rejected]: (_, action) => action.payload.message,
   [authOperations.logout.pending]: () => null,
   [authOperations.fetchCurrentUser.rejected]: (_, action) => action.payload,
   [authOperations.fetchCurrentUser.pending]: () => null,

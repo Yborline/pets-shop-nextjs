@@ -1,7 +1,7 @@
-import clothesMenu from "../ClothesMenu/ClothesMenu";
+import clothesMenu from "../clothesMenu/clothesMenu";
 import ClothesType from "./ClothesType/ClothesType";
 import ClothesList from "./ClothesList/ClothesList";
-import { Ul, Div, DivType } from "./ClothesListType.styled";
+import { Ul, Div, DivType, Select, Option } from "./ClothesListType.styled";
 import { useState, useEffect } from "react";
 import Modal from "../Modal";
 import CLothesForm from "../ClothesForm/ClothesForm";
@@ -16,10 +16,28 @@ import Pagination from "../Pagination/Pagination";
 import { getLoadingCloth } from "../../redux/clothes/clothes-selector";
 import { ColorRing } from "react-loader-spinner";
 import { Suspense } from "react";
+import { useTranslation } from "react-i18next";
+import { useRouter } from "next/router";
+import { useRef } from "react";
 
 const ClothesListType = () => {
+  const windowWidth = useRef(window.innerWidth);
+  const windowHeight = useRef(window.innerHeight);
   const user = useSelector(getUser);
   const loading = useSelector(getLoadingCloth);
+  const { t } = useTranslation();
+  const router = useRouter();
+
+  const handleChange = ({ target }) => {
+    console.log(target.value);
+    console.log(windowHeight);
+    console.log(windowWidth);
+
+    router.push({
+      pathname: `/clothes/type`,
+      query: { page: "1", type: target.value },
+    });
+  };
 
   // const [showModal, setShowModal] = useState(false);
 
@@ -34,25 +52,45 @@ const ClothesListType = () => {
   // }, [dispatch]);
 
   return (
-    <Div>
+    <div>
       {/* {showModal && (
         <Modal close={toggleModal}>
           <CLothesForm onSave={toggleModal} toggleModal={toggleModal} />
         </Modal>
       )} */}
-      <DivType>
-        <Ul>
-          {clothesMenu.map(({ page, type, id, title }) => (
-            <ClothesType
-              key={id}
-              id={id}
-              title={title}
-              page={page}
-              type={type}
-            />
-          ))}
-        </Ul>
-      </DivType>
+      <div>
+        {windowWidth.current > 767 ? (
+          <Ul style={{ padding: "0px" }}>
+            {clothesMenu.map(({ page, type, id, title, parent }) => (
+              <ClothesType
+                key={id}
+                id={id}
+                title={t(`${title}`)}
+                page={page}
+                type={type}
+                parent={parent}
+              />
+            ))}
+          </Ul>
+        ) : (
+          <Select onChange={(event) => handleChange(event)}>
+            <option value="" disabled selected hidden>
+              {t("Model")}
+            </option>
+            {clothesMenu.map(({ page, type, id, title }) => (
+              <Option
+                value={type}
+                key={id}
+                id={id}
+
+                // title={t(`${title}`)}
+              >
+                {title}
+              </Option>
+            ))}
+          </Select>
+        )}
+      </div>
       {user?.user === "admin" && <Link href="/create">Create</Link>}
 
       {/* {loading ? (
@@ -68,7 +106,7 @@ const ClothesListType = () => {
       ) : ( */}
 
       {/* )} */}
-    </Div>
+    </div>
   );
 };
 

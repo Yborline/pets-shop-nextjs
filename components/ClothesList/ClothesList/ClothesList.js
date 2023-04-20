@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getVisibleClothes } from "../../../redux/clothes/clothes-selector";
 import { fetchClothes } from "../../../redux/clothes/clothes-operations";
 import { useEffect } from "react";
-import { Ul } from "./ClothesList.styled";
+import { Ul, H3 } from "./ClothesList.styled";
 import { useRouter } from "next/router";
 import { getLocationOrigin } from "next/dist/shared/lib/utils";
 import { getLoggedIn, getUser } from "../../../redux/auth/auth-selectors";
@@ -13,7 +13,7 @@ import changeGroup from "./changeGroup";
 import { deleteClothes } from "../../../redux/clothes/clothes-operations";
 import Pagination from "../../Pagination/Pagination";
 
-const ClothesList = ({ clothes }) => {
+const ClothesList = ({ clothes = [] }) => {
   // const dispatch = useDispatch();
 
   // useEffect(() => {
@@ -28,11 +28,14 @@ const ClothesList = ({ clothes }) => {
 
   return (
     <>
-      <Ul>
-        {
-          // changeGroup(pathname, clothes) &&
-          // changeGroup(pathname, clothes).map((item) => (
-          clothes.length > 0 &&
+      {clothes.length === 0 ? (
+        <H3>По вашому запиту нічого не знайдено</H3>
+      ) : (
+        <Ul>
+          {
+            // changeGroup(pathname, clothes) &&
+            // changeGroup(pathname, clothes).map((item) => (
+
             clothes.map((item) => (
               <ClothesItem
                 type={user}
@@ -42,7 +45,7 @@ const ClothesList = ({ clothes }) => {
                 name={item.name}
                 active={item.active}
                 code={item.code}
-                image={item.image}
+                image={item.image.length > 0 ? item.image[0] : item.image}
                 owner={item.owner}
                 model={item.model}
                 discount={item.discount}
@@ -55,8 +58,10 @@ const ClothesList = ({ clothes }) => {
                 dell={() => dispatch(deleteClothes(item._id))}
               />
             ))
-        }
-      </Ul>
+          }
+        </Ul>
+      )}
+
       {/* <Pagination clothes={changeGroup(pathname, clothes)} /> */}
       {/* <Li>
         <Link href={path}>{title}</Link>

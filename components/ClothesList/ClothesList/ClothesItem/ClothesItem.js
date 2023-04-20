@@ -17,20 +17,25 @@ import { useRouter } from "next/router";
 import OnSale from "../../../OnSale/OnSale";
 import { useEffect, useState } from "react";
 import { getComments } from "../../../../services/api";
-const ClothesItem = ({
-  pathname,
-  id,
-  code,
-  name,
-  prices,
-  model,
-  active,
-  owner,
-  image,
-  type,
-  dell,
-  discount,
-}) => {
+import { ColorRing } from "react-loader-spinner";
+import { useTranslation } from "react-i18next";
+const ClothesItem = (
+  {
+    pathname,
+    id,
+    code,
+    name,
+    prices,
+    model,
+    active,
+    owner,
+    image,
+    type,
+    dell,
+    discount,
+  } = ""
+) => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const router = useRouter();
   const { opt, price } = prices;
@@ -42,7 +47,7 @@ const ClothesItem = ({
           {discount > 0 ? (
             <TbDiscount
               style={{
-                position: "relative",
+                position: "absolute",
                 left: "80%",
                 zIndex: "1",
                 color: "yellow",
@@ -55,19 +60,43 @@ const ClothesItem = ({
           )}
 
           <Image
-            src={image.url}
+            src={
+              image?.secure_url ? (
+                image.secure_url
+              ) : (
+                <ColorRing
+                  visible={true}
+                  height="80"
+                  width="80"
+                  ariaLabel="blocks-loading"
+                  wrapperStyle={{}}
+                  wrapperClass="blocks-wrapper"
+                  colors={[
+                    "#e15b64",
+                    "#f47e60",
+                    "#f8b26a",
+                    "#abbd81",
+                    "#849b87",
+                  ]}
+                />
+              )
+            }
             alt={name}
-            fill
-            sizes="(max-width: 768px) 100vw,
-              (max-width: 1200px) 50vw,
-              33vw"
+            // fill
+            width={230}
+            height={230}
+            // sizes="(max-width: 768px) 100vw,
+            //   (max-width: 1200px) 50vw,
+            //   33vw"
           />
         </Link>
       </Div>
       <DivOptions>
         <Title>{name}</Title>
-        <P>code: {code}</P>
-        {pathname === "" ? <P>{model}</P> : <></>}
+        <P>
+          {t("Code")}: {code}
+        </P>
+        {pathname === "" ? <P>{t(`${model}`)}</P> : <></>}
         <>
           {type === "wholesaler" ? (
             <p>{opt} грн.</p>

@@ -64,9 +64,9 @@ const NovaPoshta = ({ handleInput, adresses, inputCity, department }) => {
                 </datalist>
               )}
             </li> */}
-      {inputCity === "" ||
-      inputCity.length <= 1 ||
-      adresses?.length === 0 ||
+      {inputCity === null ||
+      // inputCity.length <= 1 ||
+      // adresses?.length === 0 ||
       adresses === undefined ? (
         <></>
       ) : (

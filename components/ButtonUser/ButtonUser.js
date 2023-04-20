@@ -11,7 +11,7 @@ const ButtonUser = ({ toggleModal }) => {
 
   return (
     <Div>
-      {logged && user.name ? (
+      {logged && user?.name ? (
         <DivButton>
           <Button onClick={toggleModal}>
             <AvatarComponent

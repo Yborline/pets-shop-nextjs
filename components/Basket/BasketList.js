@@ -14,7 +14,9 @@ import {
   Ul,
   DivDelet,
   P,
+  SummaryTittle,
   DivButton,
+  TitleSumm,
 } from "./BasketList.styled";
 import Image from "next/image";
 import Counter from "../Counter/Counter";
@@ -46,20 +48,20 @@ const BasketList = ({}) => {
 
   // const [clotesCount, setClothesCount] = useState(clothes);
   // console.log(clotesCount);
+  console.log(clotheActual);
   console.log(clotheActual.length);
   console.log(clothesBasket.length);
   useEffect(() => {
     if (clotheActual.length !== clothesBasket.length) {
       dispatch(changeActualCard(clotheActual));
     }
-  }, [clothesBasket, dispatch, clothesMain, clotheActual]);
+  }, [clotheActual, clothesBasket, dispatch]);
 
   useEffect(() => {
     dispatch(fetchClothes());
   }, [dispatch]);
 
   const notify = (text) => {
-    dispatch(clearShoppingCard());
     notifySuccessOrder(text);
   };
 
@@ -94,7 +96,10 @@ const BasketList = ({}) => {
                 )
               )}
             </Ul>
-            <SummaryPrice cards={clotheActual} />
+            <SummaryTittle>
+              <TitleSumm>Cумма до сплати :</TitleSumm>
+              <SummaryPrice tag="h4" cards={clotheActual} />
+            </SummaryTittle>
             <DivButton>
               <Button
                 height="30px"
@@ -119,8 +124,8 @@ const BasketList = ({}) => {
                 setOpenOrder={setOpenOrder}
                 clothes={clotheActual}
                 notify={notify}
+                deleteBasket={() => dispatch(clearShoppingCard())}
               />
-
             )}
           </>
         ) : (

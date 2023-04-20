@@ -44,6 +44,15 @@ export const getComments = async (id) => {
     console.log(error.message);
   }
 };
+
+export const addComment = async ({ id, text }) => {
+  try {
+    const { data } = await axios.post(`/comments/${id}`, { text: text });
+    return data.result;
+  } catch (error) {
+    console.log(error.message);
+  }
+};
 export const getClothById = async (id) => {
   try {
     const { data } = await axios.get(`/clothes/${id}`);
@@ -67,6 +76,24 @@ export const getFetchType = async ({ page, path }) => {
   try {
     const { data } = await axios.get(`/clothes/${path}?page=${page}&limit=30`);
     return data;
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export const getFetchClothes = async ({ page }) => {
+  try {
+    const { data } = await axios.get(`/clothes?page=${page}&limit=30`);
+    return data;
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export const getFetchClothesId = async (id) => {
+  try {
+    const { data } = await axios.get(`/clothes/${id}`);
+    return data.data.result;
   } catch (error) {
     console.log(error.message);
   }

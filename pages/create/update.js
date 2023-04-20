@@ -4,18 +4,21 @@ import { useDispatch, useSelector } from "react-redux";
 import CLothesForm from "../../components/ClothesForm/ClothesForm";
 import { fetchClothesId } from "../../redux/clothes/clothes-operations";
 import { getClothesId } from "../../redux/clothes/clothes-selector";
-const CorrectionCloth = () => {
+import { getFetchClothesId } from "../../services/api";
+const CorrectionCloth = ({ cloth }) => {
   const dispatch = useDispatch();
   const router = useRouter();
   const { id } = router.query;
-  const cloth = useSelector(getClothesId);
-
-  useEffect(() => {
-    if (id) {
-      dispatch(fetchClothesId(id));
-    }
-  }, [dispatch, id]);
   console.log(cloth);
+  // const cloth = useSelector(getClothesId);
+
+  // useEffect(() => {
+  //   if (id) {
+  //     dispatch(fetchClothesId(id));
+  //   }
+  // }, [dispatch, id]);
+
+  // console.log(cloth);
 
   const {
     description,
@@ -103,7 +106,7 @@ const CorrectionCloth = () => {
     model: model,
     description: description,
   };
-  console.log(cloth.length);
+
   return (
     <>
       {cloth.name ? (
@@ -114,5 +117,15 @@ const CorrectionCloth = () => {
     </>
   );
 };
+
+export async function getServerSideProps({ query }) {
+  const data = await getFetchClothesId(query.id);
+
+  return {
+    props: {
+      cloth: data || null,
+    },
+  };
+}
 
 export default CorrectionCloth;

@@ -9,12 +9,30 @@ align-items: center;
 padding-left: 0px;
 `
 
+export const TitleSumm = styled.h4`
+margin-right: 5px;`
+
 export const Div = styled.div`
 
   margin-top: 60px;
   padding: 20px;
+      @media screen and (min-width: 768px) {
+  padding: 0px 60px 0px  60px;
+
+    }
+          @media screen and (min-width: 1280px) {
+  padding: 0px 100px 0px  100px;
+
+    }
+
+
 `;
 
+
+export const SummaryTittle = styled.div`
+display: flex;
+justify-content: center;
+`
 export const Li = styled.li`
 
 border: 1px solid;

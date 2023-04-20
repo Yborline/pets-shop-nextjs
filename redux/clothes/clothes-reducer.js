@@ -22,11 +22,11 @@ import {
 } from "./clothes-actions";
 
 export const items = createReducer(
-  { clothes: [], count: 0, allClothes: [] },
+  { allClothes: [], id: {}, clothes: [] },
   {
     // [fetchClothes.fulfilled]: (state, { payload = {} }) => ({
     //   ...state,
-    //   clothes: [...payload.data.clothes],
+    //   clothes: [...payload.data],
     // }),
     [filterSearch.fulfilled]: (state, { payload = [] }) => ({
       ...state,
@@ -47,10 +47,10 @@ export const items = createReducer(
     //   type: [...payload.type],
     //   countType: payload.allPage,
     // }),
-    // [fetchClothesId.fulfilled]: (state, { payload = {} }) => ({
-    //   ...state,
-    //   id: { ...payload.data.result },
-    // }),
+    [fetchClothesId.fulfilled]: (state, { payload = {} }) => ({
+      ...state,
+      id: { ...payload.data.result },
+    }),
     [addClothes.fulfilled]: (state, { payload }) => ({
       ...state,
       clothes: [...state.clothes, payload.data],
@@ -90,7 +90,7 @@ export const shoppingCart = createReducer(
           return payload.some((item2) => item._id === item2._id);
         }),
       ],
-      clothes: [...state.clothes, payload],
+      clothes: [...payload],
     }),
 
     [clearShoppingCard]: (state, { payload }) => ({
@@ -135,15 +135,15 @@ export const shoppingCart = createReducer(
   }
 );
 
-export const changeFilter = createReducer(
-  { filterName: "" },
-  {
-    [changeFilterName]: (state, { payload = "" }) => ({
-      ...state,
-      filterName: payload,
-    }),
-  }
-);
+// export const changeFilter = createReducer(
+//   { filterName: "" },
+//   {
+//     [changeFilterName]: (state, { payload = "" }) => ({
+//       ...state,
+//       filterName: payload,
+//     }),
+//   }
+// );
 
 export const loadingCloth = createReducer(false, {
   [filterSearch.pending]: () => true,

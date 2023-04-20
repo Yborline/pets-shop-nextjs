@@ -9,24 +9,32 @@ import { fetchType } from "../../../redux/clothes/clothes-operations";
 import { getCountType } from "../../../redux/clothes/clothes-selector";
 import { getFetchType } from "../../../services/api";
 import ClothesList from "../../../components/ClothesList/ClothesList/ClothesList";
-import { Div } from "./index.styled";
+import { Div, DivSpinner } from "../../../styles/type.styled";
+import { usePageLoading } from "../../../hook";
+import { ColorRing } from "react-loader-spinner";
 
-const Embroidery = ({ clothes, count }) => {
+const Type = ({ clothes, count }) => {
+  const { isPageLoading } = usePageLoading();
   // const dispatch = useDispatch();
   // const clothes = useSelector(getType);
   // const count = useSelector(getCountType);
   const router = useRouter();
   const searchPage = router.query.page;
   const type = router.query.type;
-  console.log(clothes);
-  const handleChange = (event, value) => {
+
+  const handleChange = async (event, value) => {
     if (value) {
       router.query.page = value;
-      router.push(router);
-    } else {
-      router.query.page = stringPage;
-      router.push(router);
+      router.push(
+        `${router.pathname}?page=${router.query.page}&type=${router.query.type}`
+      );
+      // console.log(router);
+      // router.push(router);
     }
+    // else {
+    //   router.query.page = searchPage;
+    //   router.push(router);
+    // }
   };
 
   // useEffect(() => {
@@ -38,19 +46,35 @@ const Embroidery = ({ clothes, count }) => {
   return (
     <Div>
       <ClothesListType />
-      <Suspense fallback={<h1>Loading...</h1>}>
-        <ClothesList clothes={clothes} />
-      </Suspense>
-      {clothes.length === 0 ? (
-        <></>
-      ) : (
-        <Pagination
-          currentPage={Number(searchPage)}
-          clothes={clothes}
-          count={count}
-          handleChange={handleChange}
-        />
-      )}
+      <div>
+        {isPageLoading ? (
+          <DivSpinner>
+            <ColorRing
+              visible={true}
+              height="80"
+              width="80"
+              ariaLabel="blocks-loading"
+              wrapperStyle={{}}
+              wrapperClass="blocks-wrapper"
+              colors={["#e15b64", "#f47e60", "#f8b26a", "#abbd81", "#849b87"]}
+            />
+          </DivSpinner>
+        ) : (
+          <>
+            <ClothesList clothes={clothes} />
+            {clothes.length === 0 ? (
+              <></>
+            ) : (
+              <Pagination
+                currentPage={Number(searchPage)}
+                clothes={clothes}
+                count={count}
+                handleChange={handleChange}
+              />
+            )}
+          </>
+        )}
+      </div>
     </Div>
   );
 };
@@ -65,11 +89,12 @@ const Embroidery = ({ clothes, count }) => {
 
 export async function getServerSideProps({ query }) {
   const data = await getFetchType({ page: query.page, path: query.type });
+  const { type, allPage } = await data;
 
   return {
     props: {
-      clothes: data.type || null,
-      count: data.allPage || null,
+      clothes: type || null,
+      count: allPage || null,
     },
   };
 }
@@ -83,4 +108,4 @@ export async function getServerSideProps({ query }) {
 //   };
 // };
 
-export default Embroidery;
+export default Type;

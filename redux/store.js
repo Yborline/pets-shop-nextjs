@@ -9,7 +9,7 @@ import {
   items,
   shoppingCart,
   loadingCloth,
-  changeFilter,
+  // changeFilter,
   errorCloth,
 } from "./clothes/clothes-reducer";
 import {
@@ -76,7 +76,7 @@ export const store = configureStore({
   reducer: {
     auth: authRootReduceer,
     // clothes: combineReducers({ loadingCloth, items }),
-    clothes: combineReducers({ loadingCloth, items, changeFilter, errorCloth }),
+    clothes: combineReducers({ loadingCloth, items, errorCloth }),
     shopping: persistReducer(shoppingPersistConfig, shoppingCart),
   },
   middleware,

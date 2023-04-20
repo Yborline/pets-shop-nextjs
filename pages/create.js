@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import CLothesForm from "../components/ClothesForm/ClothesForm";
 import { getUser } from "../redux/auth/auth-selectors";
 
-import { DivSpinner } from "./create.styled";
+import { DivSpinner } from "../styles/create.styled";
 import { ThreeDots } from "react-loader-spinner";
 import { getLoadingCloth } from "../redux/clothes/clothes-selector";
 import { use, useEffect } from "react";

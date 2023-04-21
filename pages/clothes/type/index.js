@@ -12,6 +12,7 @@ import ClothesList from "../../../components/ClothesList/ClothesList/ClothesList
 import { Div, DivSpinner } from "../../../styles/type.styled";
 import { usePageLoading } from "../../../hook";
 import { ColorRing } from "react-loader-spinner";
+import ButtonUp from "../../../components/ButtonUp/ButtonUp";
 
 const Type = ({ clothes, count }) => {
   const { isPageLoading } = usePageLoading();
@@ -75,6 +76,7 @@ const Type = ({ clothes, count }) => {
           </>
         )}
       </div>
+      <ButtonUp />
     </Div>
   );
 };

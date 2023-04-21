@@ -12,8 +12,8 @@ position: static;
 export const Input = styled.input`
 width: 200px;
 border: 1.5px solid;
-height: 25px;
-border-radius: 5px;
+height: 30px;
+border-radius: 10px;
 @media screen and  (min-width: 768px){
     width: 400px;
 }

@@ -29,17 +29,19 @@ export const Div = styled.div`
 display:flex;
 flex-direction: column;
 align-items: center;
-
-
-
-
 `
-export const Select = styled.select`
 
+export const DivOther = styled.div`
+display:flex;
+justify-content:center;`
+
+export const Select = styled.select`
+border: 1.5px solid;
 border-radius: 10px;
 height: 30px;
 width: 200px;
 margin-bottom: 15px;
+
 `
 
 

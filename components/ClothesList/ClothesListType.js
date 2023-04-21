@@ -1,7 +1,14 @@
 import clothesMenu from "../clothesMenu/clothesMenu";
 import ClothesType from "./ClothesType/ClothesType";
 import ClothesList from "./ClothesList/ClothesList";
-import { Ul, Div, DivType, Select, Option } from "./ClothesListType.styled";
+import {
+  Ul,
+  Div,
+  DivType,
+  Select,
+  Option,
+  DivOther,
+} from "./ClothesListType.styled";
 import { useState, useEffect } from "react";
 import Modal from "../Modal";
 import CLothesForm from "../ClothesForm/ClothesForm";
@@ -58,7 +65,7 @@ const ClothesListType = () => {
           <CLothesForm onSave={toggleModal} toggleModal={toggleModal} />
         </Modal>
       )} */}
-      <div>
+      <DivOther>
         {windowWidth.current > 767 ? (
           <Ul style={{ padding: "0px" }}>
             {clothesMenu.map(({ page, type, id, title, parent }) => (
@@ -73,8 +80,11 @@ const ClothesListType = () => {
             ))}
           </Ul>
         ) : (
-          <Select onChange={(event) => handleChange(event)}>
-            <option value="" disabled selected hidden>
+          <Select
+            defaultValue="Model"
+            onChange={(event) => handleChange(event)}
+          >
+            <option value="Model" disabled hidden>
               {t("Model")}
             </option>
             {clothesMenu.map(({ page, type, id, title }) => (
@@ -90,7 +100,7 @@ const ClothesListType = () => {
             ))}
           </Select>
         )}
-      </div>
+      </DivOther>
       {user?.user === "admin" && <Link href="/create">Create</Link>}
 
       {/* {loading ? (

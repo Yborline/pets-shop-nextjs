@@ -28,6 +28,7 @@ import { Div, DivSpinner, DivColumn } from "../styles/clothes.styled";
 import { usePageLoading } from "../hook";
 import { ColorRing } from "react-loader-spinner";
 import { getFetchClothes } from "../services/api";
+import ButtonUp from "../components/ButtonUp/ButtonUp";
 
 // export const getStaticProprs = async (context) => {
 //   const response = await fetch(
@@ -120,13 +121,14 @@ const Clothes = () =>
                     clothes={clothes}
                     count={count}
                     handleChange={handleChange}
-                    currentPage={Number(searchPage)}
+                    currentPage={searchPage ? Number(searchPage) : 1}
                   />
                 )}
               </>
             )}
           </div>
         </DivColumn>
+        <ButtonUp />
       </Div>
     );
   };

@@ -1,5 +1,4 @@
 export const options = [
-  { value: "Choose a model", label: "Виберіть модель" },
   { value: "overall", label: "комбінезон" },
   { value: "vest", label: "Жилет" },
   { value: "blanket", label: "Попон" },

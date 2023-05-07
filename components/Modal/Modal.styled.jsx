@@ -5,7 +5,7 @@ export const Backdrop = styled.div`
 position: fixed;
 top: 0;
 left:0;
-z-index:5;
+z-index:10;
 
 width: 100%;
 height: 100%;
@@ -19,7 +19,7 @@ height: 100%;
 export const ModalConent = styled.div`
 
 
-margin-top: 60px;
+
     position: absolute;
     top: 0%;
     width: 100%;
@@ -27,7 +27,7 @@ margin-top: 60px;
     @media screen and (min-width: 768px) {
       max-height:550px;
 max-width:310px;
-z-index:5;
+z-index:10;
         left: 50%;
     top: 40%;
     margin-left: -120px;

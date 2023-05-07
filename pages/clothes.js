@@ -80,7 +80,7 @@ const Clothes = () =>
           dispatch(fetchClothes({ page: "1" }));
         }
       } else {
-        dispatch(filterSearch({ text: input, page: searchPage }));
+        dispatch(filterSearch({ text: input, page: searchPage, limit: 30 }));
       }
     }, [dispatch, input, searchPage]);
 
@@ -89,30 +89,31 @@ const Clothes = () =>
         <Head>
           <title>Clothes</title>
         </Head>
-        <FilterName value={input} saveInput={setInput} />
+        <FilterName
+          heightInput="30px"
+          position="center"
+          height="50px"
+          value={input}
+          saveInput={setInput}
+        />
         <DivColumn>
-          <ClothesListType clothes={clothes} count={count} />
-          <div>
-            {loadingCloth || isPageLoading ? (
-              <DivSpinner>
-                <ColorRing
-                  visible={true}
-                  height="80"
-                  width="80"
-                  ariaLabel="blocks-loading"
-                  wrapperStyle={{}}
-                  wrapperClass="blocks-wrapper"
-                  colors={[
-                    "#e15b64",
-                    "#f47e60",
-                    "#f8b26a",
-                    "#abbd81",
-                    "#849b87",
-                  ]}
-                />
-              </DivSpinner>
-            ) : (
-              <>
+          {/* <div> */}
+          {loadingCloth || isPageLoading ? (
+            <DivSpinner>
+              <ColorRing
+                visible={true}
+                height="80"
+                width="80"
+                ariaLabel="blocks-loading"
+                wrapperStyle={{}}
+                wrapperClass="blocks-wrapper"
+                colors={["#e15b64", "#f47e60", "#f8b26a", "#abbd81", "#849b87"]}
+              />
+            </DivSpinner>
+          ) : (
+            <>
+              <ClothesListType clothes={clothes} count={count} />
+              <div>
                 <ClothesList clothes={clothes} />
                 {clothes.length === 0 ? (
                   <></>
@@ -124,9 +125,10 @@ const Clothes = () =>
                     currentPage={searchPage ? Number(searchPage) : 1}
                   />
                 )}
-              </>
-            )}
-          </div>
+              </div>
+            </>
+          )}
+          {/* </div> */}
         </DivColumn>
         <ButtonUp />
       </Div>

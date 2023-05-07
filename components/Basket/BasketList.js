@@ -17,6 +17,7 @@ import {
   SummaryTittle,
   DivButton,
   TitleSumm,
+  DivEndOrder,
 } from "./BasketList.styled";
 import Image from "next/image";
 import Counter from "../Counter/Counter";
@@ -29,7 +30,7 @@ import {
 } from "../../redux/clothes/clothes-actions";
 import { MdOutlineDeleteOutline } from "react-icons/md";
 import actualCard from "./actualCard";
-import SummaryPrice from "./summaryPrice/SummaryPrice";
+import SummaryPrice from "./SummaryPrice/SummaryPrice";
 import { fetchClothes } from "../../redux/clothes/clothes-operations";
 import OnSale from "../OnSale/OnSale";
 import BasketItem from "./BasketItem/BasketItem";
@@ -45,6 +46,7 @@ const BasketList = ({}) => {
   const clothesBasket = useSelector(getBasket);
   const clotheActual = useSelector(getActualCard);
   const [openOrder, setOpenOrder] = useState(false);
+  const [numberOrder, setNumberOrder] = useState(null);
 
   // const [clotesCount, setClothesCount] = useState(clothes);
   // console.log(clotesCount);
@@ -61,9 +63,11 @@ const BasketList = ({}) => {
   //   dispatch(fetchClothes());
   // }, [dispatch]);
 
-  const notify = (text) => {
+  const notify = (text, number) => {
     notifySuccessOrder(text);
+    setNumberOrder(number);
   };
+  console.log(numberOrder);
 
   return (
     <>
@@ -129,7 +133,17 @@ const BasketList = ({}) => {
             )}
           </>
         ) : (
-          <p>Ваша корзина порожня!</p>
+          <DivEndOrder>
+            {numberOrder && (
+              <>
+                <h3>Ваш номер заказу #{numberOrder}</h3>
+                <p>
+                  {"Запам'ятайте або запишіть собі для питань по замовленню"}
+                </p>
+              </>
+            )}
+            <h3>Ваша корзина порожня!</h3>
+          </DivEndOrder>
         )}
       </Div>
     </>

@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 export const Div = styled.div`
 
-background-color: ${({ theme }) => theme.gray};
+
 `
 
 
@@ -11,8 +11,15 @@ export const Container = styled.div`
 
 min-height: 100%;
 display: flex;
+flex-direction: column;
 justify-content: center;
-align-items: stretch;
+align-items: center;
+
+margin-top: 60px;
+ @media screen and (min-width: 768px) {
+margin-top: 100px;
+}
+
 `
 
 export const DivList = styled.div`

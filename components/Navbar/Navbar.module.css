@@ -1,0 +1,14 @@
+.sprite{
+display: flex;
+  @media screen and (min-width: 768px) {
+        display: flex;
+        }
+  
+
+
+
+}
+
+.sprite:hover{
+filter: invert(52%) sepia(31%) saturate(895%) hue-rotate(128deg) brightness(104%) contrast(98%);
+}

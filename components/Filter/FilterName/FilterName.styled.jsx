@@ -3,8 +3,9 @@ import styled from "styled-components";
 export const Div = styled.div`
 display:flex;
 justify-content:center;
+align-items:${(props) => props.position} ;
 width: 100%;
-height: 50px;
+height: ${(props) => props.height};
 position: static;
 
 `
@@ -12,7 +13,7 @@ position: static;
 export const Input = styled.input`
 width: 200px;
 border: 1.5px solid;
-height: 30px;
+height: ${(props) => props.heightInput};
 border-radius: 10px;
 @media screen and  (min-width: 768px){
     width: 400px;

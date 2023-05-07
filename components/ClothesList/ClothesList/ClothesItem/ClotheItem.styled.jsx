@@ -8,7 +8,7 @@ export const Li = styled.li`
 color:${({theme}) => theme.textBlack};
 border-radius: 4px;
 max-width: 300px;
-background-color:white;
+background-color:${({theme}) => theme.backgroundCart};
 margin-bottom: 10px;
 :hover{
     box-shadow: 0 10px 10px -5px rgba(0, 0, 0, 0.3);

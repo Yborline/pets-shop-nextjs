@@ -13,6 +13,7 @@ import MyDocument from "./_document";
 import { fetchAllClothes } from "../redux/clothes/clothes-operations";
 import { CacheProvider } from "@emotion/react";
 import { Suspense } from "react";
+import FilterProvider from "../components/context/FilterProvider";
 
 const MyApp = ({ Component, ...rest }) => {
   const { store, props } = wrapper.useWrappedStore(rest);
@@ -22,11 +23,13 @@ const MyApp = ({ Component, ...rest }) => {
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <ProviderContext>
-          <Suspense fallback={<h1>Loading...</h1>}>
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
-          </Suspense>
+          <FilterProvider>
+            <Suspense fallback={<h1>Loading...</h1>}>
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
+            </Suspense>
+          </FilterProvider>
         </ProviderContext>
       </PersistGate>
     </Provider>

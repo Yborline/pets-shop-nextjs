@@ -131,10 +131,10 @@ export const updateDiscount = createAsyncThunk(
 
 export const filterSearch = createAsyncThunk(
   "clothes/fiterSearch",
-  async ({ text, page }, thunkAPI) => {
+  async ({ text, page, limit }, thunkAPI) => {
     try {
       const { data } = await axios.post(
-        `clothes/filter?page=${page}&limit=30`,
+        `clothes/filter?page=${page}&limit=${limit}`,
         {
           text: text,
         }

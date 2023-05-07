@@ -78,3 +78,9 @@ export const P = styled.p`
 export const DivButton = styled.div`
 display: flex;
 justify-content:center;`
+
+export const DivEndOrder = styled.div`
+display: flex;
+
+flex-direction: column;
+align-items: center;`

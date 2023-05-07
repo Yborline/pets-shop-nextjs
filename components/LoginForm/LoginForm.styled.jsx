@@ -44,5 +44,6 @@ width:100%;`
 
 export const Input = styled.input`
 height: 30px;
-width:100%;`
+width:100%;
+border-radius:5px;`
 

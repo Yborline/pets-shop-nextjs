@@ -10,9 +10,7 @@ export const DivType = styled.div`
 export const Ul = styled.ul`
 margin-left: 10px;
 background-color:#B0C4DE;
-position:fixed;
-top: 60px;
-left:0px;
+
 border-radius :5px;
 border-right: 2px solid #808080;
 border-bottom: 2px solid #808080;
@@ -26,9 +24,12 @@ text-align: center;
 
 
 export const Div = styled.div`
-display:flex;
-flex-direction: column;
-align-items: center;
+
+     @media screen and (min-width: 768px) {
+    position: sticky;
+    height: 100%;
+    top: 140px;
+}
 `
 
 export const DivOther = styled.div`

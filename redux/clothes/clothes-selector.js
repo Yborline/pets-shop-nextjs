@@ -68,7 +68,6 @@ export const getActualCard = createSelector(
     });
 
     const normalArray = actualP.flat();
-    console.log(normalArray);
     const add = [];
 
     basket.map((item) => {

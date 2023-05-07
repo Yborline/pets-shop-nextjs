@@ -115,6 +115,9 @@ const MakeOnOrder = ({ clothes, setOpenOrder, notify, deleteBasket }) => {
   //   console.log(inputCity);
 
   //   console.log(adresses);
+  const getRandomInt = (max) => {
+    return Math.floor(Math.random() * max);
+  };
 
   const handleSubmit = (values, formikProps) => {
     console.log(inputCity);
@@ -127,7 +130,9 @@ const MakeOnOrder = ({ clothes, setOpenOrder, notify, deleteBasket }) => {
 
       return;
     }
+    const numOrder = getRandomInt(999999);
     const order = {
+      numberOrder: numOrder,
       name: values.name,
       surname: values.surname,
       email: values.email,
@@ -145,7 +150,8 @@ const MakeOnOrder = ({ clothes, setOpenOrder, notify, deleteBasket }) => {
     deleteBasket();
 
     notify(
-      `Ваше замовлення відправленнinputCityо, найближчим часом з вами зв'яжуться!`
+      `Ваше замовлення відправленнinputCityо, найближчим часом з вами зв'яжуться!`,
+      numOrder
     );
 
     formikProps.resetForm();

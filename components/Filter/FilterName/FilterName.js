@@ -14,7 +14,7 @@ import { FiSearch } from "react-icons/fi";
 
 import { useTranslation } from "react-i18next";
 
-const FilterName = ({ saveInput }) => {
+const FilterName = ({ heightInput, saveInput, height, position }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   // const filterName = useSelector(getFilterName);
@@ -46,12 +46,17 @@ const FilterName = ({ saveInput }) => {
   const debouncedOnChange = debounce(handleChange, 350);
 
   return (
-    <Div>
+    <Div position={position} height={height}>
       <label>
         {/* {t("Search")} */}
         {/* <FcSearch /> */}
 
-        <Input name="filter" type="text" onChange={debouncedOnChange} />
+        <Input
+          heightInput={heightInput}
+          name="filter"
+          type="text"
+          onChange={debouncedOnChange}
+        />
         <FiSearch style={{ position: "relative", right: "25px", top: "3px" }} />
       </label>
     </Div>

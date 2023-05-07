@@ -9,7 +9,13 @@ import { fetchType } from "../../../redux/clothes/clothes-operations";
 import { getCountType } from "../../../redux/clothes/clothes-selector";
 import { getFetchType } from "../../../services/api";
 import ClothesList from "../../../components/ClothesList/ClothesList/ClothesList";
-import { Div, DivSpinner } from "../../../styles/type.styled";
+import {
+  Div,
+  DivSpinner,
+  DivColumn,
+  DivMain,
+  DivContent,
+} from "../../../styles/type.styled";
 import { usePageLoading } from "../../../hook";
 import { ColorRing } from "react-loader-spinner";
 import ButtonUp from "../../../components/ButtonUp/ButtonUp";
@@ -46,8 +52,7 @@ const Type = ({ clothes, count }) => {
 
   return (
     <Div>
-      <ClothesListType />
-      <div>
+      <DivMain>
         {isPageLoading ? (
           <DivSpinner>
             <ColorRing
@@ -61,21 +66,24 @@ const Type = ({ clothes, count }) => {
             />
           </DivSpinner>
         ) : (
-          <>
-            <ClothesList clothes={clothes} />
-            {clothes.length === 0 ? (
-              <></>
-            ) : (
-              <Pagination
-                currentPage={Number(searchPage)}
-                clothes={clothes}
-                count={count}
-                handleChange={handleChange}
-              />
-            )}
-          </>
+          <DivColumn>
+            <ClothesListType />
+            <DivContent>
+              <ClothesList clothes={clothes} />
+              {clothes.length === 0 ? (
+                <></>
+              ) : (
+                <Pagination
+                  currentPage={Number(searchPage)}
+                  clothes={clothes}
+                  count={count}
+                  handleChange={handleChange}
+                />
+              )}
+            </DivContent>
+          </DivColumn>
         )}
-      </div>
+      </DivMain>
       <ButtonUp />
     </Div>
   );

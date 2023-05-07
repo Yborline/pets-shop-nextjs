@@ -8,6 +8,7 @@ import {
   Select,
   Option,
   DivOther,
+  
 } from "./ClothesListType.styled";
 import { useState, useEffect } from "react";
 import Modal from "../Modal";
@@ -59,7 +60,7 @@ const ClothesListType = () => {
   // }, [dispatch]);
 
   return (
-    <div>
+    <Div>
       {/* {showModal && (
         <Modal close={toggleModal}>
           <CLothesForm onSave={toggleModal} toggleModal={toggleModal} />
@@ -116,7 +117,7 @@ const ClothesListType = () => {
       ) : ( */}
 
       {/* )} */}
-    </div>
+    </Div>
   );
 };
 

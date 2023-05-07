@@ -52,6 +52,7 @@ const CLothesForm = ({ initial, notify, cloth, id }) => {
       validationSchema={validationSchema}
       onSubmit={(values, formikProps) => {
         console.log(values);
+        console.log(img);
         const exit = clothes.find((item) => item.code === values.code);
 
         if (pathname === "/create") {
@@ -92,11 +93,12 @@ const CLothesForm = ({ initial, notify, cloth, id }) => {
             <DivInputTop>
               <Label>image</Label>
               <InputImg
+                multiple
                 id="image"
                 name="image"
                 type="file"
                 onChange={(event) => {
-                  setImage(event.target.files[0]);
+                  setImage(event.target.files);
                 }}
               />
               {errors.image && touched.image && errors.image}
@@ -124,8 +126,8 @@ const CLothesForm = ({ initial, notify, cloth, id }) => {
               {errors.code && touched.code && errors.code}
             </DivInputTop>
             <DivInputTop>
-              <Label>model</Label>
-              <Field component="select" name="model">
+              <Label>Model</Label>
+              <Field component="select" defaultValue="Model" name="model">
                 {options.map((option) => (
                   <option key={option.value} value={option.value}>
                     {option.label}

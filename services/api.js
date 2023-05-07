@@ -126,6 +126,7 @@ export const getFetchClothesId = async (id) => {
 //   });
 
 export const postMail = async ({
+  numberOrder,
   name,
   surname,
   email,
@@ -138,6 +139,7 @@ export const postMail = async ({
 }) => {
   try {
     const { data } = await axios.post(`/clothes/mail`, {
+      numberOrder,
       name,
       surname,
       email,

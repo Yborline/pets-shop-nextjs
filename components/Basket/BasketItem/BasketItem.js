@@ -34,14 +34,6 @@ const BasketItem = ({
   const deleteCard = (_id) => {
     dispatch(deleteCardBasket(_id));
   };
-  // console.log(currentPrice);
-  // const changePrice = (price) => {
-  //   setCurrentPrice(price);
-  // };
-
-  useEffect(() => {
-    dispatch(fetchAllClothes());
-  }, [dispatch]);
 
   return (
     <>

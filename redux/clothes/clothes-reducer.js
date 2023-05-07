@@ -176,6 +176,4 @@ export const errorCloth = createReducer(null, {
   [fetchClothes.pending]: () => null,
   [filterSearch.rejected]: (_, action) => action.payload,
   [filterSearch.pending]: () => null,
-  [filterSearch.rejected]: (_, action) => action.payload,
-  [filterSearch.pending]: () => null,
 });

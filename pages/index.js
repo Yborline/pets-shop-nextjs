@@ -43,8 +43,8 @@ export default function Home() {
   const clothes = useSelector(getAllClothes);
   const { user } = useSelector(getUser);
 
-  console.log(_.sampleSize(clothes, 3)); // 👉️ [ 'bobby', 'com' ]
-  console.log(_.sampleSize(clothes, 5)); // 👉️ [ 'com', '.' ]
+  // console.log(_.sampleSize(clothes, 3)); // 👉️ [ 'bobby', 'com' ]
+  // console.log(_.sampleSize(clothes, 5)); // 👉️ [ 'com', '.' ]
 
   useEffect(() => {
     // dispatch(fetchAllClothes());

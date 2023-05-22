@@ -37,7 +37,7 @@ margin-bottom: 15px;
 `
 
 export const DivImage = styled.div`
-
+background-color:${({theme})=> theme.yelowLight};
 max-width: 100px;
 height: 300px;
 

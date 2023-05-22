@@ -4,7 +4,7 @@ export const options = [
   { value: "blanket", label: "Попон" },
   { value: "jacket", label: "Куртк" },
   { value: "suit", label: "Костюм" },
-  { value: "skinny", label: "Худі" },
+  // { value: "skinny", label: "Худі" },
   { value: "bomber", label: "Бомбер" },
   { value: "sweatshirt", label: "Світшот" },
   { value: "trousers", label: "штанці" },

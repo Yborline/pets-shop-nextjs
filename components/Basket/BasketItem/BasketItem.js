@@ -41,7 +41,7 @@ const BasketItem = ({
         <Link href={`/clothes/${_id.split("-")[0]}`}>
           <Image
             style={{ borderRadius: "5px 0px 0px 5px" }}
-            src={image?.url}
+            src={image[0]?.url}
             alt={name}
             fill
             sizes="(max-width: 768px) 100px,

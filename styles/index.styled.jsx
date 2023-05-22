@@ -17,7 +17,7 @@ align-items: center;
 
 margin-top: 60px;
  @media screen and (min-width: 768px) {
-margin-top: 100px;
+
 }
 
 `

@@ -47,7 +47,10 @@ export const formDataAppend = (values, img) => {
   data.append("allprice[xl7][opt]", values.allprice.xl7.opt);
   data.append("allprice[xl7][active]", values.allprice.xl7.active);
   data.append("description", values.description);
-  data.append("image", img);
+  // data.append("image", img);
+  for (let file of img) {
+    data.append("image", file);
+  }
 
   return data;
 };

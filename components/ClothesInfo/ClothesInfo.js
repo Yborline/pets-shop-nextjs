@@ -25,6 +25,7 @@ import Button from "../Button/Button";
 import { Suspense } from "react";
 import { ColorRing } from "react-loader-spinner";
 import { useTranslation } from "react-i18next";
+import GallaryComponent from "../GallaryComponent/GallaryComponent";
 
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
@@ -173,81 +174,7 @@ const ClothesInfo = ({ id, cloth, notifyError, notifySuccess }) => {
         {cloth && cloth.name ? (
           <DivMain>
             <Div>
-              <Carousel
-                // width={windowWidth.current < 768 ? "70%" : "100%"}
-                showArrows={true}
-                showThumbs={false}
-              >
-                {image.length > 1 ? (
-                  image.map((item, index) => (
-                    <DivImage key={index}>
-                      <Image
-                        src={
-                          item.secure_url ? (
-                            item.secure_url
-                          ) : (
-                            <ColorRing
-                              visible={true}
-                              height="80"
-                              width="80"
-                              ariaLabel="blocks-loading"
-                              wrapperStyle={{}}
-                              wrapperClass="blocks-wrapper"
-                              colors={[
-                                "#e15b64",
-                                "#f47e60",
-                                "#f8b26a",
-                                "#abbd81",
-                                "#849b87",
-                              ]}
-                            />
-                          )
-                        }
-                        alt={name}
-                        fill
-                        // srcset="small.jpg 500w, medium.jpg 1000w, large.jpg 1500w"
-                        sizes="(max-width: 768px) 50vw,
-              (max-width: 1200px) 100vw,
-              33vw"
-                        // style={{ objectFit: "contain" }}
-                      />
-                    </DivImage>
-                  ))
-                ) : (
-                  <DivImage>
-                    <Image
-                      src={
-                        image.secure_url ? (
-                          image.secure_url
-                        ) : (
-                          <ColorRing
-                            visible={true}
-                            height="80"
-                            width="80"
-                            ariaLabel="blocks-loading"
-                            wrapperStyle={{}}
-                            wrapperClass="blocks-wrapper"
-                            colors={[
-                              "#e15b64",
-                              "#f47e60",
-                              "#f8b26a",
-                              "#abbd81",
-                              "#849b87",
-                            ]}
-                          />
-                        )
-                      }
-                      alt={name}
-                      fill
-                      // srcset="small.jpg 500w, medium.jpg 1000w, large.jpg 1500w"
-                      sizes="(max-width: 768px) 100vw,
-              (max-width: 1200px) 50vw,
-              33vw"
-                      // style={{ objectFit: "contain" }}
-                    />
-                  </DivImage>
-                )}
-              </Carousel>
+              <GallaryComponent image={image} name={name} />
               <DivSizes>
                 <h2>{name}</h2>
                 <P>

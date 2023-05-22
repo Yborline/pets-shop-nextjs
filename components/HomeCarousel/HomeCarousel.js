@@ -67,20 +67,33 @@
 import Link from "next/link";
 import React, { useState } from "react";
 import ItemsCarousel from "react-items-carousel";
-import { ArrowButton, DivMain } from "./HomeCarousel.styled";
+import { ArrowButton, DivMain, DivPrice } from "./HomeCarousel.styled";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import OnSale from "../OnSale/OnSale";
+import { useWindowWidth } from "@react-hook/window-size";
 
 const HomeCarousel = ({ clothes }) => {
   const [activeItemIndex, setActiveItemIndex] = useState(0);
+  const width = useWindowWidth();
   const chevronWidth = 40;
+  console.log(clothes);
   return (
-    <DivMain style={{ padding: `0 ${chevronWidth}px` }}>
+    <DivMain style={{ padding: `0 ${chevronWidth}px`, overflowY: "hidden" }}>
       <ItemsCarousel
+        style={
+          //   "display:flex",
+          // "justify-content: center",
+          {
+            overflowY: "hidden",
+          }
+        }
         requestToChangeActive={setActiveItemIndex}
         activeItemIndex={activeItemIndex}
-        numberOfCards={5}
-        gutter={20}
+        numberOfCards={
+          width < 768 ? 1 : width < 1000 ? 3 : width < 1280 ? 5 : 7
+        }
+        gutter={0}
         leftChevron={
           <ArrowBackIosIcon>
             <ArrowButton />
@@ -98,12 +111,18 @@ const HomeCarousel = ({ clothes }) => {
           <Link href={`/clothes/${item._id}`} key={item._id}>
             <div
               style={{
-                height: 200,
-                background: `url(${item.image[0].secure_url})`,
+                overflowY: "hidden",
+                height: 150,
+
+                background: `url(${item.image[0]?.secure_url})`,
                 backgroundPosition: "50% 50%",
-                backgroundSize: "cover",
+                backgroundSize: "contain",
+                backgroundRepeat: "no-repeat",
               }}
             ></div>
+            <DivPrice>
+              <h4>{item.name}</h4>
+            </DivPrice>
           </Link>
         ))}
         {/* <div

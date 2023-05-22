@@ -10,6 +10,7 @@ export const Price = styled.p`
 text-decoration:line-through;
 color:${({ theme }) => theme.discount};
 margin-right:5px;
+z-index: 3;
 `
 
 

@@ -31,7 +31,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a lo
 import { Carousel } from "react-responsive-carousel";
 import { useRef } from "react";
 
-const ClothesInfo = ({ id, cloth, notifyError, notifySuccess }) => {
+const ClothesInfo = ({ id, cloth = {}, notifyError, notifySuccess }) => {
   const windowWidth = useRef(window.innerWidth);
   const { t } = useTranslation();
   const size = [
@@ -55,6 +55,7 @@ const ClothesInfo = ({ id, cloth, notifyError, notifySuccess }) => {
   const clothBasket = useSelector(getBasket);
   // const cloth = useSelector(getClothesId);
   const dispatch = useDispatch();
+
   const {
     _id,
     name,
@@ -64,27 +65,29 @@ const ClothesInfo = ({ id, cloth, notifyError, notifySuccess }) => {
     model,
     image,
     discount,
-  } = cloth;
-  const { xs, s, sm, m, ml, l, xl, xxl, xl3, xl4, xl5, xl6, xl7 } = allprice;
+  } = cloth || {};
+  const { xs, s, sm, m, ml, l, xl, xxl, xl3, xl4, xl5, xl6, xl7 } =
+    allprice || {};
 
   const [currentBtn, setCurrentBtn] = useState({});
   useEffect(() => {
-    setCurrentBtn(
-      // user?.user === "wholesaler"
-      user === "wholesaler"
-        ? {
-            ...cloth,
-            amount: 1,
-            _id: `${cloth._id}-xs`,
-            allprice: { price: xs?.opt, size: "xs" },
-          }
-        : {
-            ...cloth,
-            amount: 1,
-            _id: `${cloth._id}-xs`,
-            allprice: { price: xs?.price, size: "xs" },
-          }
-    );
+    cloth &&
+      setCurrentBtn(
+        // user?.user === "wholesaler"
+        user === "wholesaler"
+          ? {
+              ...cloth,
+              amount: 1,
+              _id: `${cloth._id}-xs`,
+              allprice: { price: xs?.opt, size: "xs" },
+            }
+          : {
+              ...cloth,
+              amount: 1,
+              _id: `${cloth._id}-xs`,
+              allprice: { price: xs?.price, size: "xs" },
+            }
+      );
   }, [cloth, user, xs?.opt, xs?.price]);
 
   const toggleMenu = () => {
@@ -171,47 +174,52 @@ const ClothesInfo = ({ id, cloth, notifyError, notifySuccess }) => {
   return (
     <>
       <>
-        {cloth && cloth.name ? (
-          <DivMain>
-            <Div>
-              <GallaryComponent image={image} name={name} />
-              <DivSizes>
-                <h2>{name}</h2>
-                <P>
-                  {t(`Code`)} : {code}
-                </P>
-                <P>
-                  {t(`Model`)} : {t(`${model}`)}
-                </P>
-                <Ul>
-                  {size.map((item, index) => (
-                    <Li key={index}>
-                      <Button
-                        active={
-                          currentBtn?.allprice?.size === item ? true : false
-                        }
-                        height="25px"
-                        text={item.toLocaleUpperCase()}
-                        name={item}
-                        handleClick={changePrice}
-                      />
-                    </Li>
-                  ))}
-                </Ul>
-                {/* <p>
+        {!cloth ? (
+          <h2>Такого елементу не знайдено</h2>
+        ) : (
+          <>
+            {cloth && cloth.name ? (
+              <DivMain>
+                <Div>
+                  <GallaryComponent image={image} name={name} />
+                  <DivSizes>
+                    <h2>{name}</h2>
+                    <P>
+                      {t(`Code`)} : {code}
+                    </P>
+                    <P>
+                      {t(`Model`)} : {t(`${model}`)}
+                    </P>
+                    <Ul>
+                      {size.map((item, index) => (
+                        <Li key={index}>
+                          <Button
+                            active={
+                              currentBtn?.allprice?.size === item ? true : false
+                            }
+                            height="25px"
+                            text={item.toLocaleUpperCase()}
+                            name={item}
+                            handleClick={changePrice}
+                          />
+                        </Li>
+                      ))}
+                    </Ul>
+                    {/* <p>
                 {currentBtn.allprice.size} :{currentBtn.allprice.price} грн
               </p> */}
-                <P>
-                  {currentBtn?.allprice?.size} :
-                  {currentBtn.discount > 0 ? (
-                    <Span>{currentBtn?.allprice?.price} грн </Span>
-                  ) : (
-                    <></>
-                  )}
-                  {onSale(currentBtn?.allprice?.price, currentBtn.discount)} грн
-                </P>
+                    <P>
+                      {currentBtn?.allprice?.size} :
+                      {currentBtn.discount > 0 ? (
+                        <Span>{currentBtn?.allprice?.price} грн </Span>
+                      ) : (
+                        <></>
+                      )}
+                      {onSale(currentBtn?.allprice?.price, currentBtn.discount)}{" "}
+                      грн
+                    </P>
 
-                {/* {currentBtn?.allprice?.price ? (
+                    {/* {currentBtn?.allprice?.price ? (
 
               ) : (
                 <p>
@@ -222,52 +230,54 @@ const ClothesInfo = ({ id, cloth, notifyError, notifySuccess }) => {
                   грн
                 </p>
               )} */}
-                <Button
-                  handleClick={saveShoppingCart}
-                  text={<HiOutlineShoppingCart size="20px" />}
-                ></Button>
+                    <Button
+                      handleClick={saveShoppingCart}
+                      text={<HiOutlineShoppingCart size="20px" />}
+                    ></Button>
 
-                {/* <button onClick={saveShoppingCart}>
+                    {/* <button onClick={saveShoppingCart}>
                   <HiOutlineShoppingCart size="20px" />
                 </button> */}
-              </DivSizes>
-            </Div>
-            <h4>{t("Description")}</h4>
-            <Description>{cloth.description}</Description>
-            {user === "admin" ? (
-              <>
-                <button onClick={toggleMenu}>
-                  {openMenu ? t("Closed") : t("Amend")}
-                </button>
-                {openMenu ? (
+                  </DivSizes>
+                </Div>
+                <h4>{t("Description")}</h4>
+                <Description>{cloth.description}</Description>
+                {user === "admin" ? (
                   <>
-                    <DivCorrection>
-                      <Link
-                        href={{
-                          pathname: `/create/update`,
-                          query: { id: _id },
-                        }}
-                      >
-                        {t("Edit")}
-                      </Link>
-                    </DivCorrection>
-                    <div>
-                      <p>
-                        {t("Discount")} {discount} грн
-                      </p>
-                      <DiscountForm id={_id} />
-                    </div>
+                    <button onClick={toggleMenu}>
+                      {openMenu ? t("Closed") : t("Amend")}
+                    </button>
+                    {openMenu ? (
+                      <>
+                        <DivCorrection>
+                          <Link
+                            href={{
+                              pathname: `/create/update`,
+                              query: { id: _id },
+                            }}
+                          >
+                            {t("Edit")}
+                          </Link>
+                        </DivCorrection>
+                        <div>
+                          <p>
+                            {t("Discount")} {discount} грн
+                          </p>
+                          <DiscountForm id={_id} />
+                        </div>
+                      </>
+                    ) : (
+                      <></>
+                    )}
                   </>
                 ) : (
                   <></>
                 )}
-              </>
+              </DivMain>
             ) : (
-              <></>
+              ""
             )}
-          </DivMain>
-        ) : (
-          ""
+          </>
         )}
       </>
     </>

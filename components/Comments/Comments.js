@@ -12,13 +12,14 @@ const Comments = ({ newComment, comments = [] }) => {
         </li>
       )}
 
-      {comments.map((item, index) => (
-        <li key={item._id}>
-          <p>{item.authorName}</p>
-          <p>{item.authorLastName}</p>
-          <p>{item.text}</p>
-        </li>
-      ))}
+      {comments &&
+        comments.map((item, index) => (
+          <li key={item._id}>
+            <p>{item.authorName}</p>
+            <p>{item.authorLastName}</p>
+            <p>{item.text}</p>
+          </li>
+        ))}
     </Ul>
   );
 };

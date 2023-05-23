@@ -20,7 +20,7 @@ import { usePageLoading } from "../../hook";
 import ClothesInfo from "../../components/ClothesInfo/ClothesInfo";
 import CommentAdd from "../../components/CommentAdd/CommentAdd";
 
-const ClothPage = ({ cloth, comments = [] }) => {
+const ClothPage = ({ cloth = {}, comments = [] }) => {
   const [newComment, setNewComment] = useState({});
 
   console.log(newComment);
@@ -86,11 +86,12 @@ const ClothPage = ({ cloth, comments = [] }) => {
           />
 
           <ToastContainer />
-          <CommentAdd save={changeComment} id={cloth} />
-          <Comments
-            newComment={newComment}
-            comments={comments ? comments : []}
-          />
+          {cloth && (
+            <>
+              <CommentAdd save={changeComment} id={cloth} />
+              <Comments newComment={newComment} comments={comments} />
+            </>
+          )}
         </DivMain>
       )}
       {/* )} */}
@@ -100,11 +101,11 @@ const ClothPage = ({ cloth, comments = [] }) => {
 
 export async function getServerSideProps({ params }) {
   const data = await getComments(params.id);
-  const { data: result } = await getClothById(params.id);
-
+  const result = await getClothById(params.id);
+  console.log(result);
   return {
     props: {
-      cloth: result.result || null,
+      cloth: result || null,
       comments: data || null,
     },
   };

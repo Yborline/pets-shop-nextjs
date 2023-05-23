@@ -1,5 +1,6 @@
-import Link from "next/link";
+
 import styled from "styled-components";
+import Image from "next/image";
 
 
 export const ArrowButton = styled.button`
@@ -11,7 +12,7 @@ export const ArrowButton = styled.button`
 export const DivMain = styled.div`
 
 padding: 40px;
-width: 100%;
+width: 50%;
 
  
 `
@@ -23,13 +24,18 @@ justify-content: center;
 align-items: flex-start;
 `
 
-export const ImageLink = styled(Link)`
-display:flex;
-justify-content: center;
-width: 200px;
-height:200px;`
+
 
 export const DivItem = styled.div`
 display: flex;
 flex-direction: column;
 align-items:center;`
+
+export const Img = styled(Image)`
+                    overflow-y: hidden;
+                 
+                    object-fit: contain;
+`
+
+export const H3 = styled.h3`
+text-align:center;`

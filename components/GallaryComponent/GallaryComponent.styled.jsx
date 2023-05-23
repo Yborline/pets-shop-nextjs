@@ -2,8 +2,9 @@ import styled from "styled-components"
 
 export const DivImage = styled.div`
 background-color:${({theme})=> theme.yelowLight};
-max-width: 100px;
-height: 300px;
+min-width: 200px;
+
+min-height: 300px;
 
 position:relative;
 z-index: 3;
@@ -20,10 +21,28 @@ max-width: 1000px;
 
 `
 export const Div = styled.div`
-max-width: 500px;`
+max-width: 280px;
+ @media screen and (min-width: 1280px) {
+max-width: 500px;
+}`
 
 
 export const DivLeft = styled.div` 
+position: absolute;
+top: 0 ;
+bottom:0 ;
+left:0;
+right: 10px;
+width: 50%;
+display:flex; 
+justify-content: flex-start;
+align-items: center;
+opacity: 0.6;
+opacity:30 ; 
+:hover{opacity: 0.33;} ;
+cursor:pointer ;
+z-index:1;
+ @media screen and (min-width: 768px) {
 position: absolute;
 top: 0 ;
 bottom:0 ;
@@ -37,6 +56,7 @@ opacity:30 ;
 :hover{opacity: 0.33;} ;
 cursor:pointer ;
 z-index:1;
+}
 
 `
 

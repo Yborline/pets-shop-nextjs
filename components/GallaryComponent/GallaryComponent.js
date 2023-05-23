@@ -11,7 +11,7 @@ import { ColorRing } from "react-loader-spinner";
 import { IoMdArrowForward, IoMdArrowBack } from "react-icons/io";
 
 const GallaryComponent = ({ image, name }) => {
-  console.log(image);
+  // console.log(image);
   return (
     <Div>
       <Carousel
@@ -53,17 +53,17 @@ const GallaryComponent = ({ image, name }) => {
         renderThumbs={() =>
           image.map((item) => (
             <Image
+              key={item.asset_id}
               width={100}
               height={80}
               src={item.secure_url}
               alt={name}
-              key={item._id}
             />
           ))
         }
       >
-        {image?.map((item, index) => (
-          <DivImage key={index}>
+        {image?.map((item) => (
+          <DivImage key={item.asset_id}>
             <Image
               src={
                 item.secure_url ? (

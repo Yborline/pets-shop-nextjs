@@ -40,7 +40,7 @@ export const items = createReducer(
     }),
     [fetchAllClothes.fulfilled]: (state, { payload = [] }) => ({
       ...state,
-      allClothes: [...payload.data],
+      allClothes: [...payload?.data],
     }),
     // [fetchType.fulfilled]: (state, { payload = [] }) => ({
     //   ...state,

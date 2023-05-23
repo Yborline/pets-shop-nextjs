@@ -67,16 +67,23 @@
 import Link from "next/link";
 import React, { useState } from "react";
 import ItemsCarousel from "react-items-carousel";
-import { ArrowButton, DivMain, DivPrice } from "./HomeCarousel.styled";
+import {
+  ArrowButton,
+  DivMain,
+  DivPrice,
+  ImageLink,
+  DivItem,
+} from "./HomeCarousel.styled";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import OnSale from "../OnSale/OnSale";
 import { useWindowWidth } from "@react-hook/window-size";
+import Image from "next/image";
 
 const HomeCarousel = ({ clothes }) => {
   const [activeItemIndex, setActiveItemIndex] = useState(0);
   const width = useWindowWidth();
-  const chevronWidth = 40;
+  const chevronWidth = 50;
   console.log(clothes);
   return (
     <DivMain style={{ padding: `0 ${chevronWidth}px`, overflowY: "hidden" }}>
@@ -91,9 +98,9 @@ const HomeCarousel = ({ clothes }) => {
         requestToChangeActive={setActiveItemIndex}
         activeItemIndex={activeItemIndex}
         numberOfCards={
-          width < 768 ? 1 : width < 1000 ? 3 : width < 1280 ? 5 : 7
+          width < 768 ? 1 : width < 1200 ? 3 : width < 1620 ? 5 : 7
         }
-        gutter={0}
+        gutter={20}
         leftChevron={
           <ArrowBackIosIcon>
             <ArrowButton />
@@ -108,22 +115,42 @@ const HomeCarousel = ({ clothes }) => {
         chevronWidth={chevronWidth}
       >
         {clothes.map((item) => (
-          <Link href={`/clothes/${item._id}`} key={item._id}>
-            <div
-              style={{
-                overflowY: "hidden",
-                height: 150,
+          <DivItem key={item._id}>
+            <ImageLink href={`/clothes/${item._id}`}>
+              <Image
+                style={{
+                  overflowY: "hidden",
 
-                background: `url(${item.image[0]?.secure_url})`,
-                backgroundPosition: "50% 50%",
-                backgroundSize: "contain",
-                backgroundRepeat: "no-repeat",
-              }}
-            ></div>
+                  objectFit: "cover",
+
+                  // background: `url(${item.image[0]?.secure_url})`,
+                  // backgroundPosition: "50% 50%",
+                  // backgroundSize: "contain",
+                  // backgroundRepeat: "no-repeat",
+                }}
+                width={200}
+                height={200}
+                alt="clothes"
+                src={item.image[0]?.secure_url}
+              />
+              {/* <div
+                style={{
+                  overflowY: "hidden",
+                  height: 150,
+
+                  background: `url(${item.image[0]?.secure_url})`,
+                  backgroundPosition: "50% 50%",
+                  backgroundSize: "contain",
+                  backgroundRepeat: "no-repeat",
+                }}
+              ></div> */}
+            </ImageLink>
             <DivPrice>
-              <h4>{item.name}</h4>
+              <Link href={`/clothes/${item._id}`}>
+                <h4>{item.name}</h4>
+              </Link>
             </DivPrice>
-          </Link>
+          </DivItem>
         ))}
         {/* <div
           style={{

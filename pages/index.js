@@ -33,6 +33,8 @@ import { usePageLoading } from "../hook";
 import { ColorRing } from "react-loader-spinner";
 import ctxInput from "../components/context/filterContext";
 import HomeCarousel from "../components/HomeCarousel/HomeCarousel";
+import HomeSection from "../components/HomeSection/HomeSection";
+import ResponseCarousel from "../components/ResponseCarousel/ResponseCarousel";
 
 export default function Home() {
   const { input, inputIn } = useContext(ctxInput);
@@ -150,11 +152,13 @@ export default function Home() {
           )}
         </Ul>
       )}
-      <HomeCarousel clothes={_.sampleSize(clothes, 20)} />
 
+      <HomeSection />
+      <HomeCarousel clothes={_.sampleSize(clothes, 20)} />
       {/* <DivList>
         <HomeList />
       </DivList> */}
+      <ResponseCarousel />
     </Container>
   );
 }

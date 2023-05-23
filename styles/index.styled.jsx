@@ -10,14 +10,16 @@ export const Div = styled.div`
 export const Container = styled.div`
 
 min-height: 100%;
+max-width:100vw;
 display: flex;
 flex-direction: column;
 justify-content: center;
 align-items: center;
+padding: 0px 20px 0px 20px;
 
-margin-top: 60px;
  @media screen and (min-width: 768px) {
 
+margin-top: 20px;
 }
 
 `

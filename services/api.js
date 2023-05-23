@@ -1,5 +1,15 @@
 import axios from "axios";
 axios.defaults.baseURL = "https://petshop-api-dqwd.onrender.com/api/";
+import { createAsyncThunk } from "@reduxjs/toolkit";
+
+const token = {
+  set(token) {
+    axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+  },
+  unset() {
+    axios.defaults.headers.common.Authorization = "";
+  },
+};
 
 export const getCity = async (value) =>
   fetch("https://api.novaposhta.ua/v2.0/json/", {
@@ -56,7 +66,7 @@ export const addComment = async ({ id, text }) => {
 export const getClothById = async (id) => {
   try {
     const { data } = await axios.get(`/clothes/${id}`);
-    return data;
+    return data?.data?.result;
   } catch (error) {
     console.log(error.message);
   }
@@ -98,6 +108,47 @@ export const getFetchClothesId = async (id) => {
     console.log(error.message);
   }
 };
+
+export const getImagesHome = async () => {
+  try {
+    const { data } = await axios.get("/images");
+    return data;
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export const addImagesHome = createAsyncThunk(
+  "images/addImages",
+  async (values, thunkAPI) => {
+    const state = thunkAPI.getState();
+    const persistedToken = state.auth.user.token;
+    token.set(persistedToken);
+    try {
+      const { data } = await axios.post("/images", values, {
+        headers: { "content-type": "mulpipart/form-data" },
+      });
+      return data;
+    } catch (error) {
+      thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const deleteImagesHome = createAsyncThunk(
+  "images/deleteImagesHome",
+  async (id, thunkAPI) => {
+    const state = thunkAPI.getState();
+    const persistedToken = state.auth.user.token;
+    token.set(persistedToken);
+    try {
+      const { data } = await axios.delete(`/images/${id}`);
+      return data;
+    } catch (error) {
+      thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
 
 // export const postMail = async ({
 //   name,

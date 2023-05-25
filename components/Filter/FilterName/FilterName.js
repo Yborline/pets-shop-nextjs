@@ -15,8 +15,6 @@ import { FiSearch } from "react-icons/fi";
 import { useTranslation } from "react-i18next";
 
 const FilterName = ({ heightInput, saveInput, height, position }) => {
-  const { t } = useTranslation();
-  const dispatch = useDispatch();
   // const filterName = useSelector(getFilterName);
   // const [text, setText] = useState("");
 

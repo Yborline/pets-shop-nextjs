@@ -10,6 +10,7 @@ export const getLoadingCloth = (state) => state.clothes.loadingCloth;
 export const getBasket = (state) => state.shopping.clothes;
 export const getAmount = (state) => state.shopping.clothes.amount;
 export const getFilterName = (state) => state.clothes.changeFilter.filterName;
+export const getLoadingAllCloth = (state) => state.clothes.loadingAllCloth;
 // export const getLoadingClothe = (state) => state.clothes.loadingCloth;
 
 export const getVisibleClothes = createSelector(
@@ -71,7 +72,7 @@ export const getActualCard = createSelector(
     const add = [];
 
     basket.map((item) => {
-      const arrayBasketNormalId = normalArray.map((item2) => {
+      normalArray.map((item2) => {
         if (item._id.includes(item2._id)) {
           if (
             item.allprice.price !== item2.allprice[item.allprice.size]?.price ||

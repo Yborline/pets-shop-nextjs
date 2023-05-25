@@ -1,4 +1,3 @@
-import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 // import ClothesInfo from "../../components/ClothesInfo/ClothesInfo";
@@ -15,10 +14,27 @@ import "react-toastify/dist/ReactToastify.css";
 import { DivSpinner } from "../../styles/[id].styled";
 import { ColorRing, ThreeDots } from "react-loader-spinner";
 import { fetchAll, getClothById, getComments } from "../../services/api";
-import Comments from "../../components/Comments/Comments";
+// import Comments from "../../components/Comments/Comments";
 import { usePageLoading } from "../../hook";
-import ClothesInfo from "../../components/ClothesInfo/ClothesInfo";
-import CommentAdd from "../../components/CommentAdd/CommentAdd";
+// import CommentAdd from "../../components/CommentAdd/CommentAdd";
+import Spinner from "../../components/Spinner/Spinner";
+import dynamic from "next/dynamic";
+
+const ClothesInfo = dynamic(
+  () => import("../../components/ClothesInfo/ClothesInfo"),
+  {
+    loading: () => <Spinner />,
+  }
+);
+const CommentAdd = dynamic(
+  () => import("../../components/CommentAdd/CommentAdd"),
+  {
+    loading: () => <Spinner />,
+  }
+);
+const Comments = dynamic(() => import("../../components/Comments/Comments"), {
+  loading: () => <Spinner />,
+});
 
 const ClothPage = ({ cloth = {}, comments = [] }) => {
   const [newComment, setNewComment] = useState({});
@@ -66,17 +82,7 @@ const ClothPage = ({ cloth = {}, comments = [] }) => {
         </DivSpinner>
       ) : ( */}
       {isPageLoading ? (
-        <DivSpinner>
-          <ColorRing
-            visible={true}
-            height="80"
-            width="80"
-            ariaLabel="blocks-loading"
-            wrapperStyle={{}}
-            wrapperClass="blocks-wrapper"
-            colors={["#e15b64", "#f47e60", "#f8b26a", "#abbd81", "#849b87"]}
-          />
-        </DivSpinner>
+        <Spinner />
       ) : (
         <DivMain>
           <ClothesInfo
@@ -85,7 +91,6 @@ const ClothPage = ({ cloth = {}, comments = [] }) => {
             notifySuccess={notifySuccess}
           />
 
-          <ToastContainer />
           {cloth && (
             <>
               <CommentAdd save={changeComment} id={cloth} />

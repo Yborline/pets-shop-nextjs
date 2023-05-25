@@ -12,8 +12,13 @@ export const ArrowButton = styled.button`
 export const DivMain = styled.div`
 
 padding: 40px;
-width: 50%;
-
+width: 100%;
+ @media screen and (min-width: 768px) {
+width: 100%;
+}
+ @media screen and (min-width: 1260px) {
+width: 70%;
+}
  
 `
 

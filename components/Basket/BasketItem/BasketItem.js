@@ -29,6 +29,8 @@ const BasketItem = ({
   discount,
   index,
 }) => {
+  const noImage =
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/256px-No-Image-Placeholder.svg.png";
   const dispatch = useDispatch();
   // const [currentPrice, setCurrentPrice] = useState(null);
   const deleteCard = (_id) => {
@@ -41,7 +43,7 @@ const BasketItem = ({
         <Link href={`/clothes/${_id.split("-")[0]}`}>
           <Image
             style={{ borderRadius: "5px 0px 0px 5px" }}
-            src={image[0]?.url}
+            src={image[0]?.url ? image[0]?.url : noImage}
             alt={name}
             fill
             sizes="(max-width: 768px) 100px,

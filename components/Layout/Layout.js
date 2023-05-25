@@ -22,9 +22,10 @@ const Layout = ({ children }) => {
   // }, [dispatch]);
   useEffect(() => {
     setIsMounted(true);
+
     dispatch(authOperations.fetchCurrentUser());
     dispatch(fetchAllClothes());
-  }, [dispatch]);
+  }, [dispatch, isMounted]);
 
   return (
     <Body>

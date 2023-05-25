@@ -10,6 +10,7 @@ import { fetchClothes } from "../redux/clothes/clothes-operations";
 import { notifySuccess } from "../notify/notify";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
+import ToastifyContainer from "../components/ToastifyContainer/ToastifyContainer";
 
 const Create = () => {
   const type = useSelector(getUser);
@@ -63,17 +64,7 @@ const Create = () => {
         ) : (
           <h2>Такой страницы нет</h2>
         )}
-        <ToastContainer
-          position="top-center"
-          autoClose={2000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss={false}
-          draggable
-          pauseOnHover={false}
-        />
+        <ToastifyContainer />
       </>
       {/* )} */}
     </>

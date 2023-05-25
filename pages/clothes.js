@@ -29,6 +29,7 @@ import { usePageLoading } from "../hook";
 import { ColorRing } from "react-loader-spinner";
 import { getFetchClothes } from "../services/api";
 import ButtonUp from "../components/ButtonUp/ButtonUp";
+import Spinner from "../components/Spinner/Spinner";
 
 // export const getStaticProprs = async (context) => {
 //   const response = await fetch(
@@ -99,17 +100,7 @@ const Clothes = () =>
         <DivColumn>
           {/* <div> */}
           {loadingCloth || isPageLoading ? (
-            <DivSpinner>
-              <ColorRing
-                visible={true}
-                height="80"
-                width="80"
-                ariaLabel="blocks-loading"
-                wrapperStyle={{}}
-                wrapperClass="blocks-wrapper"
-                colors={["#e15b64", "#f47e60", "#f8b26a", "#abbd81", "#849b87"]}
-              />
-            </DivSpinner>
+            <Spinner />
           ) : (
             <>
               <ClothesListType clothes={clothes} count={count} />

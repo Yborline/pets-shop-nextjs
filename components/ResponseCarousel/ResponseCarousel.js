@@ -16,7 +16,7 @@ import {
 import { useDispatch } from "react-redux";
 import { formDataAppend } from "./formDataAppend";
 
-const ResponseCarousel = () => {
+const ResponseCarousel = ({ user, notifySuccess }) => {
   const [image, setImage] = useState({});
   const [activeItemIndex, setActiveItemIndex] = useState(0);
   const width = useWindowWidth();
@@ -33,30 +33,25 @@ const ResponseCarousel = () => {
     getImage();
   }, []);
 
-  const { images } = image || "";
+  const { images } = image || {};
 
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(addImagesHome(formDataAppend(files)));
+    notifySuccess("Ваші зображення добавлені");
   };
 
   const deleteImages = () => {
     console.log(image._id);
     dispatch(deleteImagesHome(image._id));
+    notifySuccess("Ваші зображення dddddddd");
   };
 
   return (
     <>
-      <H3>Наші відгуки</H3>
+      {images && <H3>Наші відгуки</H3>}
       <DivMain style={{ padding: `0 ${chevronWidth}px`, overflowY: "hidden" }}>
         <ItemsCarousel
-          style={
-            //   "display:flex",
-            // "justify-content: center",
-            {
-              overflowY: "hidden",
-            }
-          }
           requestToChangeActive={setActiveItemIndex}
           activeItemIndex={activeItemIndex}
           numberOfCards={1}
@@ -78,31 +73,43 @@ const ResponseCarousel = () => {
             images.map((item) => (
               <DivItem key={item.public_id}>
                 <Img
-                  width={600}
+                  width={
+                    width < 380
+                      ? 220
+                      : width < 768
+                      ? 280
+                      : width < 1280
+                      ? 450
+                      : 600
+                  }
                   height={300}
-                  alt="clothes"
+                  alt="response"
                   src={item.secure_url}
                 />
               </DivItem>
             ))}
         </ItemsCarousel>
       </DivMain>
-      <form onSubmit={handleSubmit}>
-        <label>image</label>
-        <input
-          multiple
-          id="image"
-          name="image"
-          type="file"
-          onChange={(event) => {
-            setFiles(event.target.files);
-          }}
-        />
-        <button type="submit">ok</button>
-      </form>
-      <button type="button" onClick={deleteImages}>
-        delete
-      </button>
+      {user === "admin" && (
+        <>
+          <form onSubmit={handleSubmit}>
+            <label>image</label>
+            <input
+              multiple
+              id="image"
+              name="image"
+              type="file"
+              onChange={(event) => {
+                setFiles(event.target.files);
+              }}
+            />
+            <button type="submit">ok</button>
+          </form>
+          <button type="button" onClick={deleteImages}>
+            delete
+          </button>
+        </>
+      )}
     </>
   );
 };

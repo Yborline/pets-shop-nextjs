@@ -3,11 +3,11 @@ import {
   DivContact,
   FooterDiv,
   UlIcons,
-  Div,
+  Li,
   Alink,
   AIcons,
   LiIcons,
-  DivInfo,
+  UlInfo,
 } from "./Footer.styled";
 import { RiInstagramFill } from "react-icons/ri";
 import { FaViber } from "react-icons/fa";
@@ -22,18 +22,21 @@ const Footer = () => {
     <FooterDiv>
       <DivContact>
         <Heading tag="h4" text={t("Contact Information")} />
-        <DivInfo>
-          <Div>
+        <UlInfo>
+          <Li>
             <FiPhoneCall size="20px" />
             <Alink href="tel: +380995097424">+38 (099) 509 74 24</Alink>
-          </Div>
-          <Div>
+          </Li>
+          <Li>
             <GoMail size="20px" />
-
-            <Alink href="mailto: borrline@gmail.com">borrline@gmail.com</Alink>
-          </Div>
-          <SocialIcons />
-        </DivInfo>
+            <Alink href="mailto:petshopua123@gmail.com">
+              petshopua123@gmail.com
+            </Alink>
+          </Li>
+          <li>
+            <SocialIcons />
+          </li>
+        </UlInfo>
       </DivContact>
     </FooterDiv>
   );

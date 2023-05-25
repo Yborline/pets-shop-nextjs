@@ -48,20 +48,15 @@ import Modal from "../Modal";
 import LoginForm from "../LoginForm/LoginForm";
 import { useSelector } from "react-redux";
 import { getActualCard, getBasket } from "../../redux/clothes/clothes-selector";
-import { AiOutlineHome } from "react-icons/ai";
-import { RiInstagramFill } from "react-icons/ri";
-import { FaViber } from "react-icons/fa";
-import { BsTelegram } from "react-icons/bs";
 import Image from "next/image";
 import sprite from "../../public/sprite/image.svg";
-// import Sprite from "../../public/sprite/dog.svg";
 import s from "./Navbar.module.css";
 import FilterName from "../Filter/FilterName/FilterName";
 import ctxInput from "../../components/context/filterContext";
 import SocialIcons from "../Footer/SocialIcons/SocialIcons";
+import ToastifyContainer from "../ToastifyContainer/ToastifyContainer";
 
 const Navbar = () => {
-  // const [screenWidth, setScreenWidth] = useState(320);
   const { input, inputIn } = useContext(ctxInput);
   const [showModal, setShowModal] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
@@ -114,7 +109,7 @@ const Navbar = () => {
       {width > 767 ? (
         <>
           <DivAbout>
-            <Link href="/aboutUs/parteners">{t(`Partners`)}</Link>
+            <Link href="/aboutUs/partners">{t(`Partners`)}</Link>
             <Link href="/aboutUs/aboutUs">{t(`About us`)}</Link>
             <Link href="/aboutUs/delivery">{t(`Delivery and payment`)}</Link>
 
@@ -378,6 +373,7 @@ const Navbar = () => {
           )}
         </UlNavigation>
       )}
+      <ToastifyContainer />
     </Nav>
   );
 };

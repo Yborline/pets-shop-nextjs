@@ -6,7 +6,8 @@ export const DivContact = styled.div`
 `
 
 export const FooterDiv = styled.footer`
-margin: 20px 0px 20px 0px;
+margin: 20px 0px 0px 0px;
+padding-bottom:20px;
 border-top: 1px solid  black;
 width: 100%;
 `
@@ -19,7 +20,7 @@ display: flex;
 
 
 
-export const Div = styled.div`
+export const Li = styled.li`
 display:flex;
 align-items: center;
 margin-bottom: 10px;
@@ -49,7 +50,7 @@ export const AIcons = styled.a`
 
 `
 
-export const DivInfo = styled.div`
+export const UlInfo = styled.ul`
 display:flex;
 flex-direction: column;
 align-items: center;

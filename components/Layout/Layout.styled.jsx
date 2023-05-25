@@ -5,7 +5,7 @@ margin-top: 60px;
 width: 100%;
       display: flex;
   flex-direction: column;
-  min-height: 75vh;
+  min-height: 70vh;
 
    @media screen and (min-width: 768px) {
 margin-top: 140px;

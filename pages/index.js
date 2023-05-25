@@ -25,33 +25,32 @@ import {
 import {
   getAllClothes,
   getClothes,
+  getLoadingAllCloth,
   getLoadingCloth,
 } from "../redux/clothes/clothes-selector";
 import { getUser } from "../redux/auth/auth-selectors";
 import ClothesItem from "../components/ClothesList/ClothesList/ClothesItem/ClothesItem";
 import { usePageLoading } from "../hook";
-import { ColorRing } from "react-loader-spinner";
+import Spinner from "../components/Spinner/Spinner";
 import ctxInput from "../components/context/filterContext";
 import HomeCarousel from "../components/HomeCarousel/HomeCarousel";
 import HomeSection from "../components/HomeSection/HomeSection";
 import ResponseCarousel from "../components/ResponseCarousel/ResponseCarousel";
+import { notifySuccessAll } from "../notify/notify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Home() {
   const { input, inputIn } = useContext(ctxInput);
+
   const { isPageLoading } = usePageLoading();
   const cloth = useSelector(getClothes);
-  const loadingCloth = useSelector(getLoadingCloth);
+  const LoadingAllCloth = useSelector(getLoadingAllCloth);
   const dispatch = useDispatch();
   const clothes = useSelector(getAllClothes);
   const { user } = useSelector(getUser);
 
   // console.log(_.sampleSize(clothes, 3)); // 👉️ [ 'bobby', 'com' ]
   // console.log(_.sampleSize(clothes, 5)); // 👉️ [ 'com', '.' ]
-
-  useEffect(() => {
-    // dispatch(fetchAllClothes());
-    // dispatch(authOperations.fetchCurrentUser());
-  }, [dispatch]);
 
   useEffect(() => {
     if (input !== "") {
@@ -77,49 +76,36 @@ export default function Home() {
         />
       </Div> */}
 
-      {isPageLoading ? (
-        <DivSpinner>
-          <ColorRing
-            visible={true}
-            height="80"
-            width="80"
-            ariaLabel="blocks-loading"
-            wrapperStyle={{}}
-            wrapperClass="blocks-wrapper"
-            colors={["#e15b64", "#f47e60", "#f8b26a", "#abbd81", "#849b87"]}
-          />
-        </DivSpinner>
-      ) : (
-        <Ul>
-          {cloth.length !== 0 ? (
-            <>
-              {" "}
-              {input !== "" &&
-                cloth.length >= 1 &&
-                cloth.length < 6 &&
-                !isPageLoading &&
-                cloth.map((item) => (
-                  <ClothesItem
-                    type={user}
-                    id={item._id}
-                    key={item._id}
-                    name={item.name}
-                    active={item.active}
-                    code={item.code}
-                    image={item.image[0]}
-                    owner={item.owner}
-                    model={item.model}
-                    discount={item.discount}
-                    prices={
-                      item.allprice?.xs
-                      // user === "wholesaler"
-                      //   ? item.allprice?.xs?.opt
-                      //   : item.allprice?.xs?.price
-                    }
-                    // dell={() => dispatch(deleteClothes(item._id))}
-                  />
-                ))}
-              {/* <Ul>
+      <Ul>
+        {cloth.length !== 0 && !LoadingAllCloth ? (
+          <>
+            {" "}
+            {input !== "" &&
+              cloth.length >= 1 &&
+              cloth.length < 6 &&
+              !isPageLoading &&
+              cloth.map((item) => (
+                <ClothesItem
+                  type={user}
+                  id={item._id}
+                  key={item._id}
+                  name={item.name}
+                  active={item.active}
+                  code={item.code}
+                  image={item.image[0]}
+                  owner={item.owner}
+                  model={item.model}
+                  discount={item.discount}
+                  prices={
+                    item.allprice?.xs
+                    // user === "wholesaler"
+                    //   ? item.allprice?.xs?.opt
+                    //   : item.allprice?.xs?.price
+                  }
+                  // dell={() => dispatch(deleteClothes(item._id))}
+                />
+              ))}
+            {/* <Ul>
             {clothes &&
               clothes.map(
                 (item) =>
@@ -146,19 +132,26 @@ export default function Home() {
                   )
               )}
           </Ul> */}
-            </>
-          ) : (
-            input !== "" && <h2>По вашому запиту нічого не знайдено!</h2>
-          )}
-        </Ul>
-      )}
+          </>
+        ) : (
+          input !== "" && <h2>По вашому запиту нічого не знайдено!</h2>
+        )}
+      </Ul>
 
       <HomeSection />
-      <HomeCarousel clothes={_.sampleSize(clothes, 20)} />
+      {isPageLoading && <Spinner />}
+      {LoadingAllCloth ? (
+        <Spinner />
+      ) : (
+        <>
+          <HomeCarousel clothes={_.sampleSize(clothes, 20)} />
+          <ResponseCarousel user={user} notifySuccess={notifySuccessAll} />
+        </>
+      )}
+
       {/* <DivList>
         <HomeList />
       </DivList> */}
-      <ResponseCarousel />
     </Container>
   );
 }

@@ -2,7 +2,10 @@ import Link from "next/link";
 // import { Li } from "./ClothesType.style";
 import ClothesItem from "./ClothesItem/ClothesItem";
 import { useDispatch, useSelector } from "react-redux";
-import { getVisibleClothes } from "../../../redux/clothes/clothes-selector";
+import {
+  getLoadingCloth,
+  getVisibleClothes,
+} from "../../../redux/clothes/clothes-selector";
 import { fetchClothes } from "../../../redux/clothes/clothes-operations";
 import { useEffect } from "react";
 import { Ul, H3 } from "./ClothesList.styled";
@@ -12,8 +15,11 @@ import { getLoggedIn, getUser } from "../../../redux/auth/auth-selectors";
 import changeGroup from "./changeGroup";
 import { deleteClothes } from "../../../redux/clothes/clothes-operations";
 import Pagination from "../../Pagination/Pagination";
+import { usePageLoading } from "../../../hook";
 
 const ClothesList = ({ clothes = [] }) => {
+  const loadingCloth = useSelector(getLoadingCloth);
+  const { isPageLoading } = usePageLoading();
   // const dispatch = useDispatch();
 
   // useEffect(() => {
@@ -28,7 +34,7 @@ const ClothesList = ({ clothes = [] }) => {
 
   return (
     <>
-      {clothes.length === 0 ? (
+      {clothes.length === 0 && !loadingCloth ? (
         <H3>По вашому запиту нічого не знайдено</H3>
       ) : (
         <Ul>

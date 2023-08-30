@@ -39,99 +39,98 @@ import { notifySuccessOrder } from "../../notify/notify";
 import { ToastContainer } from "react-toastify";
 import Button from "../Button/Button";
 import "react-toastify/dist/ReactToastify.css";
+import { usePageLoading } from "../../hooks/hook";
+import Spinner from "../Spinner/Spinner";
 
-const BasketList = ({}) => {
+const BasketList = ({ clotheActual, clothesBasket }) => {
   const dispatch = useDispatch();
-  const clothesMain = useSelector(getClothes);
-  const clothesBasket = useSelector(getBasket);
-  const clotheActual = useSelector(getActualCard);
+  const { isPageLoading } = usePageLoading();
   const [openOrder, setOpenOrder] = useState(false);
   const [numberOrder, setNumberOrder] = useState(null);
-
-  // const [clotesCount, setClothesCount] = useState(clothes);
-  // console.log(clotesCount);
-  console.log(clotheActual);
-  console.log(clotheActual.length);
-  console.log(clothesBasket.length);
-  useEffect(() => {
-    if (clotheActual.length !== clothesBasket.length) {
-      dispatch(changeActualCard(clotheActual));
-    }
-  }, [clotheActual, clothesBasket, dispatch]);
-
-  // useEffect(() => {
-  //   dispatch(fetchClothes());
-  // }, [dispatch]);
 
   const notify = (text, number) => {
     notifySuccessOrder(text);
     setNumberOrder(number);
   };
-  console.log(numberOrder);
 
   return (
     <>
       <Div>
         {clotheActual.length > 0 ? (
-          <>
-            <Ul>
-              {clotheActual.map(
-                (
-                  { amount, name, code, image, model, allprice, _id, discount },
-                  index
-                ) => (
-                  // <>
+          isPageLoading ? (
+            <Spinner />
+          ) : (
+            <>
+              <Ul>
+                {clotheActual.map(
+                  (
+                    {
+                      amount,
+                      name,
+                      code,
+                      image,
+                      model,
+                      allprice,
+                      _id,
+                      discount,
+                    },
+                    index
+                  ) => (
+                    // <>
 
-                  <Li key={_id}>
-                    {/* <button onClick={}></button> */}
-                    <BasketItem
-                      amount={amount}
-                      name={name}
-                      code={code}
-                      image={image}
-                      model={model}
-                      allprice={allprice}
-                      _id={_id}
-                      discount={discount}
-                      index={index}
-                    />
-                  </Li>
-                  // </>
-                )
-              )}
-            </Ul>
-            <SummaryTittle>
-              <TitleSumm>Cумма до сплати :</TitleSumm>
-              <SummaryPrice tag="h4" cards={clotheActual} />
-            </SummaryTittle>
-            <DivButton>
-              <Button
-                height="30px"
-                width="200px"
-                text={!openOrder ? "Зробити замовлення" : "Закрити замовлення"}
-                handleClick={() => setOpenOrder(!openOrder)}
-              ></Button>
-            </DivButton>
-            <ToastContainer
-              position="top-center"
-              autoClose={2000}
-              hideProgressBar={false}
-              newestOnTop={false}
-              closeOnClick
-              rtl={false}
-              pauseOnFocusLoss={false}
-              draggable
-              pauseOnHover={false}
-            />
-            {openOrder && (
-              <MakeOnOrder
-                setOpenOrder={setOpenOrder}
-                clothes={clotheActual}
-                notify={notify}
-                deleteBasket={() => dispatch(clearShoppingCard())}
+                    <Li key={_id}>
+                      {/* <button onClick={}></button> */}
+                      <BasketItem
+                        amount={amount}
+                        name={name}
+                        code={code}
+                        image={image}
+                        model={model}
+                        allprice={allprice}
+                        _id={_id}
+                        discount={discount}
+                        index={index}
+                      />
+                    </Li>
+                    // </>
+                  )
+                )}
+              </Ul>
+              <SummaryTittle>
+                <TitleSumm>Cумма до сплати :</TitleSumm>
+                <SummaryPrice tag="h4" cards={clotheActual} />
+              </SummaryTittle>
+              <DivButton>
+                <Button
+                  height="30px"
+                  width="200px"
+                  text={
+                    !openOrder ? "Зробити замовлення" : "Закрити замовлення"
+                  }
+                  handleClick={() => setOpenOrder(!openOrder)}
+                ></Button>
+              </DivButton>
+              <ToastContainer
+                position="top-center"
+                autoClose={2000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss={false}
+                draggable
+                pauseOnHover={false}
               />
-            )}
-          </>
+              {openOrder && (
+                <MakeOnOrder
+                  setOpenOrder={setOpenOrder}
+                  clothes={clotheActual}
+                  notify={notify}
+                  deleteBasket={() => dispatch(clearShoppingCard())}
+                />
+              )}
+            </>
+          )
         ) : (
           <DivEndOrder>
             {numberOrder && (

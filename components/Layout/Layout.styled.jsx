@@ -1,14 +1,15 @@
 import styled from "styled-components";
 
 export const Div = styled.div`
-margin-top: 60px;
+padding: 0px 20px 0px 20px;
+margin-top: 90px;
 width: 100%;
       display: flex;
   flex-direction: column;
   min-height: 70vh;
 
    @media screen and (min-width: 768px) {
-margin-top: 140px;
+margin-top: 150px;
 
 }
 `

@@ -15,7 +15,7 @@ import { getLoggedIn, getUser } from "../../../redux/auth/auth-selectors";
 import changeGroup from "./changeGroup";
 import { deleteClothes } from "../../../redux/clothes/clothes-operations";
 import Pagination from "../../Pagination/Pagination";
-import { usePageLoading } from "../../../hook";
+import { usePageLoading } from "../../../hooks/hook";
 
 const ClothesList = ({ clothes = [] }) => {
   const loadingCloth = useSelector(getLoadingCloth);
@@ -33,7 +33,7 @@ const ClothesList = ({ clothes = [] }) => {
   const pathname = router.pathname.slice(9);
 
   return (
-    <>
+    <div style={{ marginTop: "20px" }}>
       {clothes.length === 0 && !loadingCloth ? (
         <H3>По вашому запиту нічого не знайдено</H3>
       ) : (
@@ -72,7 +72,7 @@ const ClothesList = ({ clothes = [] }) => {
       {/* <Li>
         <Link href={path}>{title}</Link>
       </Li> */}
-    </>
+    </div>
   );
 };
 export default ClothesList;

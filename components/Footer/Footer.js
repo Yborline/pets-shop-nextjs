@@ -16,28 +16,33 @@ import { GoMail } from "react-icons/go";
 import { FiPhoneCall } from "react-icons/fi";
 import { useTranslation } from "react-i18next";
 import SocialIcons from "./SocialIcons/SocialIcons";
+import ListInfo from "./ListInfo/ListInfo";
+import { useWindowWidth } from "@react-hook/window-size";
+import FooterDesktop from "./FooterDesktop/FooterDesktop";
+import useToggleModal from "../../hooks/useToggleModal";
+import Modal from "../Modal/Modal";
+import LoginForm from "../LoginForm/LoginForm";
+import { useRouter } from "next/router";
 const Footer = () => {
+  const width = useWindowWidth();
   const { t } = useTranslation();
+  const [showModal, toggleModal] = useToggleModal();
+  const { pathname } = useRouter();
   return (
     <FooterDiv>
       <DivContact>
         <Heading tag="h4" text={t("Contact Information")} />
-        <UlInfo>
-          <Li>
-            <FiPhoneCall size="20px" />
-            <Alink href="tel: +380995097424">+38 (099) 509 74 24</Alink>
-          </Li>
-          <Li>
-            <GoMail size="20px" />
-            <Alink href="mailto:petshopua123@gmail.com">
-              petshopua123@gmail.com
-            </Alink>
-          </Li>
-          <li>
-            <SocialIcons />
-          </li>
-        </UlInfo>
+        {width > 769 ? (
+          <FooterDesktop toggleModal={() => toggleModal()} />
+        ) : (
+          <ListInfo />
+        )}
       </DivContact>
+      {showModal && (
+        <Modal path={pathname} close={toggleModal}>
+          <LoginForm toggleModal={toggleModal} />
+        </Modal>
+      )}
     </FooterDiv>
   );
 };

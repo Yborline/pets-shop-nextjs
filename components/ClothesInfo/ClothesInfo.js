@@ -1,9 +1,7 @@
-import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Div,
   DivMain,
-  DivImage,
   Ul,
   Span,
   Description,
@@ -14,7 +12,7 @@ import {
 } from "./ClothesInfo.styled";
 import { getUser } from "../../redux/auth/auth-selectors";
 import { useEffect, useState } from "react";
-import authOperations from "../../redux/auth/auth-operatins";
+
 import { HiOutlineShoppingCart } from "react-icons/hi";
 import { changeShoppingCard } from "../../redux/clothes/clothes-actions";
 import { getClothesId, getBasket } from "../../redux/clothes/clothes-selector";
@@ -22,17 +20,13 @@ import Link from "next/link";
 import DiscountForm from "../discountForm/discountForm";
 import onSale from "../../calculation/makeDiscount";
 import Button from "../Button/Button";
-import { Suspense } from "react";
-import { ColorRing } from "react-loader-spinner";
+
 import { useTranslation } from "react-i18next";
 import GallaryComponent from "../GallaryComponent/GallaryComponent";
-
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
-import { Carousel } from "react-responsive-carousel";
 import { useRef } from "react";
 
 const ClothesInfo = ({ id, cloth = {}, notifyError, notifySuccess }) => {
-  const windowWidth = useRef(window.innerWidth);
   const { t } = useTranslation();
   const size = [
     "xs",
@@ -93,24 +87,8 @@ const ClothesInfo = ({ id, cloth = {}, notifyError, notifySuccess }) => {
   const toggleMenu = () => {
     setOpenMenu(!openMenu);
   };
-  // }, [cloth, user?.user, xs?.opt, xs?.price]);
-
-  // const [currentBtn, setCurrentBtn] = useState({
-  //   size: "",
-  //   price: 0,
-  // });
-  // console.log(currentBtn);
-  // console.log(cloth);
-  // console.log(image);
 
   const changeBtn = (size = cloth.allprice.xs, key) => {
-    // console.log(e.currentTarget.name);
-    // console.log(e.currentTarget.value);
-    // {
-    //   size: e.currentTarget.name,
-    //   price: e.currentTarget.value,
-    // }
-
     setCurrentBtn(
       user === "wholesaler"
         ? {
@@ -178,7 +156,7 @@ const ClothesInfo = ({ id, cloth = {}, notifyError, notifySuccess }) => {
           <h2>Такого елементу не знайдено</h2>
         ) : (
           <>
-            {cloth && cloth.name ? (
+            {cloth && cloth.name && (
               <DivMain>
                 <Div>
                   <GallaryComponent image={image} name={name} />
@@ -205,49 +183,36 @@ const ClothesInfo = ({ id, cloth = {}, notifyError, notifySuccess }) => {
                         </Li>
                       ))}
                     </Ul>
-                    {/* <p>
-                {currentBtn.allprice.size} :{currentBtn.allprice.price} грн
-              </p> */}
                     <P>
                       {currentBtn?.allprice?.size} :
-                      {currentBtn.discount > 0 ? (
+                      {currentBtn.discount > 0 && (
                         <Span>{currentBtn?.allprice?.price} грн </Span>
-                      ) : (
-                        <></>
                       )}
                       {onSale(currentBtn?.allprice?.price, currentBtn.discount)}{" "}
                       грн
                     </P>
 
-                    {/* {currentBtn?.allprice?.price ? (
-
-              ) : (
-                <p>
-                  xs :
-                  {user?.user === "wholesaler"
-                    ? cloth.allprice.xs.opt
-                    : cloth.allprice.xs.price}
-                  грн
-                </p>
-              )} */}
                     <Button
                       handleClick={saveShoppingCart}
                       text={<HiOutlineShoppingCart size="20px" />}
                     ></Button>
-
-                    {/* <button onClick={saveShoppingCart}>
-                  <HiOutlineShoppingCart size="20px" />
-                </button> */}
                   </DivSizes>
                 </Div>
+                <Link href="/aboutUs/measurements">
+                  <Button
+                    width={"200px"}
+                    height={"30px"}
+                    text="зробити заміри"
+                  ></Button>
+                </Link>
                 <h4>{t("Description")}</h4>
                 <Description>{cloth.description}</Description>
-                {user === "admin" ? (
+                {user === "admin" && (
                   <>
                     <button onClick={toggleMenu}>
                       {openMenu ? t("Closed") : t("Amend")}
                     </button>
-                    {openMenu ? (
+                    {openMenu && (
                       <>
                         <DivCorrection>
                           <Link
@@ -266,16 +231,10 @@ const ClothesInfo = ({ id, cloth = {}, notifyError, notifySuccess }) => {
                           <DiscountForm id={_id} />
                         </div>
                       </>
-                    ) : (
-                      <></>
                     )}
                   </>
-                ) : (
-                  <></>
                 )}
               </DivMain>
-            ) : (
-              ""
             )}
           </>
         )}

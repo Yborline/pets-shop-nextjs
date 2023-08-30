@@ -59,8 +59,8 @@ export const items = createReducer(
     [updateById.fulfilled]: (state, { payload }) => ({
       ...state,
       clothes: [
-        ...state.clothes.filter((item) => item._id !== payload._id),
-        payload.data.result,
+        ...state.clothes.filter((item) => item._id !== payload.result._id),
+        payload.result,
       ],
     }),
     [deleteClothes.fulfilled]: (state, { payload }) => ({

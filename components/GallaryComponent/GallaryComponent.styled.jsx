@@ -72,7 +72,7 @@ justify-content: flex-end;
 align-items: center;
 opacity:30 ; 
 cursor:pointer ;
-z-index:20;
+z-index:1;
 :hover{opacity: 0.33;} ;
 
 

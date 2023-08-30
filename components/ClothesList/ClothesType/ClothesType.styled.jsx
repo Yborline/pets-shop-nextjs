@@ -1,15 +1,28 @@
 import styled from "styled-components";
 
-export const LinkActive = styled.span`
 
-color: ${({theme})=> theme.yelow};
+export const LiNormal = styled.li`
+height:25px;
+padding:5px;
+width: 100%;
+border-bottom: 1px solid #C0C0C0;
+background-color:${({theme}) => theme.Menu};
+color: ${({ theme }) => theme.text};
+&:hover{
+    background-color:${({theme}) => theme.hoverMenu};
+}
+`
+
+export const LiActive = styled(LiNormal)`
+background-color:${({theme}) => theme.hoverMenu};
+color: ${({ theme }) => theme.hover};
+&:hover{
+    background-color:${({theme}) => theme.hoverMenu};
+}
 
 `
 
-export const LinkNormal = styled.span`
 
-color: ${({theme})=> theme.text};
-`
 
 
 // const handleColorType = (color,theme )=> {
@@ -47,18 +60,19 @@ color: ${({theme})=> theme.text};
 // ${(props) =>  handleColorType(props.parent
 // background-color: ${(props) =>  handleColorType(props.parent , props.theme)};
 // ${({theme}) => theme.mobilMenu}
-export const Li = styled.li`
-background-color:${({theme}) => theme.yelowLight};
-height:25px;
-padding:5px;
-width: 100%;
-border-bottom: 1px solid #C0C0C0;
+// export const Li = styled.li`
+// background-color:${({theme}) => theme.Menu};
 
-:hover{
-    background-color:#FFDEAD;
-}
+// height:25px;
+// padding:5px;
+// width: 100%;
+// border-bottom: 1px solid #C0C0C0;
 
-`
+// :hover{
+//     background-color:${({theme}) => theme.hoverMenu};
+// }
+
+// `
 
 // :not(:first-child){
 //     margin-left:10px;

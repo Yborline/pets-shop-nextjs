@@ -1,18 +1,12 @@
-import { BsFillArrowUpCircleFill } from "react-icons/bs";
-import { Button } from "./ButtonUp.styled";
-import s from "./ButtonUp.module.css";
 import { useEffect } from "react";
 import { useState } from "react";
 import debounce from "lodash.debounce";
 import { useRef } from "react";
+import { Button } from "./ButtonUp.styled";
+import SetScroll from "../../hooks/setScroll";
 
 const ButtonUp = () => {
-  const [scroll, setScroll] = useState(0);
-  const windowWidth = useRef(window.innerWidth);
-
-  const handleScroll = () => {
-    setScroll(window.scrollY);
-  };
+  const [scroll, setScroll] = SetScroll();
 
   const handleUpButton = () => {
     window.scrollTo({
@@ -22,22 +16,10 @@ const ButtonUp = () => {
     });
   };
 
-  useEffect(() => {
-    window.addEventListener("scroll", debounce(handleScroll, 200));
-    return () => window.removeEventListener("scroll", handleScroll);
-    // window.removeEventListener("scroll", debounce(handleScroll), 200);
-  }, []);
-
-  console.log(scroll);
-
   return (
     <>
-      {scroll > 250 && windowWidth.current < 767 ? (
-        <BsFillArrowUpCircleFill
-          onClick={handleUpButton}
-          className={s.button}
-          size="35px"
-        ></BsFillArrowUpCircleFill>
+      {scroll > 250 ? (
+        <Button onClick={handleUpButton} size="35px"></Button>
       ) : (
         <></>
       )}

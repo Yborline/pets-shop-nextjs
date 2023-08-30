@@ -1,61 +1,44 @@
-import { useDispatch, useSelector } from "react-redux";
-// import { changeFilterName } from "../../../redux/clothes/clothes-actions";
-// import { getFilterName } from "../../../redux/clothes/clothes-selector";
-import {
-  fetchClothes,
-  filterSearch,
-} from "../../../redux/clothes/clothes-operations";
-import { useState } from "react";
-import debounce from "lodash.debounce";
-import { useEffect } from "react";
-import { useMemo } from "react";
 import { Div, Input } from "./FilterName.styled";
 import { FiSearch } from "react-icons/fi";
 
 import { useTranslation } from "react-i18next";
+import { useContext } from "react";
+import ctxInput from "../../../context/filterContext";
 
-const FilterName = ({ heightInput, saveInput, height, position }) => {
-  // const filterName = useSelector(getFilterName);
-  // const [text, setText] = useState("");
+const FilterName = ({ heightInput, height, position }) => {
+  const { input, inputIn } = useContext(ctxInput);
 
-  // const handleInput = debounce(({ target: { name, value } }) => {
-  //   switch (name) {
-  //     case "filter":
-  //       return setText(value);
-
-  //     default:
-  //       return;
-  //   }
-  // }, 300);
-
-  const handleChange = (e) => {
-    const b = e.target.value.includes("\\");
-    const a = e.target.value.includes("[");
-    const normalValue = e.target.value.trim();
+  const handleChange = (value) => {
+    console.log(value);
+    const b = value.includes("\\");
+    const a = value.includes("[");
+    const normalValue = value.trim();
 
     if (!a && !b) {
-      saveInput(normalValue);
-      // debouncedChangeHandler({ normalValue, page: "1" });
+      inputIn(normalValue);
     }
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
     return;
-    // setValue(normalValue);
   };
-
-  const debouncedOnChange = debounce(handleChange, 350);
 
   return (
     <Div position={position} height={height}>
-      <label>
-        {/* {t("Search")} */}
-        {/* <FcSearch /> */}
-
+      <label style={{ position: "relative" }}>
         <Input
           heightInput={heightInput}
           name="filter"
           type="text"
-          onChange={debouncedOnChange}
+          value={input}
+          debounceTimeout={500}
+          onChange={(e) => {
+            handleChange(e.target.value);
+          }}
         />
-        <FiSearch style={{ position: "relative", right: "25px", top: "3px" }} />
+        <FiSearch style={{ position: "absolute", right: "10px", top: "6px" }} />
       </label>
     </Div>
   );

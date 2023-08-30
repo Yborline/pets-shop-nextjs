@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
         // margin-left: 200px;
 export const Ul = styled.ul`
 
-margin-left: 20px;
+
 
     @media screen and (min-width: 768px) {
 

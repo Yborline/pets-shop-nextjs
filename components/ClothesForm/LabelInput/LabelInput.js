@@ -1,13 +1,12 @@
 import { Input, DivInput } from "./LabelInput.styled";
 
 const LabelInput = ({
-  valueError,
   name,
   handleChange,
   handleBlur,
   value,
-  // errors,
-  // touched,
+  errors = "",
+  touched = "",
 }) => {
   return (
     <div>
@@ -23,7 +22,7 @@ const LabelInput = ({
           value={value.price}
         />
 
-        {/* {errors.price && touched.price && errors.price} */}
+        {errors.price && touched.price && errors.price}
       </DivInput>
       <DivInput>
         <label>opt</label>
@@ -35,7 +34,7 @@ const LabelInput = ({
           onBlur={handleBlur}
           value={value.opt}
         />
-        {/* {errors.opt && touched.opt && errors.opt} */}
+        {errors.opt && touched.opt && errors.opt}
       </DivInput>
       <DivInput>
         <label>active</label>
@@ -47,7 +46,7 @@ const LabelInput = ({
           onBlur={handleBlur}
           value={value.active}
         />
-        {/* {errors.active && touched.active && errors.active} */}
+        {errors.active && touched.active && errors.active}
       </DivInput>
     </div>
   );

@@ -14,9 +14,10 @@ margin-right: 5px;`
 
 export const Div = styled.div`
 
-  margin-top: 60px;
+  margin-top: 0px;
   padding: 20px;
       @media screen and (min-width: 768px) {
+          margin-top: 30px;
   padding: 0px 60px 0px  60px;
 
     }

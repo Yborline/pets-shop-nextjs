@@ -57,11 +57,13 @@ postiton: absolute;
 
 `
 
+export const DivLogoInfo = styled.div`
+`
 
 export const DivAbout = styled.div`
 display: flex;
 justify-content: space-evenly;
-background-color: ${({theme })=> theme.yelow}`
+background-color: ${({theme })=> theme.headerlist}`
 
 
 
@@ -124,6 +126,7 @@ export const AIcons = styled.a`
 `
 export const DivFilterMobile = styled.div`
 display:flex;
+height:30px;
 align-items: flex-end;`
 
 
@@ -146,19 +149,14 @@ color:black;
 
 export const UlNavigation = styled.ul`
 padding: 10px;
-height: 100px;
+
 
  @media screen and (min-width: 768px) {
 padding: 0px;
     display:flex;
 justify-content: space-evenly;
 align-items:center;
-
 }
-
-
-
-
 background-color:${({ theme }) => theme.headerlist};
  @media screen and (min-width: 768px) {
 height: 30px;
@@ -206,13 +204,19 @@ display: flex;
     justify-content: center;
     width: 100%;
 position: absolute;
+top:30%;
  @media screen and (min-width: 768px) {
     top:11%;
 
 }
+`
 
-
-
+export const DivMobileSvg = styled.div`
+display: flex;
+    justify-content: center;
+position: absolute;
+    width: 100%;
+top:-23%;
 `
 
 //  @media screen and (min-width: 768px) {
@@ -226,7 +230,7 @@ position: absolute;
 
 export const DivMenu = styled.div`
 display: flex;
-align-items: center;`
+align-items: flex-end;`
 
 
 export const DivMobile = styled.div`
@@ -234,6 +238,10 @@ display:flex;
 
 
 `
+
+export const DivAboutUs = styled.div`
+display:flex;
+justify-content: space-around;`
 
 
 export const Divfirst = styled.div`
@@ -245,6 +253,7 @@ export const Divfirst = styled.div`
 export const DivTwo = styled.div`
 display:flex;
 justify-content: space-between;
+position:relative;
 
 
 `
@@ -262,12 +271,17 @@ font-style: normal;
 font-weight: 400;
 font-size: 25px;
 line-height: 8px;
+        display: flex;
  @media screen and (min-width: 768px) {
 font-family: 'Metal';
 font-style: normal;
 font-weight: 400;
 font-size: 50px;
 line-height: 16px;
+
+}
+&:hover{
+  filter: invert(52%) sepia(31%) saturate(895%) hue-rotate(128deg) brightness(104%) contrast(98%);
 
 }
 `

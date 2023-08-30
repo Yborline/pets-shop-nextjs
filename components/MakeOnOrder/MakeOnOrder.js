@@ -1,7 +1,7 @@
 import { Field, Formik, FormikProps, useFormikContext } from "formik";
 import { useEffect } from "react";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import validationSchema from "../../validation/shopping";
 import {
   getCity,
@@ -27,6 +27,7 @@ import {
   Input,
 } from "./MakeOnOrder.styled";
 import { clearShoppingCard } from "../../redux/clothes/clothes-actions";
+import { getUser } from "../../redux/auth/auth-selectors";
 
 const MakeOnOrder = ({ clothes, setOpenOrder, notify, deleteBasket }) => {
   //   const [signUpForm, setSignUpForm] = useState(false);
@@ -36,8 +37,9 @@ const MakeOnOrder = ({ clothes, setOpenOrder, notify, deleteBasket }) => {
   const [number, setNumber] = useState("");
   const [department, setDepartment] = useState(null);
   const [radio, setRadio] = useState("");
+  const user = useSelector(getUser);
   // const [service, setService] = useState("");
-
+  console.log(user);
   const dispatch = useDispatch();
 
   const handleDepartment = ({ target: { name, value } }) => {
@@ -164,15 +166,16 @@ const MakeOnOrder = ({ clothes, setOpenOrder, notify, deleteBasket }) => {
   return (
     <Formik
       initialValues={{
-        email: "",
+        email: user.email ? user.email : "",
         phone: "",
-        name: "",
-        surname: "",
+        name: user.name ? user.name : "",
+        surname: user.lastName ? user.lastName : "",
         picked: "",
       }}
       validateOnBlur
       validationSchema={validationSchema}
       onSubmit={(values, formikProps) => {
+        console.log(values);
         handleSubmit(values, formikProps);
 
         // const { email, password } = values;
@@ -209,69 +212,81 @@ const MakeOnOrder = ({ clothes, setOpenOrder, notify, deleteBasket }) => {
           <Ul>
             {/* <GoogleAuthBtn /> */}
             <DivUp>
-              <Li>
-                <label htmlFor="name">
-                  {"Ім'я"}
-                  {!values.name.length || errors.name ? <span> *</span> : <></>}
-                </label>
-                <br />
-                <Input
-                  type="name"
-                  name="name"
-                  placeholder="Ім'я"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.name}
-                />
-                <br />
-                <span>{touched.name && errors.name ? errors.name : ""}</span>
-              </Li>
-              <Li>
-                <label htmlFor="surname">
-                  Прізвище
-                  {!values.surname.length || errors.surname ? (
-                    <span> *</span>
-                  ) : (
-                    <></>
-                  )}
-                </label>
-                <br />
-                <Input
-                  type="surname"
-                  name="surname"
-                  placeholder="Прізвище"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.surname}
-                />
-                <br />
-                <span>
-                  {touched.surname && errors.surname ? errors.surname : ""}
-                </span>
-              </Li>
+              {!user.name && !user.lastName && !user.email && (
+                <>
+                  <Li>
+                    <label htmlFor="name">
+                      {"Ім'я"}
+                      {!values.name.length || errors.name ? (
+                        <span> *</span>
+                      ) : (
+                        <></>
+                      )}
+                    </label>
+                    <br />
+                    <Input
+                      type="name"
+                      name="name"
+                      placeholder="Ім'я"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      value={values.name}
+                    />
+                    <br />
+                    <span>
+                      {touched.name && errors.name ? errors.name : ""}
+                    </span>
+                  </Li>
 
-              <Li>
-                <label htmlFor="email">
-                  Електронна адреса
-                  {!values.email.length || errors.email ? (
-                    <span> *</span>
-                  ) : (
-                    <></>
-                  )}
-                </label>
-                <br />
-                <Input
-                  type="email"
-                  name="email"
-                  placeholder="your@email.com"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.email}
-                />
-                <br />
-                <span>{touched.email && errors.email ? errors.email : ""}</span>
-              </Li>
+                  <Li>
+                    <label htmlFor="surname">
+                      Прізвище
+                      {!values.surname.length || errors.surname ? (
+                        <span> *</span>
+                      ) : (
+                        <></>
+                      )}
+                    </label>
+                    <br />
+                    <Input
+                      type="surname"
+                      name="surname"
+                      placeholder="Прізвище"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      value={values.surname}
+                    />
+                    <br />
+                    <span>
+                      {touched.surname && errors.surname ? errors.surname : ""}
+                    </span>
+                  </Li>
 
+                  <Li>
+                    <label htmlFor="email">
+                      Електронна адреса
+                      {!values.email.length || errors.email ? (
+                        <span> *</span>
+                      ) : (
+                        <></>
+                      )}
+                    </label>
+                    <br />
+                    <Input
+                      type="email"
+                      name="email"
+                      placeholder="your@email.com"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      value={values.email}
+                    />
+                    <br />
+                    <span>
+                      {touched.email && errors.email ? errors.email : ""}
+                    </span>
+                  </Li>
+                </>
+              )}
               <Li>
                 <label htmlFor="phone">
                   Номер телефона

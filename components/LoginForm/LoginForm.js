@@ -23,23 +23,20 @@ import {
 import Button from "../Button/Button";
 import { useTranslation } from "react-i18next";
 import { notifyErrorAll, notifySuccessAll } from "../../notify/notify";
-import { BsNutFill } from "react-icons/bs";
-import { ColorRing } from "react-loader-spinner";
+import Spinner from "../Spinner/Spinner";
+import { useEffect } from "react";
+import useToggleSignUpForm from "../../hooks/useToggleSignUpForm";
 
 const LoginForm = ({ toggleModal }) => {
   //   const [name, setName] = useState("");
   const { t } = useTranslation();
   const logged = useSelector(getLoggedIn);
   const loading = useSelector(getUserLoading);
-  const user = useSelector(getUser);
-  const [signUpForm, setSignUpForm] = useState(false);
+  // const user = useSelector(getUser);
+  const [signUpForm, changeForm] = useToggleSignUpForm();
   const error = useSelector(getUserError);
   console.log(error);
   const dispatch = useDispatch();
-
-  const changeForm = () => {
-    setSignUpForm(!signUpForm);
-  };
 
   return (
     <Div>
@@ -52,7 +49,7 @@ const LoginForm = ({ toggleModal }) => {
       ) : (
         <>
           {loading ? (
-            <ColorRing />
+            <Spinner />
           ) : (
             <>
               <>
@@ -69,7 +66,7 @@ const LoginForm = ({ toggleModal }) => {
                   }}
                   validateOnBlur
                   validationSchema={validationSchema}
-                  onSubmit={async (values) => {
+                  onSubmit={async (values, bag) => {
                     const { email, password, remember } = values;
 
                     dispatch(

@@ -31,8 +31,10 @@ const Partners = () => {
         </POther>
 
       </DivFlex>
+       
       <DivContact>
-      <h3>Контакти</h3>
+
+      <h3 style={{marginTop:"0px"}}>Контакти</h3>
       <ul>
         <li>
           <a href="tel: +380995097424">+38 (099) 509 74 24</a>
@@ -41,8 +43,10 @@ const Partners = () => {
           <a href="mailto:petshopua123@gmail.com">petshopua123@gmail.com</a>
         </li>
         <li></li>
-        </ul>
+          </ul>
+
         </DivContact>
+
     </Section>
   );
 };

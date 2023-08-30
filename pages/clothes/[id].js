@@ -14,9 +14,9 @@ import "react-toastify/dist/ReactToastify.css";
 import { DivSpinner } from "../../styles/[id].styled";
 import { ColorRing, ThreeDots } from "react-loader-spinner";
 import { fetchAll, getClothById, getComments } from "../../services/api";
-// import Comments from "../../components/Comments/Comments";
-import { usePageLoading } from "../../hook";
-// import CommentAdd from "../../components/CommentAdd/CommentAdd";
+import Comments from "../../components/Comments/Comments";
+import { usePageLoading } from "../../hooks/hook";
+import CommentAdd from "../../components/CommentAdd/CommentAdd";
 import Spinner from "../../components/Spinner/Spinner";
 import dynamic from "next/dynamic";
 
@@ -26,15 +26,15 @@ const ClothesInfo = dynamic(
     loading: () => <Spinner />,
   }
 );
-const CommentAdd = dynamic(
-  () => import("../../components/CommentAdd/CommentAdd"),
-  {
-    loading: () => <Spinner />,
-  }
-);
-const Comments = dynamic(() => import("../../components/Comments/Comments"), {
-  loading: () => <Spinner />,
-});
+// const CommentAdd = dynamic(
+//   () => import("../../components/CommentAdd/CommentAdd"),
+//   {
+//     loading: () => <Spinner />,
+//   }
+// );
+// const Comments = dynamic(() => import("../../components/Comments/Comments"), {
+//   loading: () => <Spinner />,
+// });
 
 const ClothPage = ({ cloth = {}, comments = [] }) => {
   const [newComment, setNewComment] = useState({});

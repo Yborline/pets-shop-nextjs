@@ -11,7 +11,7 @@ const Spinner = () => {
         ariaLabel="blocks-loading"
         wrapperStyle={{}}
         wrapperClass="blocks-wrapper"
-        colors={["#e15b64", "#f47e60", "#f8b26a", "#abbd81", "#849b87"]}
+        colors={["#483D8B", "#8B008B", "#9932CC", "#FF00FF", "#FF69B4"]}
       />
     </DivSpinner>
   );

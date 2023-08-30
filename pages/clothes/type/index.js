@@ -4,7 +4,6 @@ import { useRouter } from "next/router";
 import { Suspense, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Pagination from "../../../components/Pagination/Pagination";
-import usePagination from "../../../hook";
 import { fetchType } from "../../../redux/clothes/clothes-operations";
 import { getCountType } from "../../../redux/clothes/clothes-selector";
 import { getFetchType } from "../../../services/api";
@@ -16,9 +15,10 @@ import {
   DivMain,
   DivContent,
 } from "../../../styles/type.styled";
-import { usePageLoading } from "../../../hook";
+import { usePageLoading } from "../../../hooks/hook";
 import { ColorRing } from "react-loader-spinner";
 import ButtonUp from "../../../components/ButtonUp/ButtonUp";
+import Spinner from "../../../components/Spinner/Spinner";
 
 const Type = ({ clothes, count }) => {
   const { isPageLoading } = usePageLoading();
@@ -53,34 +53,24 @@ const Type = ({ clothes, count }) => {
   return (
     <Div>
       <DivMain>
+        <ClothesListType />
         {isPageLoading ? (
           <DivSpinner>
-            <ColorRing
-              visible={true}
-              height="80"
-              width="80"
-              ariaLabel="blocks-loading"
-              wrapperStyle={{}}
-              wrapperClass="blocks-wrapper"
-              colors={["#e15b64", "#f47e60", "#f8b26a", "#abbd81", "#849b87"]}
-            />
+            <Spinner />
           </DivSpinner>
         ) : (
           <DivColumn>
-            <ClothesListType />
             <DivContent>
               <ClothesList clothes={clothes} />
-              {clothes.length === 0 ? (
-                <></>
-              ) : (
-                <Pagination
-                  currentPage={Number(searchPage)}
-                  clothes={clothes}
-                  count={count}
-                  handleChange={handleChange}
-                />
-              )}
             </DivContent>
+            {clothes.length !== 0 && (
+              <Pagination
+                currentPage={Number(searchPage)}
+                clothes={clothes}
+                count={count}
+                handleChange={handleChange}
+              />
+            )}
           </DivColumn>
         )}
       </DivMain>

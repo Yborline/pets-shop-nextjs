@@ -1,5 +1,5 @@
 import styled from "styled-components";
-
+import Image from "next/image";
 
 export const Ul = styled.ul`
 
@@ -72,5 +72,9 @@ export const TitleCard = styled.h3`
 :not(:last-child){
   margin-bottom: 10px;
 }
+`
+
+export const Img = styled(Image)`
+object-fit:contain ;
 `
 

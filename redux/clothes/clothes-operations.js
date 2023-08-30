@@ -1,7 +1,7 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-axios.defaults.baseURL = "https://petshop-api-dqwd.onrender.com/api/";
+axios.defaults.baseURL = "https://petshop-api-dqwd.onrender.com/api";
 
 const token = {
   set(token) {
@@ -65,13 +65,12 @@ export const fetchClothesId = createAsyncThunk(
 export const updateById = createAsyncThunk(
   "clohes/updateClothesId",
   async ({ id, values }, thunkAPI) => {
-    console.log(id);
-    console.log(values);
     const state = thunkAPI.getState();
     const persistedToken = state.auth.user.token;
     token.set(persistedToken);
     try {
       const { data } = await axios.put(`/clothes/${id}`, values);
+
       return data;
     } catch (error) {
       thunkAPI.rejectWithValue(error.message);
@@ -89,6 +88,7 @@ export const addClothes = createAsyncThunk(
       const { data } = await axios.post("/clothes", values, {
         headers: { "content-type": "mulpipart/form-data" },
       });
+
       return data;
     } catch (error) {
       thunkAPI.rejectWithValue(error.message);

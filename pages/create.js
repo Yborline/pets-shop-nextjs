@@ -22,7 +22,6 @@ const Create = () => {
 
   const create = {
     name: "",
-    code: "",
     allprice: {
       xs: { price: "", opt: "", active: false },
       s: { price: "", opt: "", active: false },

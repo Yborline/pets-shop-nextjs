@@ -5,8 +5,9 @@ import {
   DivImg,
   DivInfo,
   TitleCard,
+  Img,
 } from "./BasketItem.styled";
-import Image from "next/image";
+
 import OnSale from "../../OnSale/OnSale";
 import Counter from "../../Counter/Counter";
 import { MdOutlineDeleteOutline } from "react-icons/md";
@@ -41,7 +42,8 @@ const BasketItem = ({
     <>
       <DivImg>
         <Link href={`/clothes/${_id.split("-")[0]}`}>
-          <Image
+          <Img
+            loading="lazy"
             style={{ borderRadius: "5px 0px 0px 5px" }}
             src={image[0]?.url ? image[0]?.url : noImage}
             alt={name}
@@ -54,17 +56,19 @@ const BasketItem = ({
       </DivImg>
       <DivInfo>
         <div>
-          <TitleCard>
-            {name} : {allprice.size}
-          </TitleCard>
-          {/* <P>{model}</P> */}
-          <OnSale
-            // changePrice={changePrice}
-            price={allprice.price}
-            discount={discount}
-          />
+          <Link href={`/clothes/${_id.split("-")[0]}`}>
+            <TitleCard>
+              {name} : {allprice.size}
+            </TitleCard>
+            {/* <P>{model}</P> */}
+            <OnSale
+              // changePrice={changePrice}
+              price={allprice.price}
+              discount={discount}
+            />
 
-          {/* <P>{allprice.price} грн</P> */}
+            {/* <P>{allprice.price} грн</P> */}
+          </Link>
         </div>
         <DivDelet>
           <DivDelCounter>

@@ -34,7 +34,6 @@ const CorrectionCloth = ({ cloth }) => {
 
   const correctionCloth = {
     name: name,
-    code: code,
     allprice: {
       xs: {
         price: xs?.price,

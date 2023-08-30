@@ -4,7 +4,7 @@ import Header from "../Header/Header";
 import { ThemeProvider } from "styled-components";
 import { GlobalStyles, lightTheme, darkTheme } from "../../styles/ThemeConfig";
 import { useContext } from "react";
-import ctx from "../context/themeContext";
+import ctx from "../../context/themeContext";
 import { useState, useEffect } from "react";
 import Head from "next/head";
 import { Div, Wrapper, Body } from "./Layout.styled";
@@ -22,9 +22,10 @@ const Layout = ({ children }) => {
   // }, [dispatch]);
   useEffect(() => {
     setIsMounted(true);
-
-    dispatch(authOperations.fetchCurrentUser());
-    dispatch(fetchAllClothes());
+    if (!isMounted) {
+      dispatch(authOperations.fetchCurrentUser());
+      dispatch(fetchAllClothes());
+    }
   }, [dispatch, isMounted]);
 
   return (

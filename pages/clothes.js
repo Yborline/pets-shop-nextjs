@@ -1,10 +1,10 @@
 import Heading from "../components/Heading/Heading";
 import Head from "next/head";
 import { useState, useEffect } from "react";
-import ClothesListType from "../components/ClothesList/ClothesListType";
+// import ClothesListType from "../components/ClothesList/ClothesListType";
 import Modal from "../components/Modal";
 import ClothesForm from "../components/ClothesForm/ClothesForm";
-
+import ClothesListType from "../components/ClothesList/ClothesListType";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import {
@@ -13,7 +13,6 @@ import {
 } from "../redux/clothes/clothes-operations";
 
 import { useRouter } from "next/router";
-import usePagination from "../hook";
 import { useSelector } from "react-redux";
 import {
   getClothes,
@@ -23,13 +22,23 @@ import {
 
 import PaginationCloth from "../components/Pagination/Pagination";
 import FilterName from "../components/Filter/FilterName/FilterName";
-import ClothesList from "../components/ClothesList/ClothesList/ClothesList";
-import { Div, DivSpinner, DivColumn } from "../styles/clothes.styled";
-import { usePageLoading } from "../hook";
-import { ColorRing } from "react-loader-spinner";
+import {
+  Div,
+  DivSpinner,
+  DivColumn,
+  DivListClothes,
+} from "../styles/clothes.styled";
+import { usePageLoading } from "../hooks/hook";
 import { getFetchClothes } from "../services/api";
-import ButtonUp from "../components/ButtonUp/ButtonUp";
 import Spinner from "../components/Spinner/Spinner";
+import dynamic from "next/dynamic";
+import { getUser } from "../redux/auth/auth-selectors";
+import Link from "next/link";
+import useToggleSignUpForm from "../hooks/useToggleSignUpForm";
+import SignUpForm from "../components/SignUpForm/SignUpForm";
+import { useContext } from "react";
+import ctxInput from "../context/filterContext";
+import debounce from "lodash.debounce";
 
 // export const getStaticProprs = async (context) => {
 //   const response = await fetch(
@@ -48,14 +57,31 @@ import Spinner from "../components/Spinner/Spinner";
 //   };
 // };
 
+// const ClothesListType = dynamic(
+//   () => import("../components/ClothesList/ClothesListType"),
+//   {
+//     loading: () => <Spinner />,
+//   }
+// );
+
+const ClothesList = dynamic(
+  () => import("../components/ClothesList/ClothesList/ClothesList"),
+  {
+    loading: () => <Spinner />,
+  }
+);
+
 const Clothes = () =>
   // { clothes, count }
   {
+    const [signUpForm, changeForm] = useToggleSignUpForm();
     const { isPageLoading } = usePageLoading();
     const loadingCloth = useSelector(getLoadingCloth);
     const clothes = useSelector(getClothes);
     const count = useSelector(getCount);
-    const [input, setInput] = useState("");
+    const user = useSelector(getUser);
+    const { input, inputIn } = useContext(ctxInput);
+    const { pathname } = useRouter();
 
     // const { pathname } = useRouter();
     const dispatch = useDispatch();
@@ -72,8 +98,14 @@ const Clothes = () =>
       //   router.push(router);
       // }
     };
+    // const handleAutocomplete = () => {
+    //   dispatch(filterSearch({ text: input, page: searchPage, limit: 30 }));
+    // };
+
+    // const debounceHandleAutocomplete = debounce(handleAutocomplete, 1500);
 
     useEffect(() => {
+      console.log(input);
       if (input === "") {
         if (searchPage) {
           dispatch(fetchClothes({ page: searchPage }));
@@ -90,38 +122,61 @@ const Clothes = () =>
         <Head>
           <title>Clothes</title>
         </Head>
+        {user?.user === "admin" && (
+          <div style={{ display: "flex" }}>
+            <Link href="/create">Створити нову картку</Link>
+            <button onClick={changeForm}>Опт</button>
+          </div>
+        )}
         <FilterName
           heightInput="30px"
           position="center"
           height="50px"
           value={input}
-          saveInput={setInput}
         />
+
         <DivColumn>
-          {/* <div> */}
+          <ClothesListType clothes={clothes} count={count} />
+
           {loadingCloth || isPageLoading ? (
-            <Spinner />
+            <div style={{ width: "100%" }}>
+              <Spinner />
+            </div>
           ) : (
-            <>
-              <ClothesListType clothes={clothes} count={count} />
-              <div>
-                <ClothesList clothes={clothes} />
-                {clothes.length === 0 ? (
-                  <></>
-                ) : (
-                  <PaginationCloth
-                    clothes={clothes}
-                    count={count}
-                    handleChange={handleChange}
-                    currentPage={searchPage ? Number(searchPage) : 1}
-                  />
-                )}
-              </div>
-            </>
+            <DivListClothes>
+              <ClothesList clothes={clothes} />
+              {clothes.length !== 0 && (
+                <PaginationCloth
+                  clothes={clothes}
+                  count={count}
+                  handleChange={handleChange}
+                  currentPage={searchPage ? Number(searchPage) : 1}
+                />
+              )}
+            </DivListClothes>
           )}
           {/* </div> */}
         </DivColumn>
-        <ButtonUp />
+        {signUpForm && (
+          <Modal path={pathname} close={changeForm}>
+            <div style={{ padding: "20px" }}>
+              <SignUpForm
+                signUpForm={signUpForm}
+                toggleModal={changeForm}
+                changeForm={changeForm}
+              />
+            </div>
+            {/* <CLothesForm onSave={toggleModal} toggleModal={toggleModal} /> */}
+          </Modal>
+        )}
+
+        {/* {signUpForm && (
+          <SignUpForm
+            signUpForm={signUpForm}
+            // toggleModal={toggleModal}
+            changeForm={changeForm}
+          />
+        )} */}
       </Div>
     );
   };

@@ -5,11 +5,13 @@ export const Btn = styled.button`
   align-items: center;
   max-width: 30px;
   max-height: 22px;
-  background-color: ${({ theme }) => theme.yelowLight};
-  border: 1px solid;
+  background-color: inherit;
   cursor: pointer;
-  border-radius: 10px;
+border: 0px;
 
   color: ${({ theme }) => theme.text};
   margin-right: ${(props) => props.marginRight} };
+  :hover{
+     color: ${({ theme }) => theme.moon}
+  }
 `;

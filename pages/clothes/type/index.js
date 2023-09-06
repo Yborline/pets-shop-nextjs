@@ -1,11 +1,9 @@
 import ClothesListType from "../../../components/ClothesList/ClothesListType";
-import { getType } from "../../../redux/clothes/clothes-selector";
+
 import { useRouter } from "next/router";
-import { Suspense, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+
 import Pagination from "../../../components/Pagination/Pagination";
-import { fetchType } from "../../../redux/clothes/clothes-operations";
-import { getCountType } from "../../../redux/clothes/clothes-selector";
+
 import { getFetchType } from "../../../services/api";
 import ClothesList from "../../../components/ClothesList/ClothesList/ClothesList";
 import {
@@ -16,11 +14,13 @@ import {
   DivContent,
 } from "../../../styles/type.styled";
 import { usePageLoading } from "../../../hooks/hook";
-import { ColorRing } from "react-loader-spinner";
+
 import ButtonUp from "../../../components/ButtonUp/ButtonUp";
 import Spinner from "../../../components/Spinner/Spinner";
 
 const Type = ({ clothes, count }) => {
+  console.log(clothes);
+  console.log(count);
   const { isPageLoading } = usePageLoading();
   // const dispatch = useDispatch();
   // const clothes = useSelector(getType);
@@ -88,15 +88,17 @@ const Type = ({ clothes, count }) => {
 // }
 
 export async function getServerSideProps({ query }) {
-  const data = await getFetchType({ page: query.page, path: query.type });
-  const { type, allPage } = await data;
+  if (query.type || query.page) {
+    const data = await getFetchType({ page: query.page, path: query.type });
+    const { type, allPage } = await data;
 
-  return {
-    props: {
-      clothes: type || null,
-      count: allPage || null,
-    },
-  };
+    return {
+      props: {
+        clothes: type || null,
+        count: allPage || null,
+      },
+    };
+  }
 }
 
 // Embroidery.getServerSideProps = async ({ query }) => {

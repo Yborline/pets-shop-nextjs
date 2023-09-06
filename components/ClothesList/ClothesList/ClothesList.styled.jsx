@@ -3,7 +3,6 @@ import styled from "@emotion/styled";
 export const Ul = styled.ul`
 
 
-
     @media screen and (min-width: 768px) {
 
    display: grid;

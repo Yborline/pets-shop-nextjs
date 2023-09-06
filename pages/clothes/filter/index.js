@@ -4,7 +4,6 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Pagination from "../../../components/Pagination/Pagination";
-import usePagination from "../../../hook";
 import { fetchType } from "../../../redux/clothes/clothes-operations";
 import { getCountType } from "../../../redux/clothes/clothes-selector";
 

@@ -56,6 +56,14 @@ const BasketList = ({ clotheActual, clothesBasket }) => {
   return (
     <>
       <Div>
+        <Button
+          height="30px"
+          width="200px"
+          text={"Очистити корзину"}
+          marginB="25px"
+          handleClick={() => dispatch(clearShoppingCard())}
+        />
+
         {clotheActual.length > 0 ? (
           isPageLoading ? (
             <Spinner />
@@ -96,6 +104,7 @@ const BasketList = ({ clotheActual, clothesBasket }) => {
                   )
                 )}
               </Ul>
+
               <SummaryTittle>
                 <TitleSumm>Cумма до сплати :</TitleSumm>
                 <SummaryPrice tag="h4" cards={clotheActual} />

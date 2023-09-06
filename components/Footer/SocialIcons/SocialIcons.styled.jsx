@@ -1,7 +1,9 @@
 import styled from "styled-components"
+import { pulse } from "../../../styles/animation"
 
 export const UlIcons = styled.ul`
 display: flex;
+align-items: center;
 
 `
 
@@ -14,8 +16,14 @@ margin-right: 10px;
 `
 
 export const AIcons = styled.a`
-color: ${({theme}) => theme.text};
+color: ${({ theme }) => theme.text};
+animation: ${props =>pulse(props)} 3s infinite;
+border-radius: 50%;
+  width: 22px;
+  height: 22px;
+display:block;
 :hover{
+    animation: none;
     color: ${({theme}) => theme.hover}
 }
 

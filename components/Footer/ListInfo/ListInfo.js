@@ -1,11 +1,6 @@
 import {
-  DivContact,
-  FooterDiv,
-  UlIcons,
   Li,
   Alink,
-  AIcons,
-  LiIcons,
   UlInfo,
 } from "../Footer.styled";
 import { GoMail } from "react-icons/go";

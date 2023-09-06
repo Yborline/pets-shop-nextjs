@@ -1,3 +1,4 @@
+import Link from "next/link";
 import styled from "styled-components";
 
 
@@ -5,7 +6,7 @@ export const LiNormal = styled.li`
 height:25px;
 padding:5px;
 width: 100%;
-border-bottom: 1px solid #C0C0C0;
+
 background-color:${({theme}) => theme.Menu};
 color: ${({ theme }) => theme.text};
 &:hover{
@@ -19,6 +20,10 @@ color: ${({ theme }) => theme.hover};
 &:hover{
     background-color:${({theme}) => theme.hoverMenu};
 }
+
+`
+
+export const NavLink = styled(Link)`
 
 `
 

@@ -1,10 +1,13 @@
 import Link from "next/link";
 import styled from "styled-components";
-
+import { pulse, heart } from "../../../styles/animation";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+ 
 export const H3 = styled.h3`
 width: 200px;
 text-align: center;
-margin: 0px;`
+margin: 0px; 
+`
 
 export const Div = styled.div`
 display:flex;
@@ -33,3 +36,8 @@ border: 0px;
     color: ${({theme})=> theme.hover}
 }
 `
+
+export const Hart = styled(FavoriteIcon)`
+color: ${({theme})=> theme.hart};
+
+animation : ${props => heart(props)} 1.5s infinite;`

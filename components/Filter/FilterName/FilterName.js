@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { useContext } from "react";
 import ctxInput from "../../../context/filterContext";
 
-const FilterName = ({ heightInput, height, position }) => {
+const FilterName = ({ heightinput, height, position, marginbottom }) => {
   const { input, inputIn } = useContext(ctxInput);
 
   const handleChange = (value) => {
@@ -26,10 +26,10 @@ const FilterName = ({ heightInput, height, position }) => {
   };
 
   return (
-    <Div position={position} height={height}>
+    <Div position={position} height={height} marginbottom={marginbottom}>
       <label style={{ position: "relative" }}>
         <Input
-          heightInput={heightInput}
+          height={heightinput}
           name="filter"
           type="text"
           value={input}

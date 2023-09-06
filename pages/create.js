@@ -43,20 +43,6 @@ const Create = () => {
   };
   return (
     <>
-      {/* {loading ? (
-        <DivSpinner>
-          <ThreeDots
-            height="80"
-            width="80"
-            radius="9"
-            color="#800000"
-            ariaLabel="three-dots-loading"
-            wrapperStyle={{}}
-            wrapperClassName=""
-            visible={true}
-          />
-        </DivSpinner>
-      ) : ( */}
       <>
         {type?.user === "admin" ? (
           <CLothesForm notify={notifySuccess} initial={create} />

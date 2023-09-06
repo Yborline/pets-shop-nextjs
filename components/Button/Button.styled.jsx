@@ -6,9 +6,11 @@ export const Btn = styled.button `
   justify-content: center;
   width:  ${(props) => props.width};
 height: ${(props) => props.height};
-  background-color: ${({ theme,active }) => active === true?theme.hoverButton: theme.yelowLight};
+  background-color: ${({ theme,active }) => active === true?theme.hoverButton: theme.button};
   
-  border: 1px solid;
+  border: 0px;
+
+box-shadow: ${({theme})=>theme.buttonShadow};
   cursor: pointer;
   border-radius: 5px;
   :hover{

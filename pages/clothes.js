@@ -128,12 +128,7 @@ const Clothes = () =>
             <button onClick={changeForm}>Опт</button>
           </div>
         )}
-        <FilterName
-          heightInput="30px"
-          position="center"
-          height="50px"
-          value={input}
-        />
+        <FilterName position="center" value={input} marginbottom="15px" />
 
         <DivColumn>
           <ClothesListType clothes={clothes} count={count} />

@@ -31,17 +31,16 @@ import { useContext } from "react";
 import ctxInput from "../../context/filterContext";
 import { useState } from "react";
 import { useSearchParams } from "next/navigation";
+import Button from "../Button/Button";
 
 const ClothesListType = () => {
   const { input, inputIn } = useContext(ctxInput);
   const windowWidth = useRef(window.innerWidth);
 
   const params = useSearchParams();
-
-  const loading = useSelector(getLoadingCloth);
   const { t } = useTranslation();
   const search = params.get("type");
-  console.log(search);
+
   const router = useRouter();
 
   const handleChange = ({ target }) => {
@@ -64,9 +63,11 @@ const ClothesListType = () => {
       <DivOther>
         {windowWidth.current > 767 ? (
           <Ul style={{ padding: "0px" }}>
-            <button type="button" onClick={handleClick}>
-              reset
-            </button>
+            <Button
+              marginB="10px"
+              text="очистити фільтр"
+              handleClick={handleClick}
+            ></Button>
             {clothesMenu.map(({ page, type, id, title, parent }) => (
               <ClothesType
                 key={id}
@@ -102,9 +103,12 @@ const ClothesListType = () => {
                 </Option>
               ))}
             </Select>
-            <button type="button" onClick={handleClick}>
-              reset
-            </button>
+            <Button
+              height="30px"
+              width="230px"
+              text="очистити"
+              handleClick={handleClick}
+            ></Button>
           </DivReset>
         )}
       </DivOther>

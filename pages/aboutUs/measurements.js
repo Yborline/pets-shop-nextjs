@@ -1,8 +1,7 @@
-import Image from "next/image";
 import dogSize from "../../public/photo/dogSize.png";
 import { Div, P, Section, Img, Ul, Li } from "../../styles/measurements.styled";
 
-const measurements = () => {
+const Measurements = () => {
   return (
     <Section>
       <h2>Як зробити заміри?</h2>
@@ -12,8 +11,8 @@ const measurements = () => {
           <Li>
             <b>Підготовка</b> : Перш ніж почати, забезпечте тихе та спокійне
             оточуюче середовище. Виставте улюбленця в стійку. Якщо вимірювати
-            лежачи або сидячи - розмір може не підійти. Заміри проводити лише
-            сантиметровою стрічкою!{" "}
+            лежачи aбо сидячи - розмір може не підійти. Заміри проводити лише
+            сантиметровою стрічкою!
           </Li>
           <Li>
             <b>Вимірювання довжини спини (A)</b> : Виміряйте від основи шиї (де
@@ -40,4 +39,4 @@ const measurements = () => {
   );
 };
 
-export default measurements;
+export default Measurements;

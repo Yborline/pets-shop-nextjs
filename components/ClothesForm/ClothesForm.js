@@ -51,9 +51,14 @@ const CLothesForm = ({ initial, notify, cloth, id }) => {
       alidateOnBlur
       validationSchema={validationSchema}
       onSubmit={(values, formikProps) => {
+        if (img.length > 3) {
+          alert("Не більше 3 фото");
+          return;
+        }
         if (pathname === "/create") {
           console.log(values);
           console.log(img);
+
           dispatch(addClothes(formDataAppend(values, img)));
           // formikProps.resetForm(initial);
           notify(values.name, "библиотеку");

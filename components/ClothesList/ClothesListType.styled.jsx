@@ -9,11 +9,11 @@ export const DivType = styled.div`
 
 export const Ul = styled.ul`
 
-background-color:#B0C4DE;
 
-border-radius :4px;
-border-right: 1px solid #808080;
-border-bottom: 1px solid #808080;
+letter-spacing: 4px;
+
+
+padding: 10px 0px 10px 0px;
 
 display:flex;
 flex-direction: column;
@@ -54,9 +54,9 @@ justify-content: flex-start;
 
 export const Select = styled.select`
 border: 1.5px solid;
-border-radius: 10px;
+  border-radius: 5px;
 height: 30px;
-width: 200px;
+width: 230px;
 margin-bottom: 15px;
 
 `

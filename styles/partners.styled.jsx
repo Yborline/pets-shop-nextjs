@@ -45,7 +45,7 @@ margin-bottom: 20px;
 
 
 export const DivInvitation = styled.div`
-background-color: ${({ theme }) => theme.headerlist};
+background-color: ${({ theme }) => theme.headerMainlist};
 border-radius: 30px;
 margin-bottom: 15px;
 font-weight: 600;
@@ -99,12 +99,15 @@ export const PInvite = styled.p`
 margin-bottom:10px;`
 
 export const DivContact = styled.div`
-background-color: ${({ theme }) => theme.headerlist};
+background-color: ${({ theme }) => theme.headerMainlist};
 border-radius: 30px;
 padding:20px;
 width: 300px;
-
-
 `
+
+export const LiContacts = styled.li`
+:hover{
+    color: ${({theme}) => theme.hover}
+}`
 
 // https://freesvg.org/img/Paw_Print.png

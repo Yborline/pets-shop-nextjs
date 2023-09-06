@@ -1,4 +1,4 @@
-import {DivContact, PInvite,DivFlex,Section,H2,DivInvitation ,POther,PPreTitle,Ul,Li} from "../../styles/partners.styled";
+import {DivContact,LiContacts, PInvite,DivFlex,Section,H2,DivInvitation ,POther,PPreTitle,Ul,Li} from "../../styles/partners.styled";
 
 
 const Partners = () => {
@@ -36,13 +36,13 @@ const Partners = () => {
 
       <h3 style={{marginTop:"0px"}}>Контакти</h3>
       <ul>
-        <li>
+        <LiContacts>
           <a href="tel: +380995097424">+38 (099) 509 74 24</a>
-        </li>
-        <li>
+        </LiContacts>
+        <LiContacts>
           <a href="mailto:petshopua123@gmail.com">petshopua123@gmail.com</a>
-        </li>
-        <li></li>
+        </LiContacts>
+
           </ul>
 
         </DivContact>

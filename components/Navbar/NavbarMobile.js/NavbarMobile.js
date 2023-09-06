@@ -13,6 +13,7 @@ import {
   DivFilterMobile,
   DivAboutUs,
   DivMobileSvg,
+  Svg,
 } from "../Navbar.styled";
 import AboutUs from "../AboutUs.js/AboutUs";
 import ButtonUser from "../../ButtonUser/ButtonUser";
@@ -72,13 +73,7 @@ const NavbarMobile = ({
             <DivMobileSvg>
               <Link style={{ display: "flex" }} href={`/`}>
                 {/* <Sprite fill={"black"} stroke={"black"} /> */}
-                <Image
-                  priority
-                  width={50}
-                  height={50}
-                  src={sprite}
-                  alt="Follow us on Twitter"
-                ></Image>
+                <Svg />
                 <H1>Ua.PetShop</H1>
               </Link>
             </DivMobileSvg>

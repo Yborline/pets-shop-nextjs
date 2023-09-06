@@ -17,7 +17,7 @@ export const Div = styled.div`
 
 export const Li = styled.li`
 
-border: 1px solid;
+
 border-radius:5px;
 background-color: ${({theme})=> theme.basketList};
 :not(:last-child){

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { LiActive, LiNormal } from "./ClothesType.styled";
+import { LiActive, LiNormal, NavLink } from "./ClothesType.styled";
 import { useRouter } from "next/router";
 import usePagination from "../../../hooks/hook";
 import { useSelector } from "react-redux";
@@ -10,7 +10,7 @@ const ClothesType = ({ id, title, page, type, parent }) => {
   return (
     <>
       {" "}
-      <Link
+      <NavLink
         key={id}
         href={{
           pathname: "/clothes/type",
@@ -22,7 +22,7 @@ const ClothesType = ({ id, title, page, type, parent }) => {
         ) : (
           <LiNormal>{title}</LiNormal>
         )}
-      </Link>
+      </NavLink>
     </>
   );
 };

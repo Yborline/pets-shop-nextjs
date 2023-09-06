@@ -33,7 +33,9 @@ import {
   Phone,
   DivAboutUs,
   DivMobileSvg,
-  DivLogoInfo,
+  Img,
+  Svg,
+  LogoLink,
 } from "./Navbar.styled";
 import { useTranslation } from "react-i18next";
 import { HiOutlineShoppingCart } from "react-icons/hi";
@@ -51,8 +53,7 @@ import Modal from "../Modal";
 import LoginForm from "../LoginForm/LoginForm";
 import { useDispatch, useSelector } from "react-redux";
 import { getActualCard, getBasket } from "../../redux/clothes/clothes-selector";
-import Image from "next/image";
-import sprite from "../../public/sprite/image.svg";
+
 import s from "./Navbar.module.css";
 import FilterName from "../Filter/FilterName/FilterName";
 import ctxInput from "../../context/filterContext";
@@ -65,6 +66,8 @@ import useToggleModal from "../../hooks/useToggleModal";
 import { getLoggedIn } from "../../redux/auth/auth-selectors";
 import authOperations from "../../redux/auth/auth-operatins";
 import NavbarMobile from "./NavbarMobile.js/NavbarMobile";
+import Image from "next/image";
+import Button from "../Button/Button";
 
 const Navbar = () => {
   const { input, inputIn } = useContext(ctxInput);
@@ -125,59 +128,54 @@ const Navbar = () => {
                 />
               </DivOther>
               {logged ? (
-                <button
-                  height="30px"
-                  marginB="15px"
-                  text="Exit"
+                <Button
+                  height="18px"
+                  text={t("Exit")}
                   width="100%"
                   type="submit"
-                  onClick={() => dispatch(authOperations.logout())}
-                >
-                  {t("Exit")}
-                </button>
+                  handleClick={() => dispatch(authOperations.logout())}
+                ></Button>
               ) : (
                 <ButtonUser toggleModal={toggleModal} />
               )}
             </DivUser>
           </DivAbout>
-          <DivLogoInfo>
-            <DivPhone>
-              <Phone href="tel: +380995097424">+38 (099) 509 74 24</Phone>
-              <Link href="/basket">
-                {pathname === "/basket" ? (
-                  <LinkActive>
-                    <HiOutlineShoppingCart
-                      style={{ zIndex: 3, position: "relative", top: "2px" }}
-                      size="20px"
-                    />
-                    {t(`Cart`)} ({clotheActual.length})
-                  </LinkActive>
-                ) : (
-                  <LinkNormal>
-                    <HiOutlineShoppingCart
-                      size="20px"
-                      style={{ zIndex: 3, position: "relative", top: "2px" }}
-                    />
-                    {t(`Cart`)} ({clotheActual.length})
-                  </LinkNormal>
-                )}
-              </Link>
-            </DivPhone>
-            <DivSvg>
-              <Link style={{ zIndex: 5 }} className={s.sprite} href={`/`}>
-                {/* <Sprite fill={"black"} stroke={"black"} /> */}
-                <Image priority src={sprite} alt="Follow us on Twitter"></Image>
-                <H1 className={s.sprite}>Ua.PetShop</H1>
-              </Link>
-            </DivSvg>
-            <DivInfo>
-              <SocialIcons />
-            </DivInfo>
-          </DivLogoInfo>
+
+          <DivPhone>
+            <Phone href="tel: +380995097424">+38 (099) 509 74 24</Phone>
+            <Link href="/basket">
+              {pathname === "/basket" ? (
+                <LinkActive>
+                  <HiOutlineShoppingCart
+                    style={{ zIndex: 3, position: "relative", top: "2px" }}
+                    size="20px"
+                  />
+                  {t(`Cart`)} ({clotheActual.length})
+                </LinkActive>
+              ) : (
+                <LinkNormal>
+                  <HiOutlineShoppingCart
+                    size="20px"
+                    style={{ zIndex: 3, position: "relative", top: "2px" }}
+                  />
+                  {t(`Cart`)} ({clotheActual.length})
+                </LinkNormal>
+              )}
+            </Link>
+          </DivPhone>
+          <DivSvg>
+            <LogoLink style={{ zIndex: 5 }} className={s.sprite} href={`/`}>
+              <Svg />
+              <H1 className={s.sprite}>Ua.PetShop</H1>
+            </LogoLink>
+          </DivSvg>
+          <DivInfo>
+            <SocialIcons />
+          </DivInfo>
           {pathname === "/" && (
             <DivInfo>
               {" "}
-              <FilterName heightInput="30px" saveInput={inputIn}></FilterName>
+              <FilterName heightinput="30px" saveInput={inputIn}></FilterName>
             </DivInfo>
           )}
         </>

@@ -3,8 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import BasketList from "../components/Basket/BasketList";
 import { getBasket, getActualCard } from "../redux/clothes/clothes-selector";
 import { usePageLoading } from "../hooks/hook";
-import { ColorRing } from "react-loader-spinner";
-import { DivSpinner } from "../styles/basket.styled";
 import Spinner from "../components/Spinner/Spinner";
 import { changeActualCard } from "../redux/clothes/clothes-actions";
 import { useEffect } from "react";

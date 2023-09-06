@@ -7,10 +7,11 @@ margin-top: 0px;
 word-break: break-all;`
 
 export const Li = styled.li`
-color:${({theme}) => theme.textBlack};
+color:${({theme}) => theme.text};
 border-radius: 4px;
 max-width: 300px;
-background-color:${({theme}) => theme.backgroundCart};
+background-color:${({ theme }) => theme.backgroundCart};
+
 margin-bottom: 10px;
 :hover{
 box-shadow: 2px 4px 14px 0px rgba(0,0,0,0.75);

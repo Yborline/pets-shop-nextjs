@@ -4,17 +4,9 @@ cursor: pointer;
 }
 
 .delete:hover{
-    animation: animate45  infinite 1000ms ;
+
+    transform: rotate(-45deg);
+    transition-property: transform;
+transition-duration: 1s;
 }
 
-
-@keyframes animate45 {
-    0% {
-        transform: rotate(0deg);
-    }
-
-    100% {
-        transform: rotate(45deg);
-    }
-
-}

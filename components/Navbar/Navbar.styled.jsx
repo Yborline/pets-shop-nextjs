@@ -1,5 +1,7 @@
 import styled, { keyframes } from "styled-components";
-
+import Image from "next/image";
+import Sprite from "../../public/sprite/image.svg";
+import Link from "next/link";
 const rotate = keyframes`
   from {
     transform: scale(1);
@@ -57,13 +59,13 @@ postiton: absolute;
 
 `
 
-export const DivLogoInfo = styled.div`
-`
+
 
 export const DivAbout = styled.div`
 display: flex;
 justify-content: space-evenly;
-background-color: ${({theme })=> theme.headerlist}`
+background-color: ${({ theme }) => theme.headerlist};
+color: ${({theme })=> theme.text}`
 
 
 
@@ -119,7 +121,7 @@ margin-right: 10px;
 
 export const AIcons = styled.a`
 :hover{
-    color: ${({theme}) => theme.hover}
+    color: ${({theme}) => theme.hover};
 }
 
 
@@ -149,15 +151,14 @@ color:black;
 
 export const UlNavigation = styled.ul`
 padding: 10px;
-
-
+background-color:${({ theme }) => theme.headerMainlist};
  @media screen and (min-width: 768px) {
 padding: 0px;
     display:flex;
 justify-content: space-evenly;
 align-items:center;
 }
-background-color:${({ theme }) => theme.headerlist};
+
  @media screen and (min-width: 768px) {
 height: 30px;
 
@@ -175,6 +176,10 @@ margin-left: 10px;
 export const DivLogo = styled.div`
 display:flex;
 align-items: center;`
+
+export const Img = styled(Image)`
+
+stroke: ${({theme})=> theme.text};`
 
 export const ButtonTheme = styled.button`
 
@@ -209,6 +214,16 @@ top:30%;
     top:11%;
 
 }
+`
+
+export const Svg = styled(Sprite)`
+stroke: ${({ theme }) => theme.text};
+  width: 50px;
+  height: 50px;
+ @media screen and (min-width: 768px) {
+  width: 100px;
+  height: 100px;
+ }
 `
 
 export const DivMobileSvg = styled.div`
@@ -272,6 +287,7 @@ font-weight: 400;
 font-size: 25px;
 line-height: 8px;
         display: flex;
+        color: ${({ theme }) => theme.text};
  @media screen and (min-width: 768px) {
 font-family: 'Metal';
 font-style: normal;
@@ -280,8 +296,13 @@ font-size: 50px;
 line-height: 16px;
 
 }
-&:hover{
-  filter: invert(52%) sepia(31%) saturate(895%) hue-rotate(128deg) brightness(104%) contrast(98%);
-
-}
 `
+export const LogoLink = styled(Link)`
+:hover{
+svg{
+stroke:${({ theme }) => theme.hover};
+}
+h1{
+color:${({ theme }) => theme.hover};
+}
+}`

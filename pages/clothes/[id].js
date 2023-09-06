@@ -44,43 +44,9 @@ const ClothPage = ({ cloth = {}, comments = [] }) => {
     setNewComment(text);
   };
   const { isPageLoading } = usePageLoading();
-  const dispatch = useDispatch();
-
-  // const router = useRouter();
-  // const loading = useSelector(getLoadingCloth);
-  // const { id } = router.query;
-  // console.log(comments);
-  // console.log(cloth);
-  // const [coment, setComent] = useState(null);
-
-  // useEffect(() => {
-  //   console.log(id);
-  //   if (id) {
-  //     dispatch(fetchClothesId(id));
-
-  //     getComments(id).then((data) =>
-  //       data === undefined ? null : setComent(data)
-  //     );
-  //   }
-  // }, [dispatch, id]);
-  // console.log(coment);
 
   return (
     <>
-      {/* {loading ? (
-        <DivSpinner>
-          <ThreeDots
-            height="80"
-            width="80"
-            radius="9"
-            color="#800000"
-            ariaLabel="three-dots-loading"
-            wrapperStyle={{}}
-            wrapperClassName=""
-            visible={true}
-          />
-        </DivSpinner>
-      ) : ( */}
       {isPageLoading ? (
         <Spinner />
       ) : (

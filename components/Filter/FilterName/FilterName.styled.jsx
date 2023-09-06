@@ -6,21 +6,23 @@ justify-content:center;
 align-items:${(props) => props.position} ;
 width: 100%;
 height: ${(props) => props.height};
-
+margin-bottom:${({marginbottom})=>marginbottom}
 
 `
 
 export const Input = styled(DebounceInput)`
-padding:10px;
-width: 200px;
+padding:6px;
+width: 230px;
 border: 1.5px solid;
 height: ${(props) => props.heightInput};
-border-radius: 10px;
+border-radius: 5px;
 @media screen and  (min-width: 768px){
-    width: 250px;
+    border-radius: 20px;
+    padding:10px;
+    width: 330px;
 }
 @media screen and  (min-width: 1080px){
-    width: 350px;
+    width:550px;
 }
 @media screen and (min-width: 1280px){
     width: 700px;

@@ -36,7 +36,7 @@ justify-content: center;
 `
 export const Li = styled.li`
 
-border: 1px solid;
+box-shadow:  ${({theme})=> theme.basketShadow};
 border-radius:5px;
 background-color: ${({theme})=> theme.basketList};
 :not(:last-child){
@@ -44,8 +44,10 @@ background-color: ${({theme})=> theme.basketList};
 }
 display: flex;
 align-items: center;
-
-width: 100%;`
+width: 100%;
+:hover{
+transform: scale(1.025);
+}`
 
 export const DivImg = styled.div`
 position: relative;

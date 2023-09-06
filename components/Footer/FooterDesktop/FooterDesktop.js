@@ -7,15 +7,17 @@ import {
   DivNavigation,
   HoverLink,
   Button,
-} from ".//FooterDesktop.styled";
+  Hart,
+} from "./FooterDesktop.styled";
 import { getLoggedIn } from "../../../redux/auth/auth-selectors";
-
 const FooterDesktop = ({ toggleModal }) => {
   const logged = useSelector(getLoggedIn);
 
   return (
     <Div>
-      <H3>UA.Petshop 3 любов&#39;ю до кожної ниточки</H3>
+      <H3>
+        UA.Petshop 3 любов&#39;ю до кожної ниточки{` `} <Hart />
+      </H3>
 
       <DivNavigation>
         <HoverLink href="/">Головна сторінка</HoverLink>

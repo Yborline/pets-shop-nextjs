@@ -11,6 +11,7 @@ border: 0px;
 
   color: ${({ theme }) => theme.text};
   margin-right: ${(props) => props.marginRight} };
+  &:active,
   :hover{
      color: ${({ theme }) => theme.moon}
   }

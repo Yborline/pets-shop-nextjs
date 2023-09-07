@@ -49,12 +49,12 @@ const ClothPage = ({ cloth = {}, comments = [] }) => {
             notifySuccess={notifySuccess}
           />
 
-          {cloth && (
+          {/* {cloth && (
             <>
               <CommentAdd save={changeComment} id={cloth} />
               <Comments newComment={newComment} comments={comments} />
             </>
-          )}
+          )} */}
         </DivMain>
       )}
       {/* )} */}

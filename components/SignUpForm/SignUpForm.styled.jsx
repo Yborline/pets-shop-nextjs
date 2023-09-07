@@ -16,7 +16,19 @@ align-items: center
 `
 
 export const ButtonClose = styled.button`
-height: 30px;`
+height: 30px;
+height: 30px;
+border: 0px;
+ background-color: inherit;
+ color: inherit;
+ font-size: inherit;
+ padding : 0px;
+ text-align: left;
+ cursor: pointer;
+ font-size: 25px;
+ &:hover{
+    color:${({theme})=>theme.red};
+ }`
 
 export const ButtonLog = styled.button`
 margin-top: 15px;

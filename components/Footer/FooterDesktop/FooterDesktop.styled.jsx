@@ -7,6 +7,7 @@ export const H3 = styled.h3`
 width: 200px;
 text-align: center;
 margin: 0px; 
+position:relative;
 `
 
 export const Div = styled.div`
@@ -38,6 +39,9 @@ border: 0px;
 `
 
 export const Hart = styled(FavoriteIcon)`
+position: absolute;
+right: -5px; 
+bottom: 30px;
 color: ${({theme})=> theme.hart};
 
 animation : ${props => heart(props)} 1.5s infinite;`

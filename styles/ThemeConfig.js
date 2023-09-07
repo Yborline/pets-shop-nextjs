@@ -14,7 +14,7 @@ export const lightTheme = {
   textActive: "#20B2AA",
   yelowLight: "#FFDDE1",
   yelowLightTop: "#FFE8E8",
-  mobilMenu: "#DDA0DD",
+  mobilMenu: "#ffb6c1",
   discount: "gray",
   actualPrice: "#DC143C",
   hover: "#C71585",

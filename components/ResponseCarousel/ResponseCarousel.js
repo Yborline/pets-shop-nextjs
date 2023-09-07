@@ -27,8 +27,10 @@ const ResponseCarousel = ({ user, notifySuccess }) => {
   useEffect(() => {
     const getImage = async () => {
       const { data } = await getImagesHome();
-      const findHome = data.filter((item) => item.model === "home");
-      setImage(...findHome);
+      if (data) {
+        const findHome = data.filter((item) => item.model === "home");
+        setImage(...findHome);
+      }
     };
     getImage();
   }, []);

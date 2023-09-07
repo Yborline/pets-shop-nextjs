@@ -1,7 +1,10 @@
 import styled, { keyframes } from "styled-components";
 import Image from "next/image";
+// import { ReactComponent as Sprite } from '../../public/sprite/image.svg';
 import Sprite from "../../public/sprite/image.svg";
 import Link from "next/link";
+
+
 const rotate = keyframes`
   from {
     transform: scale(1);
@@ -177,6 +180,7 @@ stroke: ${({ theme }) => theme.text};
   height: 100px;
  }
 `
+
 
 
 //  @media screen and (min-width: 768px) {

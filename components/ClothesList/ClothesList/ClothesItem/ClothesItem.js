@@ -33,7 +33,6 @@ const ClothesItem = (
 
   return (
     <Li>
-      {" "}
       <Link href={`/clothes/${id}`}>
         <Div>
           {discount > 0 && (

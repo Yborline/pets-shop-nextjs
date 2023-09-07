@@ -68,7 +68,6 @@ const NavbarMobile = ({
           <>
             <DivMobileSvg>
               <Link style={{ display: "flex" }} href={`/`}>
-                {/* <Sprite fill={"black"} stroke={"black"} /> */}
                 <Svg />
                 <H1>Ua.PetShop</H1>
               </Link>

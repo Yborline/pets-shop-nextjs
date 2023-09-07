@@ -7,9 +7,9 @@ import {
   DivPrice,
   ImageLink,
   DivItem,
+  ArrowRight,
+  ArrowLeft,
 } from "./HomeCarousel.styled";
-import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
 import { useWindowWidth } from "@react-hook/window-size";
 import Image from "next/image";
@@ -32,14 +32,14 @@ const HomeCarousel = ({ clothes }) => {
         }
         gutter={20}
         leftChevron={
-          <ArrowBackIosIcon>
+          <ArrowLeft>
             <ArrowButton />
-          </ArrowBackIosIcon>
+          </ArrowLeft>
         }
         rightChevron={
-          <ArrowForwardIosIcon>
+          <ArrowRight>
             <ArrowButton />
-          </ArrowForwardIosIcon>
+          </ArrowRight>
         }
         outsideChevron
         chevronWidth={chevronWidth}

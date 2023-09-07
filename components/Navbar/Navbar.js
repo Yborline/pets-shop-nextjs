@@ -45,6 +45,8 @@ import authOperations from "../../redux/auth/auth-operatins";
 import NavbarMobile from "./NavbarMobile.js/NavbarMobile";
 import Image from "next/image";
 import Button from "../Button/Button";
+import { ReactSVG } from "react-svg";
+import sprite from "../../public/sprite/image.svg";
 
 const Navbar = () => {
   const { input, inputIn } = useContext(ctxInput);
@@ -85,12 +87,15 @@ const Navbar = () => {
         <>
           <DivAbout>
             <AboutUs />
-
             <DivUser>
               <DivOther>
                 <ButtonSmall
                   marginright="5px"
-                  handleClick={toggleTheme}
+                  handleClick={
+                    themes === "light"
+                      ? () => toggleTheme("dark")
+                      : () => toggleTheme("light")
+                  }
                   text={
                     themes === "light" ? (
                       <BsMoonFill size="14px" />
@@ -151,7 +156,7 @@ const Navbar = () => {
           {pathname === "/" && (
             <DivInfo>
               {" "}
-              <FilterName heightinput="30px"></FilterName>
+              <FilterName heightinput="30px" saveInput={inputIn}></FilterName>
             </DivInfo>
           )}
         </>

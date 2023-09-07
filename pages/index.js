@@ -5,7 +5,7 @@ import { Container, Ul, H2 } from "../styles/index.styled";
 import { Provider, useDispatch, useSelector } from "react-redux";
 import {
   // deleteClothes,
-  fetchAllClothes,
+
   filterSearch,
 } from "../redux/clothes/clothes-operations";
 import {

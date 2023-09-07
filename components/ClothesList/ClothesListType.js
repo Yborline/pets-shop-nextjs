@@ -76,7 +76,7 @@ const ClothesListType = () => {
               )}
               {clothesMenu.map(({ page, type, id, title }) => (
                 <Option value={type} key={id} id={id}>
-                  {title}
+                  {t(`${title}`)}
                 </Option>
               ))}
             </Select>

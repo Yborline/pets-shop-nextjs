@@ -28,6 +28,10 @@ justify-content: space-evenly;
 }
 
 `
+export const DivFlexImg = styled.div`
+display:flex;
+
+`
 
 export const P = styled.p`
 margin-bottom: 20px;`
@@ -50,11 +54,15 @@ export const H2 = styled.h2`
 margin-top: 0px;
 text-align:center;`
 
-export const Img = styled(Image)`
+export const Img1 = styled(Image)`
 width: 280px;
 height:280px;
 @media screen and (min-width: 768px){
-width: 400px;
-height:400px;
+width: 350px;
+height:350px;
 }
+`
+
+export const Img2 = styled(Img1)`
+
 `

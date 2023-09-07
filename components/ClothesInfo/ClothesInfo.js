@@ -185,8 +185,15 @@ const ClothesInfo = ({ id, cloth = {}, notifyError, notifySuccess }) => {
 
                   <Button
                     handleClick={saveShoppingCart}
-                    text={<HiOutlineShoppingCart size="20px" />}
-                  ></Button>
+                    text={
+                      <HiOutlineShoppingCart
+                        style={{ marginRight: "15px" }}
+                        size="20px"
+                      />
+                    }
+                  >
+                    + В кошик
+                  </Button>
                 </DivSizes>
               </Div>
               <Link href="/aboutUs/measurements">

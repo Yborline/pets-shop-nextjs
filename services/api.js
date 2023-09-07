@@ -51,7 +51,7 @@ export const getComments = async (id) => {
     const { data } = await axios.get(`/comments/${id}`);
     return data.data.result;
   } catch (error) {
-    console.log(error.message);
+    alert(error.message);
   }
 };
 
@@ -60,7 +60,7 @@ export const addComment = async ({ id, text }) => {
     const { data } = await axios.post(`/comments/${id}`, { text: text });
     return data.result;
   } catch (error) {
-    console.log(error.message);
+    alert(error.message);
   }
 };
 export const getClothById = async (id) => {
@@ -68,7 +68,7 @@ export const getClothById = async (id) => {
     const { data } = await axios.get(`/clothes/${id}`);
     return data?.data?.result;
   } catch (error) {
-    console.log(error.message);
+    alert(error.message);
   }
 };
 
@@ -78,7 +78,7 @@ export const fetchAll = async (id) => {
 
     return data;
   } catch (error) {
-    console.log(error.message);
+    alert(error.message);
   }
 };
 
@@ -87,7 +87,7 @@ export const getFetchType = async ({ page, path }) => {
     const { data } = await axios.get(`/clothes/${path}?page=${page}&limit=30`);
     return data;
   } catch (error) {
-    console.log(error.message);
+    alert(error.message);
   }
 };
 
@@ -96,7 +96,7 @@ export const getFetchClothes = async ({ page }) => {
     const { data } = await axios.get(`/clothes?page=${page}&limit=30`);
     return data;
   } catch (error) {
-    console.log(error.message);
+    alert(error.message);
   }
 };
 
@@ -105,7 +105,7 @@ export const getFetchClothesId = async (id) => {
     const { data } = await axios.get(`/clothes/${id}`);
     return data.data.result;
   } catch (error) {
-    console.log(error.message);
+    alert(error.message);
   }
 };
 
@@ -114,7 +114,7 @@ export const getImagesHome = async () => {
     const { data } = await axios.get("/images");
     return data;
   } catch (error) {
-    console.log(error.message);
+    alert(error.message);
   }
 };
 

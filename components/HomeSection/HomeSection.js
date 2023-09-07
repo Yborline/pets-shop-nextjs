@@ -12,6 +12,7 @@ import Link from "next/link";
 import Button from "../Button/Button";
 import { useWindowWidth, usesWindowWidth } from "@react-hook/window-size";
 import Heading from "../Heading/Heading";
+import ButtonPulse from "../ButtonPulse/ButtonPulse";
 
 const HomeSection = () => {
   const width = useWindowWidth();
@@ -59,11 +60,11 @@ const HomeSection = () => {
             <br />
             !!! Щоб правильно виміряти улюбленця перейдіть на сторінку
             <ButtonLink href="/aboutUs/measurements">
-              <Button
+              <ButtonPulse
                 width={"400px"}
-                height={"30px"}
-                text="зробити заміри"
-              ></Button>
+                height={"40px"}
+                text="ЗРОБИТИ ЗАМІРИ"
+              ></ButtonPulse>
             </ButtonLink>
           </P>
         </DivText>

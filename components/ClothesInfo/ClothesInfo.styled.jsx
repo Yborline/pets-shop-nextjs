@@ -56,7 +56,9 @@ max-width: 1000px;
 `
 
 export const DivSizes = styled.div`
+margin-bottom: 20px;
 @media screen and (min-width: 768px){
+  margin-bottom: 0px;
 margin-left: 50px;
 }
 `

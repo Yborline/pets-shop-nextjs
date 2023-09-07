@@ -1,6 +1,6 @@
-import { Btn } from "./Button.styled";
+import { Btn } from "./ButtonPulse.styled";
 
-const Button = ({
+const ButtonPulse = ({
   active,
   name,
   type,
@@ -10,7 +10,6 @@ const Button = ({
   marginbottom,
   handleClick,
   text,
-  children,
 }) => {
   return (
     <>
@@ -25,11 +24,9 @@ const Button = ({
         onClick={handleClick}
       >
         {text}
-        {"  "}
-        {children}
       </Btn>
     </>
   );
 };
 
-export default Button;
+export default ButtonPulse;

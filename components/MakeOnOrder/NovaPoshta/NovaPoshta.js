@@ -1,8 +1,6 @@
 import debounce from "lodash.debounce";
 import { Li, Input } from "./NovaPoshta.styled";
 
-import dog from "../../../public/photo/dog.png";
-import Image from "next/image";
 const NovaPoshta = ({ handleInput, adresses, inputCity, department }) => {
   return (
     <>

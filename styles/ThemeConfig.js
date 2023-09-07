@@ -41,6 +41,7 @@ export const lightTheme = {
   button: "#ffe4e1",
   buttonShadow: "0px 0px 5px 0px rgba(0,0,0,0.75)",
   basketShadow: "0px 0px 5px 0px rgba(0,0,0,0.75)",
+  input: "#fff0f5",
 };
 
 export const darkTheme = {
@@ -85,6 +86,7 @@ export const darkTheme = {
   button: "#3b444b",
   buttonShadow: "0px 0px 10px 0px rgba(255,255,255,1)",
   basketShadow: "0px 0px 4px 0px rgba(255,255,255,1)",
+  input: "#537373",
 };
 
 export const GlobalStyles = createGlobalStyle`

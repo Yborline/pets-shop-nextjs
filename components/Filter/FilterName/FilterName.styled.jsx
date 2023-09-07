@@ -11,6 +11,8 @@ margin-bottom:${({$marginbottom})=>$marginbottom}
 `
 
 export const Input = styled(DebounceInput)`
+background-color: ${({ theme }) => theme.input};
+color: ${({ theme }) => theme.text};
 padding:6px;
 width: 230px;
 border: 1.5px solid;

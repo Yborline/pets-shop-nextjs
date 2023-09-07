@@ -34,19 +34,19 @@ const BasketList = ({ clotheActual }) => {
   return (
     <>
       <Div>
-        <Button
-          height="30px"
-          width="200px"
-          text={"Очистити корзину"}
-          marginbottom="25px"
-          handleClick={() => dispatch(clearShoppingCard())}
-        />
-
         {clotheActual.length > 0 ? (
           isPageLoading ? (
             <Spinner />
           ) : (
             <>
+              <Button
+                height="30px"
+                width="200px"
+                text={"Очистити корзину"}
+                marginbottom="25px"
+                handleClick={() => dispatch(clearShoppingCard())}
+              />
+
               <Ul>
                 {clotheActual.map(
                   (

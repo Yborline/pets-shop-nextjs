@@ -16,7 +16,7 @@ const FooterDesktop = ({ toggleModal }) => {
   return (
     <Div>
       <H3>
-        UA.Petshop 3 любов&#39;ю до кожної ниточки{` `} <Hart />
+        UA.Petshop <br />3 любов&#39;ю до кожної ниточки{` `} <Hart />
       </H3>
 
       <DivNavigation>

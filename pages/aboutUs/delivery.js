@@ -1,20 +1,9 @@
-import Link from "next/link";
-import { DivMain, DivLink, DivInfo, Section } from "../../styles/delivery";
+import { DivMain, DivInfo, Section } from "../../styles/delivery";
 import { useTranslation } from "react-i18next";
 
 const Delivery = () => {
-  const { t } = useTranslation();
   return (
     <DivMain>
-      {/* <DivLink>
-        <Link style={{ marginBottom: "10px" }} href="/aboutUs/partners">
-          {t(`Partners`)}
-        </Link>
-        <Link style={{ marginBottom: "10px" }} href="/aboutUs/aboutUs">
-          {t(`About us`)}
-        </Link>
-        <Link href="/aboutUs/delivery">{t(`Delivery and payment`)}</Link>
-      </DivLink> */}
       <DivInfo>
         <Section>
           <h3>Оформлення замовлення</h3>

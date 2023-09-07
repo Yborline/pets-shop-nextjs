@@ -9,22 +9,19 @@ import {
   P,
   DivCorrection,
   DivSizes,
-} from "./ClothesInfo.styled";
+} from "./ClothesInfo.styled.jsx";
 import { getUser } from "../../redux/auth/auth-selectors";
 import { useEffect, useState } from "react";
-
 import { HiOutlineShoppingCart } from "react-icons/hi";
 import { changeShoppingCard } from "../../redux/clothes/clothes-actions";
-import { getClothesId, getBasket } from "../../redux/clothes/clothes-selector";
+import { getBasket } from "../../redux/clothes/clothes-selector";
 import Link from "next/link";
 import DiscountForm from "../discountForm/discountForm";
 import onSale from "../../calculation/makeDiscount";
 import Button from "../Button/Button";
-
 import { useTranslation } from "react-i18next";
 import GallaryComponent from "../GallaryComponent/GallaryComponent";
-import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
-import { useRef } from "react";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 const ClothesInfo = ({ id, cloth = {}, notifyError, notifySuccess }) => {
   const { t } = useTranslation();
@@ -47,7 +44,6 @@ const ClothesInfo = ({ id, cloth = {}, notifyError, notifySuccess }) => {
   const [openMenu, setOpenMenu] = useState(false);
   const { user } = useSelector(getUser);
   const clothBasket = useSelector(getBasket);
-  // const cloth = useSelector(getClothesId);
   const dispatch = useDispatch();
 
   const {
@@ -67,7 +63,6 @@ const ClothesInfo = ({ id, cloth = {}, notifyError, notifySuccess }) => {
   useEffect(() => {
     cloth &&
       setCurrentBtn(
-        // user?.user === "wholesaler"
         user === "wholesaler"
           ? {
               ...cloth,
@@ -104,8 +99,6 @@ const ClothesInfo = ({ id, cloth = {}, notifyError, notifySuccess }) => {
             allprice: { price: size?.price, size: key },
           }
     );
-
-    // setCurrentBtn(e.currentTarget.name);
   };
 
   const saveShoppingCart = () => {
@@ -148,97 +141,94 @@ const ClothesInfo = ({ id, cloth = {}, notifyError, notifySuccess }) => {
         return changeBtn(xl7, "xl7");
     }
   };
-  console.log(currentBtn);
   return (
     <>
-      <>
-        {!cloth ? (
-          <h2>Такого елементу не знайдено</h2>
-        ) : (
-          <>
-            {cloth && cloth.name && (
-              <DivMain>
-                <Div>
-                  <GallaryComponent image={image} name={name} />
-                  <DivSizes>
-                    <h2>{name}</h2>
-                    <P>
-                      {t(`Code`)} : {code}
-                    </P>
-                    <P>
-                      {t(`Model`)} : {t(`${model}`)}
-                    </P>
-                    <Ul>
-                      {size.map((item, index) => (
-                        <Li key={index}>
-                          <Button
-                            active={
-                              currentBtn?.allprice?.size === item ? true : false
-                            }
-                            height="25px"
-                            text={item.toLocaleUpperCase()}
-                            name={item}
-                            handleClick={changePrice}
-                          />
-                        </Li>
-                      ))}
-                    </Ul>
-                    <P>
-                      {currentBtn?.allprice?.size} :
-                      {currentBtn.discount > 0 && (
-                        <Span>{currentBtn?.allprice?.price} грн </Span>
-                      )}
-                      {onSale(currentBtn?.allprice?.price, currentBtn.discount)}{" "}
-                      грн
-                    </P>
-
-                    <Button
-                      handleClick={saveShoppingCart}
-                      text={<HiOutlineShoppingCart size="20px" />}
-                    ></Button>
-                  </DivSizes>
-                </Div>
-                <Link href="/aboutUs/measurements">
-                  <Button
-                    width={"200px"}
-                    height={"30px"}
-                    text="зробити заміри"
-                  ></Button>
-                </Link>
-                <h4>{t("Description")}</h4>
-                <Description>{cloth.description}</Description>
-                {user === "admin" && (
-                  <>
-                    <button onClick={toggleMenu}>
-                      {openMenu ? t("Closed") : t("Amend")}
-                    </button>
-                    {openMenu && (
-                      <>
-                        <DivCorrection>
-                          <Link
-                            href={{
-                              pathname: `/create/update`,
-                              query: { id: _id },
-                            }}
-                          >
-                            {t("Edit")}
-                          </Link>
-                        </DivCorrection>
-                        <div>
-                          <p>
-                            {t("Discount")} {discount} грн
-                          </p>
-                          <DiscountForm id={_id} />
-                        </div>
-                      </>
+      {!cloth ? (
+        <h2>Такого елементу не знайдено</h2>
+      ) : (
+        <>
+          {cloth && cloth.name && (
+            <DivMain>
+              <Div>
+                <GallaryComponent image={image} name={name} />
+                <DivSizes>
+                  <h2>{name}</h2>
+                  <P>
+                    {t(`Code`)} : {code}
+                  </P>
+                  <P>
+                    {t(`Model`)} : {t(`${model}`)}
+                  </P>
+                  <Ul>
+                    {size.map((item, index) => (
+                      <Li key={index}>
+                        <Button
+                          active={
+                            currentBtn?.allprice?.size === item ? true : false
+                          }
+                          height="25px"
+                          text={item.toLocaleUpperCase()}
+                          name={item}
+                          handleClick={changePrice}
+                        />
+                      </Li>
+                    ))}
+                  </Ul>
+                  <P>
+                    {currentBtn?.allprice?.size} :
+                    {currentBtn.discount > 0 && (
+                      <Span>{currentBtn?.allprice?.price} грн </Span>
                     )}
-                  </>
-                )}
-              </DivMain>
-            )}
-          </>
-        )}
-      </>
+                    {onSale(currentBtn?.allprice?.price, currentBtn.discount)}{" "}
+                    грн
+                  </P>
+
+                  <Button
+                    handleClick={saveShoppingCart}
+                    text={<HiOutlineShoppingCart size="20px" />}
+                  ></Button>
+                </DivSizes>
+              </Div>
+              <Link href="/aboutUs/measurements">
+                <Button
+                  width={"200px"}
+                  height={"30px"}
+                  text="зробити заміри"
+                ></Button>
+              </Link>
+              <h4>{t("Description")}</h4>
+              <Description>{cloth.description}</Description>
+              {user === "admin" && (
+                <>
+                  <button onClick={toggleMenu}>
+                    {openMenu ? t("Closed") : t("Amend")}
+                  </button>
+                  {openMenu && (
+                    <>
+                      <DivCorrection>
+                        <Link
+                          href={{
+                            pathname: `/create/update`,
+                            query: { id: _id },
+                          }}
+                        >
+                          {t("Edit")}
+                        </Link>
+                      </DivCorrection>
+                      <div>
+                        <p>
+                          {t("Discount")} {discount} грн
+                        </p>
+                        <DiscountForm id={_id} />
+                      </div>
+                    </>
+                  )}
+                </>
+              )}
+            </DivMain>
+          )}
+        </>
+      )}
     </>
   );
 };

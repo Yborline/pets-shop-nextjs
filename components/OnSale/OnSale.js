@@ -4,10 +4,9 @@ import makeDiscount from "../../calculation/makeDiscount";
 const OnSale = ({
   price,
   discount,
-  // changePrice
+
 }) => {
   const currentPrice = makeDiscount(price, discount);
-  //   changePrice(currentPrice);
   return (
     <>
       {discount === 0 ? (

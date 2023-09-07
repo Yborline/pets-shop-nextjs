@@ -1,5 +1,4 @@
 import { FaUserCircle } from "react-icons/fa";
-import { FiUserCheck } from "react-icons/fi";
 import { useSelector } from "react-redux";
 import { Div, DivNoUser, P, Button } from "./ButtonUser.styled";
 import { getLoggedIn, getUserName } from "../../redux/auth/auth-selectors";
@@ -48,9 +47,3 @@ const ButtonUser = ({ toggleModal }) => {
 };
 
 export default ButtonUser;
-
-// <FiUserCheck
-//   onClick={toggleModal}
-//   style={{ cursor: "pointer" }}
-//   size="20px"
-// />

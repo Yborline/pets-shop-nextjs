@@ -1,17 +1,13 @@
-import Heading from "../components/Heading/Heading";
 import Head from "next/head";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 // import ClothesListType from "../components/ClothesList/ClothesListType";
 import Modal from "../components/Modal";
-import ClothesForm from "../components/ClothesForm/ClothesForm";
 import ClothesListType from "../components/ClothesList/ClothesListType";
-import axios from "axios";
 import { useDispatch } from "react-redux";
 import {
   fetchClothes,
   filterSearch,
 } from "../redux/clothes/clothes-operations";
-
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import {
@@ -19,17 +15,10 @@ import {
   getCount,
   getLoadingCloth,
 } from "../redux/clothes/clothes-selector";
-
 import PaginationCloth from "../components/Pagination/Pagination";
 import FilterName from "../components/Filter/FilterName/FilterName";
-import {
-  Div,
-  DivSpinner,
-  DivColumn,
-  DivListClothes,
-} from "../styles/clothes.styled";
+import { Div, DivColumn, DivListClothes } from "../styles/clothes.styled";
 import { usePageLoading } from "../hooks/hook";
-import { getFetchClothes } from "../services/api";
 import Spinner from "../components/Spinner/Spinner";
 import dynamic from "next/dynamic";
 import { getUser } from "../redux/auth/auth-selectors";
@@ -71,110 +60,108 @@ const ClothesList = dynamic(
   }
 );
 
-const Clothes = () =>
-  // { clothes, count }
-  {
-    const [signUpForm, changeForm] = useToggleSignUpForm();
-    const { isPageLoading } = usePageLoading();
-    const loadingCloth = useSelector(getLoadingCloth);
-    const clothes = useSelector(getClothes);
-    const count = useSelector(getCount);
-    const user = useSelector(getUser);
-    const { input, inputIn } = useContext(ctxInput);
-    const { pathname } = useRouter();
+const Clothes = () => {
+  const [signUpForm, changeForm] = useToggleSignUpForm();
+  const { isPageLoading } = usePageLoading();
+  const loadingCloth = useSelector(getLoadingCloth);
+  const clothes = useSelector(getClothes);
+  const count = useSelector(getCount);
+  const user = useSelector(getUser);
+  const { input, inputIn } = useContext(ctxInput);
+  const { pathname } = useRouter();
 
-    // const { pathname } = useRouter();
-    const dispatch = useDispatch();
-    const router = useRouter();
-    const searchPage = router.query.page;
+  // const { pathname } = useRouter();
+  const dispatch = useDispatch();
+  const router = useRouter();
+  const searchPage = router.query.page;
 
-    const handleChange = (event, value) => {
-      if (value) {
-        router.query.page = value;
-        router.push(`${router.pathname}?page=${router.query.page}`);
-      }
-      // else {
-      //   router.query.page = stringPage;
-      //   router.push(router);
-      // }
-    };
-    // const handleAutocomplete = () => {
-    //   dispatch(filterSearch({ text: input, page: searchPage, limit: 30 }));
-    // };
+  const handleChange = (event, value) => {
+    if (value) {
+      router.query.page = value;
+      router.push(`${router.pathname}?page=${router.query.page}`);
+    }
+    // else {
+    //   router.query.page = stringPage;
+    //   router.push(router);
+    // }
+  };
+  // const handleAutocomplete = () => {
+  //   dispatch(filterSearch({ text: input, page: searchPage, limit: 30 }));
+  // };
 
-    // const debounceHandleAutocomplete = debounce(handleAutocomplete, 1500);
+  // const debounceHandleAutocomplete = debounce(handleAutocomplete, 1500);
 
-    useEffect(() => {
-      console.log(input);
-      if (input === "") {
-        if (searchPage) {
-          dispatch(fetchClothes({ page: searchPage }));
-        } else {
-          dispatch(fetchClothes({ page: "1" }));
-        }
+  useEffect(() => {
+    console.log(input);
+    if (input === "") {
+      if (searchPage) {
+        dispatch(fetchClothes({ page: searchPage }));
       } else {
-        dispatch(filterSearch({ text: input, page: searchPage, limit: 30 }));
+        dispatch(fetchClothes({ page: "1" }));
       }
-    }, [dispatch, input, searchPage]);
+    } else {
+      dispatch(filterSearch({ text: input, page: searchPage, limit: 30 }));
+    }
+  }, [dispatch, input, searchPage]);
 
-    return (
-      <Div>
-        <Head>
-          <title>Clothes</title>
-        </Head>
-        {user?.user === "admin" && (
-          <div style={{ display: "flex" }}>
-            <Link href="/create">Створити нову картку</Link>
-            <button onClick={changeForm}>Опт</button>
+  return (
+    <Div>
+      <Head>
+        <title>Clothes</title>
+      </Head>
+      {user?.user === "admin" && (
+        <div style={{ display: "flex" }}>
+          <Link href="/create">Створити нову картку</Link>
+          <button onClick={changeForm}>Опт</button>
+        </div>
+      )}
+      <FilterName position="center" value={input} marginbottom="15px" />
+
+      <DivColumn>
+        <ClothesListType clothes={clothes} count={count} />
+
+        {loadingCloth || isPageLoading ? (
+          <div style={{ width: "100%" }}>
+            <Spinner />
           </div>
-        )}
-        <FilterName position="center" value={input} marginbottom="15px" />
-
-        <DivColumn>
-          <ClothesListType clothes={clothes} count={count} />
-
-          {loadingCloth || isPageLoading ? (
-            <div style={{ width: "100%" }}>
-              <Spinner />
-            </div>
-          ) : (
-            <DivListClothes>
-              <ClothesList clothes={clothes} />
-              {clothes.length !== 0 && (
-                <PaginationCloth
-                  clothes={clothes}
-                  count={count}
-                  handleChange={handleChange}
-                  currentPage={searchPage ? Number(searchPage) : 1}
-                />
-              )}
-            </DivListClothes>
-          )}
-          {/* </div> */}
-        </DivColumn>
-        {signUpForm && (
-          <Modal path={pathname} close={changeForm}>
-            <div style={{ padding: "20px" }}>
-              <SignUpForm
-                signUpForm={signUpForm}
-                toggleModal={changeForm}
-                changeForm={changeForm}
+        ) : (
+          <DivListClothes>
+            <ClothesList clothes={clothes} />
+            {clothes.length !== 0 && (
+              <PaginationCloth
+                clothes={clothes}
+                count={count}
+                handleChange={handleChange}
+                currentPage={searchPage ? Number(searchPage) : 1}
               />
-            </div>
-            {/* <CLothesForm onSave={toggleModal} toggleModal={toggleModal} /> */}
-          </Modal>
+            )}
+          </DivListClothes>
         )}
+        {/* </div> */}
+      </DivColumn>
+      {signUpForm && (
+        <Modal path={pathname} close={changeForm}>
+          <div style={{ padding: "20px" }}>
+            <SignUpForm
+              signUpForm={signUpForm}
+              toggleModal={changeForm}
+              changeForm={changeForm}
+            />
+          </div>
+          {/* <CLothesForm onSave={toggleModal} toggleModal={toggleModal} /> */}
+        </Modal>
+      )}
 
-        {/* {signUpForm && (
+      {/* {signUpForm && (
           <SignUpForm
             signUpForm={signUpForm}
             // toggleModal={toggleModal}
             changeForm={changeForm}
           />
         )} */}
-      </Div>
-    );
-  };
+    </Div>
+  );
+};
 
 // export async function getServerSideProps({ query }) {
 //   const data = await getFetchClothes({ page: query.page });

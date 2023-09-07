@@ -2,7 +2,7 @@ import "../styles/globals.css";
 import Layout from "../components/Layout/Layout";
 import ProviderContext from "../context/themeProvider";
 import { wrapper, store, persistor } from "../redux/store";
-import { Provider, useDispatch } from "react-redux";
+import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 
 import { Suspense } from "react";

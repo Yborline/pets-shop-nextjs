@@ -33,9 +33,3 @@ text-align: center;
 
 `
 
-// display:flex;
-// justify-content: center;
-
-
-// height: 15px;
-// width: 15px;

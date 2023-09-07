@@ -1,11 +1,7 @@
-import { Field, Formik, FormikProps } from "formik";
+import { Field, Formik } from "formik";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  addClothes,
-  fetchClothes,
-  updateById,
-} from "../../redux/clothes/clothes-operations";
+import { useDispatch } from "react-redux";
+import { addClothes, updateById } from "../../redux/clothes/clothes-operations";
 import {
   Form,
   DivPrice,
@@ -14,34 +10,19 @@ import {
   TextArea,
   InputImg,
   DivInputTop,
-} from "./ClothesForm.styled";
-
+} from "./ClothesForm.styled.jsx";
 import LabelInput from "./LabelInput/LabelInput";
-import { formDataAppend } from "./auxiliaryForms/formDataAppend";
-import { options } from "./auxiliaryForms/options";
+import formDataAppend from "./auxiliaryForms/formDataAppend";
+import options from "./auxiliaryForms/options";
 import Button from "../Button/Button";
-
-import { getClothes, getClothesId } from "../../redux/clothes/clothes-selector";
-import { useEffect } from "react";
 import validationSchema from "../../validation/clothes";
 import { useRouter } from "next/router";
 
 const CLothesForm = ({ initial, notify, cloth, id }) => {
   const dispatch = useDispatch();
-  // const cloth = useSelector(getClothesId);
-  const clothes = useSelector(getClothes);
 
   const { pathname } = useRouter();
   const [img, setImage] = useState(null);
-  // useEffect(() => {
-  //   const thisCloth = clothes.filter((item) => item._id === id);
-  // }, [clothes, id]);
-
-  // useEffect(() => {
-  //   dispatch(fetchClothes());
-  // }, [dispatch]);
-  // const thisCloth = clothes.filter((item) => console.log(item._id));c
-  // console.log(cloth);
 
   console.log(pathname);
 
@@ -60,7 +41,7 @@ const CLothesForm = ({ initial, notify, cloth, id }) => {
           console.log(img);
 
           dispatch(addClothes(formDataAppend(values, img)));
-          // formikProps.resetForm(initial);
+          formikProps.resetForm(initial);
           notify(values.name, "библиотеку");
         } else {
           dispatch(
@@ -70,7 +51,7 @@ const CLothesForm = ({ initial, notify, cloth, id }) => {
             })
           );
           notify(values.name);
-          // formikProps.resetForm("");
+          formikProps.resetForm("");
         }
       }}
     >
@@ -118,17 +99,6 @@ const CLothesForm = ({ initial, notify, cloth, id }) => {
               />
               {errors.name && touched.name && errors.name}
             </DivInputTop>
-            {/* <DivInputTop>
-              <Label>code</Label>
-              <input
-                type="text"
-                name="code"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.code}
-              />
-              {errors.code && touched.code && errors.code}
-            </DivInputTop> */}
             <DivInputTop>
               <Label>Model</Label>
               <Field component="select" name="model">
@@ -275,19 +245,6 @@ const CLothesForm = ({ initial, notify, cloth, id }) => {
               touched={touched.allprice?.xl7}
             />
           </DivPrice>
-          {/* <select
-            nema="model"
-            type="model"
-            value={values.model}
-            onBlur={handleBlur}
-            onChange={handleChange}
-          > */}{" "}
-          {/* {options.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))} */}
-          {/* </select> */}
           <Button
             marginT="50px;"
             width="100%"

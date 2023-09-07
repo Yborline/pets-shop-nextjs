@@ -12,27 +12,6 @@ border-top: 1px solid  black;
 width: 100%;
 `
 
-export const UlIcons = styled.ul`
-display: flex;
-
-`
-
-
-
-
-export const Li = styled.li`
-display:flex;
-align-items: center;
-margin-bottom: 10px;
-:hover{
-    color: ${({theme}) => theme.hover}
-}
-`
-
-export const Alink = styled.a`
-margin-left: 10px;
-
-`
 
 export const LiIcons = styled.li`
 margin-right: 10px;
@@ -50,14 +29,5 @@ export const AIcons = styled.a`
 
 `
 
-export const UlInfo = styled.ul`
-display:flex;
-flex-direction: column;
-align-items: center;
-@media screen and (min-width : 768px){
 
-}
-
-
-`
 

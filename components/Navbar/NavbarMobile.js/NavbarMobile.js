@@ -130,7 +130,7 @@ const NavbarMobile = ({
               <div style={{ marginRight: "10px", display: "flex" }}>
                 {" "}
                 <ButtonSmall
-                  marginR="5px"
+                  marginright="5px"
                   handleClick={toggleTheme}
                   text={
                     themes === "light" ? (

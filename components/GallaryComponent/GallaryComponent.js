@@ -1,12 +1,6 @@
 import Image from "next/image";
 import { Carousel } from "react-responsive-carousel";
-import {
-  DivImage,
-  Div,
-  ddd,
-  DivLeft,
-  DivRight,
-} from "./GallaryComponent.styled";
+import { DivImage, Div, DivLeft, DivRight } from "./GallaryComponent.styled";
 import { ColorRing } from "react-loader-spinner";
 import { IoMdArrowForward, IoMdArrowBack } from "react-icons/io";
 
@@ -31,21 +25,7 @@ const GallaryComponent = ({ image, name }) => {
         }}
         renderArrowNext={(clickHandler, hasNext) => {
           return (
-            <DivRight
-              // className={`${hasNext ? "absolute" : "hidden"} `}
-              // style={{
-              //   top: "0px",
-              //   bottom: "0px",
-              //   right: "0px",
-              //   display: "flex",
-              //   justifyContent: "center",
-              //   alignItems: "center",
-              //   opacity: 100,
-              //   cursor: "pointer",
-              //   zIndex: 20,
-              // }}
-              onClick={clickHandler}
-            >
+            <DivRight onClick={clickHandler}>
               <IoMdArrowForward style={{ color: "black" }} size={50} />
             </DivRight>
           );
@@ -53,7 +33,7 @@ const GallaryComponent = ({ image, name }) => {
         renderThumbs={() =>
           image.map((item) => (
             <Image
-              key={item.asset_id}
+              key={item.public_id}
               width={100}
               height={80}
               src={item.secure_url}
@@ -63,7 +43,7 @@ const GallaryComponent = ({ image, name }) => {
         }
       >
         {image?.map((item) => (
-          <DivImage key={item.asset_id}>
+          <DivImage key={item.public_id}>
             <Image
               src={
                 item.secure_url ? (

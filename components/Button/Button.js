@@ -5,22 +5,22 @@ const Button = ({
   name,
   type,
   width,
-  marginT,
+  margintop,
   height,
-  marginB,
+  marginbottom,
   handleClick,
   text,
 }) => {
   return (
     <>
       <Btn
-        active={active}
+        $active={active}
         name={name}
         type={type}
         width={width}
         height={height}
-        marginB={marginB}
-        marginT={marginT}
+        $marginbottom={marginbottom}
+        $margintop={margintop}
         onClick={handleClick}
       >
         {text}

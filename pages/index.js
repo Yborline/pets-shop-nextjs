@@ -1,22 +1,7 @@
 import Head from "next/head";
-import Image from "next/image";
 import _ from "lodash";
-import Heading from "../components/Heading/Heading";
-
-import { useState, useContext, useEffect } from "react";
-import HomeList from "../components/HomeList/HomeList";
-import Counter from "../components/Counter/Counter";
-import dog from "../public/photo/dog.png";
-import {
-  Div,
-  Container,
-  DivList,
-  Ul,
-  DivSpinner,
-  H2,
-} from "../styles/index.styled";
-import FormAdd from "../components/FormAdd/FormAdd";
-import authOperations from "../redux/auth/auth-operatins";
+import { useContext, useEffect } from "react";
+import { Container, Ul, H2 } from "../styles/index.styled";
 import { Provider, useDispatch, useSelector } from "react-redux";
 import {
   // deleteClothes,
@@ -67,61 +52,32 @@ export default function Home() {
         <Spinner />
       ) : cloth.length !== 0 && !LoadingAllCloth ? (
         <Ul>
-          <>
-            {" "}
-            {input !== "" &&
-              cloth.length >= 1 &&
-              cloth.length < 6 &&
-              !isPageLoading &&
-              cloth.map((item) => (
-                <ClothesItem
-                  type={user}
-                  id={item._id}
-                  key={item._id}
-                  name={item.name}
-                  active={item.active}
-                  code={item.code}
-                  image={item.image[0]}
-                  owner={item.owner}
-                  model={item.model}
-                  discount={item.discount}
-                  prices={
-                    item.allprice?.xs
-                    // user === "wholesaler"
-                    //   ? item.allprice?.xs?.opt
-                    //   : item.allprice?.xs?.price
-                  }
-                  // dell={() => dispatch(deleteClothes(item._id))}
-                />
-              ))}
-            {/* <Ul>
-            {clothes &&
-              clothes.map(
-                (item) =>
-                  item.discount > 0 && (
-                    <ClothesItem
-                      type={user}
-                      id={item._id}
-                      key={item._id}
-                      name={item.name}
-                      active={item.active}
-                      code={item.code}
-                      image={item.image}
-                      owner={item.owner}
-                      model={item.model}
-                      discount={item.discount}
-                      prices={
-                        item.allprice?.xs
-                        // user === "wholesaler"
-                        //   ? item.allprice?.xs?.opt
-                        //   : item.allprice?.xs?.price
-                      }
-                      // dell={() => dispatch(deleteClothes(item._id))}
-                    />
-                  )
-              )}
-          </Ul> */}
-          </>
+          {" "}
+          {input !== "" &&
+            cloth.length >= 1 &&
+            cloth.length < 6 &&
+            !isPageLoading &&
+            cloth.map((item) => (
+              <ClothesItem
+                type={user}
+                id={item._id}
+                key={item._id}
+                name={item.name}
+                active={item.active}
+                code={item.code}
+                image={item.image[0]}
+                owner={item.owner}
+                model={item.model}
+                discount={item.discount}
+                prices={
+                  item.allprice?.xs
+                  // user === "wholesaler"
+                  //   ? item.allprice?.xs?.opt
+                  //   : item.allprice?.xs?.price
+                }
+                // dell={() => dispatch(deleteClothes(item._id))}
+              />
+            ))}
         </Ul>
       ) : (
         input !== "" && <H2>По вашому запиту нічого не знайдено!</H2>
@@ -137,10 +93,6 @@ export default function Home() {
           <ResponseCarousel user={user} notifySuccess={notifySuccessAll} />
         </>
       )}
-
-      {/* <DivList>
-        <HomeList />
-      </DivList> */}
     </Container>
   );
 }

@@ -112,7 +112,7 @@ const Navbar = () => {
             <DivUser>
               <DivOther>
                 <ButtonSmall
-                  marginR="5px"
+                  marginright="5px"
                   handleClick={toggleTheme}
                   text={
                     themes === "light" ? (

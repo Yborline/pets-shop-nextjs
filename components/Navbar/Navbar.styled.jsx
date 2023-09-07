@@ -24,7 +24,7 @@ export const LinkActive = styled.span`
 
 font-weight: 500;
 color: ${({theme})=> theme.textActive};
-:hover{
+&:hover{
 color: ${({ theme }) => theme.hover};
 
 
@@ -33,7 +33,7 @@ color: ${({ theme }) => theme.hover};
 
 export const LinkNormal = styled.span`
 color: ${({ theme }) => theme.text};
-:hover{
+&:hover{
 color: ${({ theme }) => theme.hover};
 }
 `
@@ -83,7 +83,7 @@ justify-content: space-between;
 `
 
 export const Phone = styled.a`
-:hover{
+&:hover{
 color: ${({ theme }) => theme.hover};
  animation: ${rotate} 1s linear infinite;
 
@@ -298,7 +298,7 @@ line-height: 16px;
 }
 `
 export const LogoLink = styled(Link)`
-:hover{
+&:hover{
 svg{
 stroke:${({ theme }) => theme.hover};
 }

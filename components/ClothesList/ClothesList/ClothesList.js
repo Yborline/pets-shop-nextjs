@@ -1,33 +1,14 @@
-import Link from "next/link";
-// import { Li } from "./ClothesType.style";
 import ClothesItem from "./ClothesItem/ClothesItem";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getLoadingCloth,
-  getVisibleClothes,
-} from "../../../redux/clothes/clothes-selector";
-import { fetchClothes } from "../../../redux/clothes/clothes-operations";
-import { useEffect } from "react";
+import { getLoadingCloth } from "../../../redux/clothes/clothes-selector";
 import { Ul, H3 } from "./ClothesList.styled";
 import { useRouter } from "next/router";
-import { getLocationOrigin } from "next/dist/shared/lib/utils";
-import { getLoggedIn, getUser } from "../../../redux/auth/auth-selectors";
-import changeGroup from "./changeGroup";
+import { getUser } from "../../../redux/auth/auth-selectors";
 import { deleteClothes } from "../../../redux/clothes/clothes-operations";
-import Pagination from "../../Pagination/Pagination";
-import { usePageLoading } from "../../../hooks/hook";
 
 const ClothesList = ({ clothes = [] }) => {
   const loadingCloth = useSelector(getLoadingCloth);
-  const { isPageLoading } = usePageLoading();
-  // const dispatch = useDispatch();
-
-  // useEffect(() => {
-  //   dispatch(fetchClothes());
-  // }, [dispatch]);
-
   const { user } = useSelector(getUser);
-  // const clothes = useSelector(getVisibleClothes);
   const router = useRouter();
   const dispatch = useDispatch();
   const pathname = router.pathname.slice(9);
@@ -67,11 +48,6 @@ const ClothesList = ({ clothes = [] }) => {
           }
         </Ul>
       )}
-
-      {/* <Pagination clothes={changeGroup(pathname, clothes)} /> */}
-      {/* <Li>
-        <Link href={path}>{title}</Link>
-      </Li> */}
     </div>
   );
 };

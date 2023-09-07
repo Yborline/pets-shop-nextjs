@@ -1,4 +1,4 @@
-import { Input, DivInput } from "./LabelInput.styled";
+import { Input, DivInput } from "./LabelInput.styled.jsx";
 
 const LabelInput = ({
   name,

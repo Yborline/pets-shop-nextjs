@@ -1,20 +1,15 @@
 import { useDispatch, useSelector } from "react-redux";
 import CLothesForm from "../components/ClothesForm/ClothesForm";
 import { getUser } from "../redux/auth/auth-selectors";
-
-import { DivSpinner } from "../styles/create.styled";
-import { ThreeDots } from "react-loader-spinner";
-import { getLoadingCloth } from "../redux/clothes/clothes-selector";
 import { use, useEffect } from "react";
 import { fetchClothes } from "../redux/clothes/clothes-operations";
 import { notifySuccess } from "../notify/notify";
 import "react-toastify/dist/ReactToastify.css";
-import { ToastContainer } from "react-toastify";
+
 import ToastifyContainer from "../components/ToastifyContainer/ToastifyContainer";
 
 const Create = () => {
   const type = useSelector(getUser);
-  const loading = useSelector(getLoadingCloth);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchClothes());

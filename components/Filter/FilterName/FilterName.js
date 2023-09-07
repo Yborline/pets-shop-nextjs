@@ -1,7 +1,5 @@
-import { Div, Input } from "./FilterName.styled";
+import { Div, Input } from "./FilterName.styled.jsx";
 import { FiSearch } from "react-icons/fi";
-
-import { useTranslation } from "react-i18next";
 import { useContext } from "react";
 import ctxInput from "../../../context/filterContext";
 
@@ -26,7 +24,7 @@ const FilterName = ({ heightinput, height, position, marginbottom }) => {
   };
 
   return (
-    <Div position={position} height={height} marginbottom={marginbottom}>
+    <Div $position={position} height={height} $marginbottom={marginbottom}>
       <label style={{ position: "relative" }}>
         <Input
           height={heightinput}
@@ -45,20 +43,3 @@ const FilterName = ({ heightinput, height, position, marginbottom }) => {
 };
 
 export default FilterName;
-
-// const debouncedChangeHandler = useMemo(
-//   () =>
-//     debounce(
-//       ({ normalValue, page }) =>
-//         () =>
-//           dispatch(filterSearch({ text: normalValue, page })),
-//       1350
-//     ),
-//   [dispatch]
-// );
-
-// useEffect(() => {
-//   return () => {
-//     debouncedChangeHandler.cancel();
-//   };
-// }, [debouncedChangeHandler]);

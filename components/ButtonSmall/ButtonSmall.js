@@ -1,9 +1,9 @@
-import { Btn } from "./ButtonSmall.styled";
+import { Btn } from "./ButtonSmall.styled.js";
 
-const ButtonSmall = ({ marginR, handleClick, text }) => {
+const ButtonSmall = ({ marginright, handleClick, text }) => {
   return (
     <>
-      <Btn marginRight={marginR} onClick={handleClick}>
+      <Btn $marginright={marginright} onClick={handleClick}>
         {text}
       </Btn>
     </>

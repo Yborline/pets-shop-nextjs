@@ -20,7 +20,7 @@ export const Li = styled.li`
 
 border-radius:5px;
 background-color: ${({theme})=> theme.basketList};
-:not(:last-child){
+&:not(:last-child){
   margin-bottom: 15px;
 }
 display: flex;
@@ -69,7 +69,7 @@ align-items: flex-end;
 `
 export const TitleCard = styled.h3`
  word-break: break-all; 
-:not(:last-child){
+&:not(:last-child){
   margin-bottom: 10px;
 }
 `

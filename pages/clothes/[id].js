@@ -1,19 +1,11 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-// import ClothesInfo from "../../components/ClothesInfo/ClothesInfo";
-import {
-  getClothes,
-  getLoadingCloth,
-} from "../../redux/clothes/clothes-selector";
-import { getClothesId } from "../../redux/clothes/clothes-selector";
-import { fetchClothesId } from "../../redux/clothes/clothes-operations";
+import { useState } from "react";
+
 import { DivMain } from "../../styles/[id].styled";
 import { notifySuccess, notifyError } from "../../notify/notify";
-import { ToastContainer } from "react-toastify";
+
 import "react-toastify/dist/ReactToastify.css";
-import { DivSpinner } from "../../styles/[id].styled";
-import { ColorRing, ThreeDots } from "react-loader-spinner";
-import { fetchAll, getClothById, getComments } from "../../services/api";
+
+import { getClothById, getComments } from "../../services/api";
 import Comments from "../../components/Comments/Comments";
 import { usePageLoading } from "../../hooks/hook";
 import CommentAdd from "../../components/CommentAdd/CommentAdd";

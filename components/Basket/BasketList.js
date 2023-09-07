@@ -1,38 +1,16 @@
-import {
-  getBasket,
-  getClothes,
-  getActualCard,
-} from "../../redux/clothes/clothes-selector";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   Div,
   Li,
-  DivImg,
-  DivInfo,
-  ButtonDelete,
-  DivDelCounter,
   Ul,
-  DivDelet,
-  P,
   SummaryTittle,
   DivButton,
   TitleSumm,
   DivEndOrder,
-} from "./BasketList.styled";
-import Image from "next/image";
-import Counter from "../Counter/Counter";
+} from "./BasketList.styled.jsx";
 import { useEffect, useState } from "react";
-import {
-  changeActualCard,
-  changeShoppingCart,
-  clearShoppingCard,
-  deleteCardBasket,
-} from "../../redux/clothes/clothes-actions";
-import { MdOutlineDeleteOutline } from "react-icons/md";
-import actualCard from "./actualCard";
+import { clearShoppingCard } from "../../redux/clothes/clothes-actions";
 import SummaryPrice from "./SummaryPrice/SummaryPrice";
-import { fetchClothes } from "../../redux/clothes/clothes-operations";
-import OnSale from "../OnSale/OnSale";
 import BasketItem from "./BasketItem/BasketItem";
 import MakeOnOrder from "../MakeOnOrder/MakeOnOrder";
 import { notifySuccessOrder } from "../../notify/notify";
@@ -42,7 +20,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { usePageLoading } from "../../hooks/hook";
 import Spinner from "../Spinner/Spinner";
 
-const BasketList = ({ clotheActual, clothesBasket }) => {
+const BasketList = ({ clotheActual }) => {
   const dispatch = useDispatch();
   const { isPageLoading } = usePageLoading();
   const [openOrder, setOpenOrder] = useState(false);
@@ -60,7 +38,7 @@ const BasketList = ({ clotheActual, clothesBasket }) => {
           height="30px"
           width="200px"
           text={"Очистити корзину"}
-          marginB="25px"
+          marginbottom="25px"
           handleClick={() => dispatch(clearShoppingCard())}
         />
 
@@ -84,10 +62,7 @@ const BasketList = ({ clotheActual, clothesBasket }) => {
                     },
                     index
                   ) => (
-                    // <>
-
                     <Li key={_id}>
-                      {/* <button onClick={}></button> */}
                       <BasketItem
                         amount={amount}
                         name={name}
@@ -100,7 +75,6 @@ const BasketList = ({ clotheActual, clothesBasket }) => {
                         index={index}
                       />
                     </Li>
-                    // </>
                   )
                 )}
               </Ul>

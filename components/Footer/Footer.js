@@ -1,21 +1,7 @@
 import Heading from "../Heading/Heading";
-import {
-  DivContact,
-  FooterDiv,
-  UlIcons,
-  Li,
-  Alink,
-  AIcons,
-  LiIcons,
-  UlInfo,
-} from "./Footer.styled";
-import { RiInstagramFill } from "react-icons/ri";
-import { FaViber } from "react-icons/fa";
-import { BsTelegram } from "react-icons/bs";
-import { GoMail } from "react-icons/go";
-import { FiPhoneCall } from "react-icons/fi";
+import { DivContact, FooterDiv } from "./Footer.styled";
+
 import { useTranslation } from "react-i18next";
-import SocialIcons from "./SocialIcons/SocialIcons";
 import ListInfo from "./ListInfo/ListInfo";
 import { useWindowWidth } from "@react-hook/window-size";
 import FooterDesktop from "./FooterDesktop/FooterDesktop";

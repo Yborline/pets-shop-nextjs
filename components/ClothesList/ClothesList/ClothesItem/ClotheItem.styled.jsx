@@ -13,7 +13,7 @@ max-width: 300px;
 background-color:${({ theme }) => theme.backgroundCart};
 
 margin-bottom: 10px;
-:hover{
+&:hover{
 box-shadow: 2px 4px 14px 0px rgba(0,0,0,0.75);
 }
     &:hover{

@@ -1,7 +1,3 @@
-import { useEffect } from "react";
-import { useState } from "react";
-import debounce from "lodash.debounce";
-import { useRef } from "react";
 import { Button } from "./ButtonUp.styled";
 import SetScroll from "../../hooks/setScroll";
 
@@ -18,11 +14,7 @@ const ButtonUp = () => {
 
   return (
     <>
-      {scroll > 250 ? (
-        <Button onClick={handleUpButton} size="35px"></Button>
-      ) : (
-        <></>
-      )}
+      {scroll > 250 && <Button onClick={handleUpButton} size="35px"></Button>}
     </>
   );
 };

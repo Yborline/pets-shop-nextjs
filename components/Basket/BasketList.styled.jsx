@@ -39,45 +39,23 @@ export const Li = styled.li`
 box-shadow:  ${({theme})=> theme.basketShadow};
 border-radius:5px;
 background-color: ${({theme})=> theme.basketList};
-:not(:last-child){
+&:not(:last-child){
   margin-bottom: 15px;
 }
 display: flex;
 align-items: center;
 width: 100%;
-:hover{
+&:hover{
 transform: scale(1.025);
 }`
 
-export const DivImg = styled.div`
-position: relative;
-height: 150px;
-min-width: 110px;`
 
 
-export const DivInfo = styled.div`
-display:flex; 
-align-items: center;
-position:relative;
-margin-left: 10px;
-justify-content: space-between;
-width: 100%;
-
-`
-
-export const DivDelCounter = styled.div`
-
-`
-export const DivDelet = styled.div`
-margin-right: 10px;
 
 
-`
-export const P = styled.p`
-:not(:last-child){
-  margin-bottom: 10px;
-}
-`
+
+
+
 export const DivButton = styled.div`
 display: flex;
 justify-content:center;`

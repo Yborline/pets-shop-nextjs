@@ -3,10 +3,10 @@ import { DebounceInput } from "react-debounce-input";
 export const Div = styled.div`
 display:flex;
 justify-content:center;
-align-items:${(props) => props.position} ;
+align-items:${(props) => props.$position} ;
 width: 100%;
 height: ${(props) => props.height};
-margin-bottom:${({marginbottom})=>marginbottom}
+margin-bottom:${({$marginbottom})=>$marginbottom}
 
 `
 

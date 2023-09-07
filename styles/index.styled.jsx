@@ -1,10 +1,7 @@
 import styled from "styled-components";
 
 
-export const Div = styled.div`
 
-
-`
 
 
 export const Container = styled.div`
@@ -24,11 +21,7 @@ margin-top: 20px;
 
 `
 
-export const DivList = styled.div`
-display: flex;
-border-left: 1px solid;
-margin-left: 20px;
-`
+
 
 export const Ul = styled.ul`
 padding:20px;
@@ -44,9 +37,7 @@ padding:20px;
        }
 `
 
-export const DivSpinner = styled.div`
-display: flex; 
-justify-content: center;`
+
 
 export const H2 = styled.h2`
 

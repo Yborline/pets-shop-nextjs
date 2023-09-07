@@ -7,12 +7,12 @@ export const Btn = styled.button`
   max-height: 22px;
   background-color: inherit;
   cursor: pointer;
-border: 0px;
+  border: 0px;
 
   color: ${({ theme }) => theme.text};
-  margin-right: ${(props) => props.marginRight} };
-  &:active,
-  :hover{
-     color: ${({ theme }) => theme.moon}
+  margin-right: ${(props) => props.$marginright};
+
+  &:hover {
+    color: ${({ theme }) => theme.moon};
   }
 `;

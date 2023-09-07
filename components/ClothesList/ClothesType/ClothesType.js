@@ -1,16 +1,13 @@
-import Link from "next/link";
-import { LiActive, LiNormal, NavLink } from "./ClothesType.styled";
+import { LiActive, LiNormal } from "./ClothesType.styled";
 import { useRouter } from "next/router";
-import usePagination from "../../../hooks/hook";
-import { useSelector } from "react-redux";
-import { getClothes } from "../../../redux/clothes/clothes-selector";
+import Link from "next/link";
 
 const ClothesType = ({ id, title, page, type, parent }) => {
   const { query } = useRouter();
   return (
     <>
       {" "}
-      <NavLink
+      <Link
         key={id}
         href={{
           pathname: "/clothes/type",
@@ -22,7 +19,7 @@ const ClothesType = ({ id, title, page, type, parent }) => {
         ) : (
           <LiNormal>{title}</LiNormal>
         )}
-      </NavLink>
+      </Link>
     </>
   );
 };

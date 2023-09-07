@@ -3,8 +3,8 @@ import Link from "next/link";
 
 export const NavLink = styled(Link)`
 &:active,
-&:hover{
-    color: ${({theme})=> theme.hover}
+:hover{
+    color: ${({theme})=> theme.hover};
 }
 `
 
@@ -13,7 +13,7 @@ export const LinkActive = styled.span`
 
 font-weight: 500;
 color: ${({theme})=> theme.textActive};
-:hover{
+&:hover{
 color: ${({ theme }) => theme.hover};
 
 
@@ -22,7 +22,7 @@ color: ${({ theme }) => theme.hover};
 
 export const LinkNormal = styled.span`
 color: ${({ theme }) => theme.text};
-:hover{
+&:hover{
 color: ${({ theme }) => theme.hover};
 }
 `

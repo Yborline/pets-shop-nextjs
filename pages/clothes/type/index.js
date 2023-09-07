@@ -1,9 +1,6 @@
 import ClothesListType from "../../../components/ClothesList/ClothesListType";
-
 import { useRouter } from "next/router";
-
 import Pagination from "../../../components/Pagination/Pagination";
-
 import { getFetchType } from "../../../services/api";
 import ClothesList from "../../../components/ClothesList/ClothesList/ClothesList";
 import {
@@ -22,12 +19,9 @@ const Type = ({ clothes, count }) => {
   console.log(clothes);
   console.log(count);
   const { isPageLoading } = usePageLoading();
-  // const dispatch = useDispatch();
-  // const clothes = useSelector(getType);
-  // const count = useSelector(getCountType);
+
   const router = useRouter();
   const searchPage = router.query.page;
-  const type = router.query.type;
 
   const handleChange = async (event, value) => {
     if (value) {
@@ -35,20 +29,8 @@ const Type = ({ clothes, count }) => {
       router.push(
         `${router.pathname}?page=${router.query.page}&type=${router.query.type}`
       );
-      // console.log(router);
-      // router.push(router);
     }
-    // else {
-    //   router.query.page = searchPage;
-    //   router.push(router);
-    // }
   };
-
-  // useEffect(() => {
-  //   if (searchPage) {
-  //     dispatch(fetchType({ searchPage, path: type }));
-  //   }
-  // }, [dispatch, searchPage, type]);
 
   return (
     <Div>

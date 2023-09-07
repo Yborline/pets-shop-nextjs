@@ -36,9 +36,7 @@ const Embroidery = () => {
   return (
     <>
       <ClothesListType clothes={clothes} />
-      {clothes.length === 0 ? (
-        <></>
-      ) : (
+      {clothes.length !== 0 && (
         <Pagination
           currentPage={Number(searchPage)}
           clothes={clothes}

@@ -1,11 +1,6 @@
-import {
-  Li,
-  Alink,
-  UlInfo,
-} from "../Footer.styled";
+import { Li, Alink, UlInfo } from "./ListInfo.styled";
 import { GoMail } from "react-icons/go";
 import { FiPhoneCall } from "react-icons/fi";
-import { useTranslation } from "react-i18next";
 import SocialIcons from "../SocialIcons/SocialIcons";
 
 const ListInfo = () => {

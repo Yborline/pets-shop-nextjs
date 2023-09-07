@@ -1,6 +1,6 @@
 import Link from "next/link";
 import styled from "styled-components";
-import { pulse, heart } from "../../../styles/animation";
+import {  heart } from "../../../styles/animation";
 import FavoriteIcon from "@mui/icons-material/Favorite";
  
 export const H3 = styled.h3`

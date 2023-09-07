@@ -279,7 +279,7 @@ const SignUpForm = ({ changeForm, toggleModal, signUpForm }) => {
                     //     touched.constructor === Object)
                     // }
                     height="30px"
-                    marginB="15px"
+                    marginbottom="15px"
                     text={t("Sign up")}
                     width="100%"
                     type="submit"
@@ -288,7 +288,7 @@ const SignUpForm = ({ changeForm, toggleModal, signUpForm }) => {
 
                   <Button
                     height="30px"
-                    marginB="15px"
+                    marginbottom="15px"
                     text={t("Sign in")}
                     width="100%"
                     type="submit"

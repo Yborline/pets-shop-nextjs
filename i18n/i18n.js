@@ -14,7 +14,6 @@ const resources = {
 };
 
 if (typeof window !== "undefined") {
-  // Perform localStorage action
   const item = localStorage.getItem("key");
 }
 

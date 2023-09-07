@@ -117,7 +117,11 @@ const NavbarMobile = ({
                 {" "}
                 <ButtonSmall
                   marginright="5px"
-                  handleClick={toggleTheme}
+                  handleClick={
+                    themes === "light"
+                      ? () => toggleTheme("dark")
+                      : () => toggleTheme("light")
+                  }
                   text={
                     themes === "light" ? (
                       <BsMoonFill size="18px" />

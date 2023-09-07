@@ -19,15 +19,15 @@ const aboutUs = () => {
     <Container>
       <H2>Ласкаво просимо до нашого інтернет-магазину для тварин!</H2>
       <Section1>
-        <h3>Хто ми?</h3>
         <DivFlex>
           <Img
             style={{ borderRadius: "50%" }}
-            width={400}
+            width={350}
             height={350}
             src={image2}
             alt="small dog"
           ></Img>
+          <h3>Хто ми?</h3>
           <DivInfo>
             <P>
               Ua.Petshop - це сімейний бізнес, який був заснований з любові до

@@ -47,6 +47,7 @@ list-style-type: none;
 margin-left: 10px;
 `
 export const Ul = styled.ul`
+font-size: 17px;
 display:flex;
 align-items: flex-start;
 padding: 10px 10px 0px 10px;

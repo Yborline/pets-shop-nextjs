@@ -6,55 +6,32 @@ import {
   Nav,
   UlNavigation,
   NavLi,
-  Logo,
-  DivLogo,
   DivOther,
-  Ul,
-  DivMenu,
-  ButtonList,
-  SpanBasketNumber,
-  DivSpan,
-  DivBasket,
-  DivNumber,
   DivAbout,
   DivPhone,
-  LiIcons,
-  AIcons,
-  UlIcons,
   DivInfo,
   DivUser,
-  UlNavigate,
   DivSvg,
   H1,
-  DivMobile,
-  Divfirst,
-  DivTwo,
-  DivFilterMobile,
   Phone,
-  DivAboutUs,
-  DivMobileSvg,
-  Img,
   Svg,
   LogoLink,
 } from "./Navbar.styled";
 import { useTranslation } from "react-i18next";
 import { HiOutlineShoppingCart } from "react-icons/hi";
-import { AiOutlineUnorderedList } from "react-icons/ai";
 import { BsMoonFill, BsFillSunFill } from "react-icons/bs";
-// import { MdPets } from "react-icons/md";
+
 import useLocalStorage from "../../hooks/useLocalStorage";
 import ctx from "../../context/themeContext";
 import i18n from "../../i18n/i18n";
 import ButtonSmall from "../ButtonSmall/ButtonSmall";
-import { useState, useContext } from "react";
+import { useContext } from "react";
 import { useWindowWidth } from "@react-hook/window-size";
 import ButtonUser from "../ButtonUser/ButtonUser";
 import Modal from "../Modal";
 import LoginForm from "../LoginForm/LoginForm";
 import { useDispatch, useSelector } from "react-redux";
-import { getActualCard, getBasket } from "../../redux/clothes/clothes-selector";
-
-import s from "./Navbar.module.css";
+import { getActualCard } from "../../redux/clothes/clothes-selector";
 import FilterName from "../Filter/FilterName/FilterName";
 import ctxInput from "../../context/filterContext";
 import SocialIcons from "../Footer/SocialIcons/SocialIcons";
@@ -132,9 +109,8 @@ const Navbar = () => {
                   height="18px"
                   text={t("Exit")}
                   width="100%"
-                  type="submit"
                   handleClick={() => dispatch(authOperations.logout())}
-                ></Button>
+                />
               ) : (
                 <ButtonUser toggleModal={toggleModal} />
               )}
@@ -164,9 +140,9 @@ const Navbar = () => {
             </Link>
           </DivPhone>
           <DivSvg>
-            <LogoLink style={{ zIndex: 5 }} className={s.sprite} href={`/`}>
+            <LogoLink href={`/`}>
               <Svg />
-              <H1 className={s.sprite}>Ua.PetShop</H1>
+              <H1>Ua.PetShop</H1>
             </LogoLink>
           </DivSvg>
           <DivInfo>
@@ -175,7 +151,7 @@ const Navbar = () => {
           {pathname === "/" && (
             <DivInfo>
               {" "}
-              <FilterName heightinput="30px" saveInput={inputIn}></FilterName>
+              <FilterName heightinput="30px"></FilterName>
             </DivInfo>
           )}
         </>

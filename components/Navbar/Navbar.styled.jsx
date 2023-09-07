@@ -14,10 +14,6 @@ const rotate = keyframes`
 
 
 
-export const Logo = styled.p`
-text-align:center;
-color: ${({ theme }) => theme.text};
-margin-right:`
 
 export const LinkActive = styled.span`
 
@@ -53,11 +49,7 @@ font-size:10px;
 margin: 0px 0px 0px 0pxy;
 
 `
-export const DivNumber = styled.div`
-width:15px;
-postiton: absolute;
 
-`
 
 
 
@@ -104,32 +96,10 @@ height:40px;
 
 export const DivUser = styled.div`
 display:flex;`
-export const UlIcons = styled.ul`
-display: flex;
-
-// `
-// export const UlNavigate = styled.div`
-// display:flex;`
-
-export const LiIcons = styled.li`
-margin-right: 10px;
-:last-of-type{
-    margin-right: 0px;
-}
-
-`
-
-export const AIcons = styled.a`
-:hover{
-    color: ${({theme}) => theme.hover};
-}
 
 
-`
-export const DivFilterMobile = styled.div`
-display:flex;
-height:30px;
-align-items: flex-end;`
+
+
 
 
 export const Nav = styled.nav`
@@ -173,13 +143,8 @@ margin-left: 10px;
 // }
 
 
-export const DivLogo = styled.div`
-display:flex;
-align-items: center;`
 
-export const Img = styled(Image)`
 
-stroke: ${({theme})=> theme.text};`
 
 export const ButtonTheme = styled.button`
 
@@ -191,19 +156,6 @@ export const DivOther = styled.div`
 display: flex;
 margin-right: 20px;`
 
-export const Ul = styled.ul`
-display:flex;
-align-items: flex-start;
-padding: 10px 10px 0px 10px;
-justify-content: space-between;
-background-color: ${({theme}) => theme.mobilMenu};
-position: absolute;
-height:100%;
-width: 100vw;
-right: 0px;
-top: 0px;
-z-index: 3;
-`
 export const DivSvg = styled.div`
 display: flex;
     justify-content: center;
@@ -226,13 +178,6 @@ stroke: ${({ theme }) => theme.text};
  }
 `
 
-export const DivMobileSvg = styled.div`
-display: flex;
-    justify-content: center;
-position: absolute;
-    width: 100%;
-top:-23%;
-`
 
 //  @media screen and (min-width: 768px) {
 //     top:10%;
@@ -248,43 +193,20 @@ display: flex;
 align-items: flex-end;`
 
 
-export const DivMobile = styled.div`
-display:flex;
 
 
-`
-
-export const DivAboutUs = styled.div`
-display:flex;
-justify-content: space-around;`
 
 
-export const Divfirst = styled.div`
 
 
-`
-
-
-export const DivTwo = styled.div`
-display:flex;
-justify-content: space-between;
-position:relative;
-
-
-`
-
-export const ButtonList = styled.div`
-color:${({theme})=>theme.text};
-height: 20px;
-
-`
 
 
 export const H1 = styled.h1`
+  display: flex;
 font-family: 'Metal';
 font-style: normal;
 font-weight: 400;
-font-size: 25px;
+font-size: 25pgoLinkx;
 line-height: 8px;
         display: flex;
         color: ${({ theme }) => theme.text};
@@ -298,11 +220,14 @@ line-height: 16px;
 }
 `
 export const LogoLink = styled(Link)`
+z-index: 5;
+  display: flex;
 &:hover{
 svg{
 stroke:${({ theme }) => theme.hover};
 }
 h1{
+  
 color:${({ theme }) => theme.hover};
 }
 }`

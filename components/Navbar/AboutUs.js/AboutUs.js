@@ -1,4 +1,4 @@
-import Link from "next/link";
+
 import { useTranslation } from "react-i18next";
 import { NavLink, LinkActive, LinkNormal } from "./AboutUs.styled";
 import { useRouter } from "next/router";
@@ -20,7 +20,6 @@ const AboutUs = () => {
           ) : (
             <LinkNormal>{title}</LinkNormal>
           )}
-          {/* <p className={pathname === path ? s.active : null}>{title}</p> */}
         </NavLink>
       ))}
     </>

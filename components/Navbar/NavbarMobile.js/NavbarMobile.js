@@ -14,27 +14,24 @@ import {
   DivAboutUs,
   DivMobileSvg,
   Svg,
-} from "../Navbar.styled";
+} from "./NavbarMobile.styled";
 import AboutUs from "../AboutUs.js/AboutUs";
 import ButtonUser from "../../ButtonUser/ButtonUser";
 import { HiOutlineShoppingCart } from "react-icons/hi";
 import { AiOutlineUnorderedList } from "react-icons/ai";
 import Link from "next/link";
-import Image from "next/image";
 import FilterName from "../../Filter/FilterName/FilterName";
 import ButtonSmall from "../../ButtonSmall/ButtonSmall";
 import { BsMoonFill, BsFillSunFill } from "react-icons/bs";
 import { useTranslation } from "react-i18next";
 import { useRouter } from "next/router";
-import sprite from "../../../public/sprite/image.svg";
 import ctx from "../../../context/themeContext";
-
 import { useState } from "react";
-import useLocalStorage from "../../../hooks/useLocalStorage";
 import { useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getLoggedIn } from "../../../redux/auth/auth-selectors";
 import authOperations from "../../../redux/auth/auth-operatins";
+import Button from "../../Button/Button";
 
 const NavbarMobile = ({
   handleLenguageChange,
@@ -64,7 +61,6 @@ const NavbarMobile = ({
       <UlNavigation
         style={pathname === "/" ? { height: "80px" } : { height: "50px" }}
       >
-        {/* <Divfirst> */}
         <DivTwo>
           <ButtonList style={{ zIndex: 1 }} onClick={toggleMenu}>
             <AiOutlineUnorderedList size="30px" />
@@ -104,21 +100,12 @@ const NavbarMobile = ({
         </DivTwo>
         {/* <DivInfo>
               {" "} */}
-        {pathname === "/" ? (
+        {pathname === "/" && (
           <DivFilterMobile>
-            <FilterName
-              heightInput="25px;"
-              position="flex-end"
-              height="50px"
-              saveInput={inputIn}
-            ></FilterName>
+            <FilterName heightinput="25px;" position="flex-end" height="50px" />
           </DivFilterMobile>
-        ) : (
-          <></>
         )}
-
         {/* </DivInfo> */}
-        {/* </Divfirst> */}
         {showMenu && (
           <Ul>
             {" "}
@@ -162,16 +149,15 @@ const NavbarMobile = ({
                 </NavLi>
               ))}
               {logged ? (
-                <button
+                <Button
                   height="30px"
                   marginB="15px"
                   text="Exit"
                   width="100%"
-                  type="submit"
                   onClick={() => dispatch(authOperations.logout())}
                 >
                   {t("Exit")}
-                </button>
+                </Button>
               ) : (
                 <ButtonUser toggleModal={toggleModal} />
               )}

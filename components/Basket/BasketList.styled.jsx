@@ -14,9 +14,10 @@ margin-right: 5px;`
 
 export const Div = styled.div`
 
-  margin-top: 60px;
+  margin-top: 0px;
   padding: 20px;
       @media screen and (min-width: 768px) {
+          margin-top: 30px;
   padding: 0px 60px 0px  60px;
 
     }
@@ -35,46 +36,32 @@ justify-content: center;
 `
 export const Li = styled.li`
 
-border: 1px solid;
+box-shadow:  ${({theme})=> theme.basketShadow};
 border-radius:5px;
 background-color: ${({theme})=> theme.basketList};
-:not(:last-child){
+&:not(:last-child){
   margin-bottom: 15px;
 }
 display: flex;
 align-items: center;
-
-width: 100%;`
-
-export const DivImg = styled.div`
-position: relative;
-height: 150px;
-min-width: 110px;`
-
-
-export const DivInfo = styled.div`
-display:flex; 
-align-items: center;
-position:relative;
-margin-left: 10px;
-justify-content: space-between;
 width: 100%;
-
-`
-
-export const DivDelCounter = styled.div`
-
-`
-export const DivDelet = styled.div`
-margin-right: 10px;
+&:hover{
+transform: scale(1.025);
+}`
 
 
-`
-export const P = styled.p`
-:not(:last-child){
-  margin-bottom: 10px;
-}
-`
+
+
+
+
+
+
 export const DivButton = styled.div`
 display: flex;
 justify-content:center;`
+
+export const DivEndOrder = styled.div`
+display: flex;
+
+flex-direction: column;
+align-items: center;`

@@ -1,14 +1,17 @@
 import { Component } from "react";
 import themeContext from "./themeContext";
+
 export default class ProviderTheme extends Component {
   state = {
-    themes: "light",
-    toggleTheme: () => {
-      if (this.state.themes === "light") {
-        this.setState({ themes: "dark" });
-      } else {
-        this.setState({ themes: "light" });
+    themes: JSON.parse(localStorage.getItem("themes")) || "light",
+
+    toggleTheme: (newValue) => {
+      try {
+        localStorage.setItem("themes", JSON.stringify(newValue));
+      } catch (error) {
+        console.log(error);
       }
+      this.setState({ themes: newValue });
     },
   };
   render() {

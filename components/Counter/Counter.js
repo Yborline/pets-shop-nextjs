@@ -1,27 +1,22 @@
-import { useState } from "react";
 import { useDispatch } from "react-redux";
 import {
   changeCardIncrement,
   changeCardDecrement,
 } from "../../redux/clothes/clothes-actions";
-import { Div, Button, Span } from "./Counter.styled";
+import { Div, Button, Span } from "./Counter.styled.jsx";
 import { AiOutlinePlus } from "react-icons/ai";
 import { BiMinus } from "react-icons/bi";
 
-const Counter = ({ amount, id, changeCard }) => {
-  // const [number, setNumber] = useState(1);
+const Counter = ({ amount, id, }) => {
   const dispatch = useDispatch();
 
   const changeNumber = (event) => {
     switch (event.currentTarget.name) {
       case "increment":
         return dispatch(changeCardIncrement(id));
-      // setNumber(number + 1) && changeCard(number + 1);
+
       case "decrement":
         return amount === 1 ? amount : dispatch(changeCardDecrement(id));
-      // number === 1
-      //   ? setNumber(number) && changeCard(number)
-      //   : setNumber(number - 1) && changeCard(number - 1);
       default:
         return number;
     }

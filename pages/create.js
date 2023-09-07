@@ -1,19 +1,15 @@
 import { useDispatch, useSelector } from "react-redux";
 import CLothesForm from "../components/ClothesForm/ClothesForm";
 import { getUser } from "../redux/auth/auth-selectors";
-
-import { DivSpinner } from "../styles/create.styled";
-import { ThreeDots } from "react-loader-spinner";
-import { getLoadingCloth } from "../redux/clothes/clothes-selector";
 import { use, useEffect } from "react";
 import { fetchClothes } from "../redux/clothes/clothes-operations";
 import { notifySuccess } from "../notify/notify";
 import "react-toastify/dist/ReactToastify.css";
-import { ToastContainer } from "react-toastify";
+
+import ToastifyContainer from "../components/ToastifyContainer/ToastifyContainer";
 
 const Create = () => {
   const type = useSelector(getUser);
-  const loading = useSelector(getLoadingCloth);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchClothes());
@@ -21,7 +17,6 @@ const Create = () => {
 
   const create = {
     name: "",
-    code: "",
     allprice: {
       xs: { price: "", opt: "", active: false },
       s: { price: "", opt: "", active: false },
@@ -43,37 +38,13 @@ const Create = () => {
   };
   return (
     <>
-      {/* {loading ? (
-        <DivSpinner>
-          <ThreeDots
-            height="80"
-            width="80"
-            radius="9"
-            color="#800000"
-            ariaLabel="three-dots-loading"
-            wrapperStyle={{}}
-            wrapperClassName=""
-            visible={true}
-          />
-        </DivSpinner>
-      ) : ( */}
       <>
         {type?.user === "admin" ? (
           <CLothesForm notify={notifySuccess} initial={create} />
         ) : (
           <h2>Такой страницы нет</h2>
         )}
-        <ToastContainer
-          position="top-center"
-          autoClose={2000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss={false}
-          draggable
-          pauseOnHover={false}
-        />
+        <ToastifyContainer />
       </>
       {/* )} */}
     </>

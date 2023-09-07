@@ -4,7 +4,7 @@ import Header from "../Header/Header";
 import { ThemeProvider } from "styled-components";
 import { GlobalStyles, lightTheme, darkTheme } from "../../styles/ThemeConfig";
 import { useContext } from "react";
-import ctx from "../context/themeContext";
+import ctx from "../../context/themeContext";
 import { useState, useEffect } from "react";
 import Head from "next/head";
 import { Div, Wrapper, Body } from "./Layout.styled";
@@ -13,18 +13,17 @@ import authOperations from "../../redux/auth/auth-operatins";
 import { fetchAllClothes } from "../../redux/clothes/clothes-operations";
 
 const Layout = ({ children }) => {
-  const { themes } = useContext(ctx);
+  const { themes, toggleTheme } = useContext(ctx);
   const [isMounted, setIsMounted] = useState(false);
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-
-  // }, [dispatch]);
   useEffect(() => {
     setIsMounted(true);
-    dispatch(authOperations.fetchCurrentUser());
-    dispatch(fetchAllClothes());
-  }, [dispatch]);
+    if (!isMounted) {
+      dispatch(authOperations.fetchCurrentUser());
+      dispatch(fetchAllClothes());
+    }
+  }, [dispatch, isMounted]);
 
   return (
     <Body>
@@ -34,7 +33,7 @@ const Layout = ({ children }) => {
           rel="stylesheet"
         />
       </Head> */}
-      <ThemeProvider theme={themes == "light" ? lightTheme : darkTheme}>
+      <ThemeProvider theme={themes === "light" ? lightTheme : darkTheme}>
         <GlobalStyles />
         {isMounted && (
           <Wrapper>

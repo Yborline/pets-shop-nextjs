@@ -1,55 +1,36 @@
 import {
   DivDelCounter,
   DivDelet,
-  P,
   DivImg,
   DivInfo,
   TitleCard,
-} from "./BasketItem.styled";
-import Image from "next/image";
+  Img,
+} from "./BasketItem.styled.jsx";
+
 import OnSale from "../../OnSale/OnSale";
 import Counter from "../../Counter/Counter";
 import { MdOutlineDeleteOutline } from "react-icons/md";
-import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { deleteCardBasket } from "../../../redux/clothes/clothes-actions";
-import { fetchAllClothes } from "../../../redux/clothes/clothes-operations";
 import s from "./BasketItem.module.css";
 import Link from "next/link";
-import { ColorRing } from "react-loader-spinner";
 
-const BasketItem = ({
-  amount,
-  name,
-  code,
-  image,
-  model,
-  allprice,
-  _id,
-  discount,
-  index,
-}) => {
+const BasketItem = ({ amount, name, image, allprice, _id, discount }) => {
+  const noImage =
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/256px-No-Image-Placeholder.svg.png";
   const dispatch = useDispatch();
-  // const [currentPrice, setCurrentPrice] = useState(null);
   const deleteCard = (_id) => {
     dispatch(deleteCardBasket(_id));
   };
-  // console.log(currentPrice);
-  // const changePrice = (price) => {
-  //   setCurrentPrice(price);
-  // };
-
-  useEffect(() => {
-    dispatch(fetchAllClothes());
-  }, [dispatch]);
 
   return (
     <>
       <DivImg>
         <Link href={`/clothes/${_id.split("-")[0]}`}>
-          <Image
+          <Img
+            loading="lazy"
             style={{ borderRadius: "5px 0px 0px 5px" }}
-            src={image?.url}
+            src={image[0]?.url ? image[0]?.url : noImage}
             alt={name}
             fill
             sizes="(max-width: 768px) 100px,
@@ -60,17 +41,12 @@ const BasketItem = ({
       </DivImg>
       <DivInfo>
         <div>
-          <TitleCard>
-            {name} : {allprice.size}
-          </TitleCard>
-          {/* <P>{model}</P> */}
-          <OnSale
-            // changePrice={changePrice}
-            price={allprice.price}
-            discount={discount}
-          />
-
-          {/* <P>{allprice.price} грн</P> */}
+          <Link href={`/clothes/${_id.split("-")[0]}`}>
+            <TitleCard>
+              {name} : {allprice.size}
+            </TitleCard>
+            <OnSale price={allprice.price} discount={discount} />
+          </Link>
         </div>
         <DivDelet>
           <DivDelCounter>
@@ -79,18 +55,10 @@ const BasketItem = ({
           <h3>{amount * (allprice.price - discount)} грн.</h3>
           <MdOutlineDeleteOutline
             className={s.delete}
-            // style={{
-            //   cursor: "pointer",
-            //   marginRight: "10px",
-            //   onmouseover: "backgroundColor='#55555'",
-            //   onmouseout: "backgroundColor='#33333'",
-            // }}
             onClick={() => deleteCard(_id)}
             size="30px"
           />
         </DivDelet>
-
-        {/* <Counter amount={amount} id={_id} changeCard={changeCard} /> */}
       </DivInfo>
     </>
   );

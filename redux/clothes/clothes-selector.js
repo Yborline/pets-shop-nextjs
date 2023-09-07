@@ -10,6 +10,7 @@ export const getLoadingCloth = (state) => state.clothes.loadingCloth;
 export const getBasket = (state) => state.shopping.clothes;
 export const getAmount = (state) => state.shopping.clothes.amount;
 export const getFilterName = (state) => state.clothes.changeFilter.filterName;
+export const getLoadingAllCloth = (state) => state.clothes.loadingAllCloth;
 // export const getLoadingClothe = (state) => state.clothes.loadingCloth;
 
 export const getVisibleClothes = createSelector(
@@ -38,27 +39,17 @@ export const getActualCard = createSelector(
       return basket;
     }
 
-    // const similarityArray = arraysIвBrief.filter((item) => {
-    //   return clothes.some((item2) => item2._id === item[0]);
-    // });
     const arraysIвBrief = basket.map((item) => item._id.split("-"));
 
     const similarityArray = arraysIвBrief.filter((item) => {
       return clothes.some((item2) => item2._id === item[0]);
     });
 
-    // const ActualPrice = basket.map((item) => {
-    //   const idBasket = item._id.split("-");
-    //   const normalCloth = clothes.filter((item2) => item2._id === idBasket[0]);
-    //   const price = basket.map(item => {});
-    // });
-    // const normalId = array.join("");
     const arrayId = similarityArray.map((item) => item.join("-"));
 
     const newArray = basket.filter((item) => {
       return arrayId.some((item2) => item._id === item2);
     });
-    // console.log(newArray);
 
     const actualP = newArray.map((item) => {
       const arrayBasketNormalId = clothes.filter(
@@ -68,11 +59,10 @@ export const getActualCard = createSelector(
     });
 
     const normalArray = actualP.flat();
-    console.log(normalArray);
     const add = [];
 
     basket.map((item) => {
-      const arrayBasketNormalId = normalArray.map((item2) => {
+      normalArray.map((item2) => {
         if (item._id.includes(item2._id)) {
           if (
             item.allprice.price !== item2.allprice[item.allprice.size]?.price ||

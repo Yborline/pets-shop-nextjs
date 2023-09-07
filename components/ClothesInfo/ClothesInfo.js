@@ -1,9 +1,7 @@
-import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Div,
   DivMain,
-  DivImage,
   Ul,
   Span,
   Description,
@@ -11,27 +9,21 @@ import {
   P,
   DivCorrection,
   DivSizes,
-} from "./ClothesInfo.styled";
+} from "./ClothesInfo.styled.jsx";
 import { getUser } from "../../redux/auth/auth-selectors";
 import { useEffect, useState } from "react";
-import authOperations from "../../redux/auth/auth-operatins";
 import { HiOutlineShoppingCart } from "react-icons/hi";
 import { changeShoppingCard } from "../../redux/clothes/clothes-actions";
-import { getClothesId, getBasket } from "../../redux/clothes/clothes-selector";
+import { getBasket } from "../../redux/clothes/clothes-selector";
 import Link from "next/link";
 import DiscountForm from "../discountForm/discountForm";
 import onSale from "../../calculation/makeDiscount";
 import Button from "../Button/Button";
-import { Suspense } from "react";
-import { ColorRing } from "react-loader-spinner";
 import { useTranslation } from "react-i18next";
+import GallaryComponent from "../GallaryComponent/GallaryComponent";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 
-import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
-import { Carousel } from "react-responsive-carousel";
-import { useRef } from "react";
-
-const ClothesInfo = ({ id, cloth, notifyError, notifySuccess }) => {
-  const windowWidth = useRef(window.innerWidth);
+const ClothesInfo = ({ id, cloth = {}, notifyError, notifySuccess }) => {
   const { t } = useTranslation();
   const size = [
     "xs",
@@ -52,8 +44,8 @@ const ClothesInfo = ({ id, cloth, notifyError, notifySuccess }) => {
   const [openMenu, setOpenMenu] = useState(false);
   const { user } = useSelector(getUser);
   const clothBasket = useSelector(getBasket);
-  // const cloth = useSelector(getClothesId);
   const dispatch = useDispatch();
+
   const {
     _id,
     name,
@@ -63,50 +55,35 @@ const ClothesInfo = ({ id, cloth, notifyError, notifySuccess }) => {
     model,
     image,
     discount,
-  } = cloth;
-  const { xs, s, sm, m, ml, l, xl, xxl, xl3, xl4, xl5, xl6, xl7 } = allprice;
+  } = cloth || {};
+  const { xs, s, sm, m, ml, l, xl, xxl, xl3, xl4, xl5, xl6, xl7 } =
+    allprice || {};
 
   const [currentBtn, setCurrentBtn] = useState({});
   useEffect(() => {
-    setCurrentBtn(
-      // user?.user === "wholesaler"
-      user === "wholesaler"
-        ? {
-            ...cloth,
-            amount: 1,
-            _id: `${cloth._id}-xs`,
-            allprice: { price: xs?.opt, size: "xs" },
-          }
-        : {
-            ...cloth,
-            amount: 1,
-            _id: `${cloth._id}-xs`,
-            allprice: { price: xs?.price, size: "xs" },
-          }
-    );
+    cloth &&
+      setCurrentBtn(
+        user === "wholesaler"
+          ? {
+              ...cloth,
+              amount: 1,
+              _id: `${cloth._id}-xs`,
+              allprice: { price: xs?.opt, size: "xs" },
+            }
+          : {
+              ...cloth,
+              amount: 1,
+              _id: `${cloth._id}-xs`,
+              allprice: { price: xs?.price, size: "xs" },
+            }
+      );
   }, [cloth, user, xs?.opt, xs?.price]);
 
   const toggleMenu = () => {
     setOpenMenu(!openMenu);
   };
-  // }, [cloth, user?.user, xs?.opt, xs?.price]);
-
-  // const [currentBtn, setCurrentBtn] = useState({
-  //   size: "",
-  //   price: 0,
-  // });
-  // console.log(currentBtn);
-  // console.log(cloth);
-  // console.log(image);
 
   const changeBtn = (size = cloth.allprice.xs, key) => {
-    // console.log(e.currentTarget.name);
-    // console.log(e.currentTarget.value);
-    // {
-    //   size: e.currentTarget.name,
-    //   price: e.currentTarget.value,
-    // }
-
     setCurrentBtn(
       user === "wholesaler"
         ? {
@@ -122,8 +99,6 @@ const ClothesInfo = ({ id, cloth, notifyError, notifySuccess }) => {
             allprice: { price: size?.price, size: key },
           }
     );
-
-    // setCurrentBtn(e.currentTarget.name);
   };
 
   const saveShoppingCart = () => {
@@ -166,183 +141,94 @@ const ClothesInfo = ({ id, cloth, notifyError, notifySuccess }) => {
         return changeBtn(xl7, "xl7");
     }
   };
-  console.log(currentBtn);
   return (
     <>
-      <>
-        {cloth && cloth.name ? (
-          <DivMain>
-            <Div>
-              <Carousel
-                // width={windowWidth.current < 768 ? "70%" : "100%"}
-                showArrows={true}
-                showThumbs={false}
-              >
-                {image.length > 1 ? (
-                  image.map((item, index) => (
-                    <DivImage key={index}>
-                      <Image
-                        src={
-                          item.secure_url ? (
-                            item.secure_url
-                          ) : (
-                            <ColorRing
-                              visible={true}
-                              height="80"
-                              width="80"
-                              ariaLabel="blocks-loading"
-                              wrapperStyle={{}}
-                              wrapperClass="blocks-wrapper"
-                              colors={[
-                                "#e15b64",
-                                "#f47e60",
-                                "#f8b26a",
-                                "#abbd81",
-                                "#849b87",
-                              ]}
-                            />
-                          )
-                        }
-                        alt={name}
-                        fill
-                        // srcset="small.jpg 500w, medium.jpg 1000w, large.jpg 1500w"
-                        sizes="(max-width: 768px) 50vw,
-              (max-width: 1200px) 100vw,
-              33vw"
-                        // style={{ objectFit: "contain" }}
-                      />
-                    </DivImage>
-                  ))
-                ) : (
-                  <DivImage>
-                    <Image
-                      src={
-                        image.secure_url ? (
-                          image.secure_url
-                        ) : (
-                          <ColorRing
-                            visible={true}
-                            height="80"
-                            width="80"
-                            ariaLabel="blocks-loading"
-                            wrapperStyle={{}}
-                            wrapperClass="blocks-wrapper"
-                            colors={[
-                              "#e15b64",
-                              "#f47e60",
-                              "#f8b26a",
-                              "#abbd81",
-                              "#849b87",
-                            ]}
-                          />
-                        )
-                      }
-                      alt={name}
-                      fill
-                      // srcset="small.jpg 500w, medium.jpg 1000w, large.jpg 1500w"
-                      sizes="(max-width: 768px) 100vw,
-              (max-width: 1200px) 50vw,
-              33vw"
-                      // style={{ objectFit: "contain" }}
-                    />
-                  </DivImage>
-                )}
-              </Carousel>
-              <DivSizes>
-                <h2>{name}</h2>
-                <P>
-                  {t(`Code`)} : {code}
-                </P>
-                <P>
-                  {t(`Model`)} : {t(`${model}`)}
-                </P>
-                <Ul>
-                  {size.map((item, index) => (
-                    <Li key={index}>
-                      <Button
-                        active={
-                          currentBtn?.allprice?.size === item ? true : false
-                        }
-                        height="25px"
-                        text={item.toLocaleUpperCase()}
-                        name={item}
-                        handleClick={changePrice}
-                      />
-                    </Li>
-                  ))}
-                </Ul>
-                {/* <p>
-                {currentBtn.allprice.size} :{currentBtn.allprice.price} грн
-              </p> */}
-                <P>
-                  {currentBtn?.allprice?.size} :
-                  {currentBtn.discount > 0 ? (
-                    <Span>{currentBtn?.allprice?.price} грн </Span>
-                  ) : (
-                    <></>
-                  )}
-                  {onSale(currentBtn?.allprice?.price, currentBtn.discount)} грн
-                </P>
+      {!cloth ? (
+        <h2>Такого елементу не знайдено</h2>
+      ) : (
+        <>
+          {cloth && cloth.name && (
+            <DivMain>
+              <Div>
+                <GallaryComponent image={image} name={name} />
+                <DivSizes>
+                  <h2>{name}</h2>
+                  <P>
+                    {t(`Code`)} : {code}
+                  </P>
+                  <P>
+                    {t(`Model`)} : {t(`${model}`)}
+                  </P>
+                  <Ul>
+                    {size.map((item, index) => (
+                      <Li key={index}>
+                        <Button
+                          active={
+                            currentBtn?.allprice?.size === item ? true : false
+                          }
+                          height="25px"
+                          text={item.toLocaleUpperCase()}
+                          name={item}
+                          handleClick={changePrice}
+                        />
+                      </Li>
+                    ))}
+                  </Ul>
+                  <P>
+                    {currentBtn?.allprice?.size} :
+                    {currentBtn.discount > 0 && (
+                      <Span>{currentBtn?.allprice?.price} грн </Span>
+                    )}
+                    {onSale(currentBtn?.allprice?.price, currentBtn.discount)}{" "}
+                    грн
+                  </P>
 
-                {/* {currentBtn?.allprice?.price ? (
-
-              ) : (
-                <p>
-                  xs :
-                  {user?.user === "wholesaler"
-                    ? cloth.allprice.xs.opt
-                    : cloth.allprice.xs.price}
-                  грн
-                </p>
-              )} */}
+                  <Button
+                    handleClick={saveShoppingCart}
+                    text={<HiOutlineShoppingCart size="20px" />}
+                  ></Button>
+                </DivSizes>
+              </Div>
+              <Link href="/aboutUs/measurements">
                 <Button
-                  handleClick={saveShoppingCart}
-                  text={<HiOutlineShoppingCart size="20px" />}
+                  width={"200px"}
+                  height={"30px"}
+                  text="зробити заміри"
                 ></Button>
-
-                {/* <button onClick={saveShoppingCart}>
-                  <HiOutlineShoppingCart size="20px" />
-                </button> */}
-              </DivSizes>
-            </Div>
-            <h4>{t("Description")}</h4>
-            <Description>{cloth.description}</Description>
-            {user === "admin" ? (
-              <>
-                <button onClick={toggleMenu}>
-                  {openMenu ? t("Closed") : t("Amend")}
-                </button>
-                {openMenu ? (
-                  <>
-                    <DivCorrection>
-                      <Link
-                        href={{
-                          pathname: `/create/update`,
-                          query: { id: _id },
-                        }}
-                      >
-                        {t("Edit")}
-                      </Link>
-                    </DivCorrection>
-                    <div>
-                      <p>
-                        {t("Discount")} {discount} грн
-                      </p>
-                      <DiscountForm id={_id} />
-                    </div>
-                  </>
-                ) : (
-                  <></>
-                )}
-              </>
-            ) : (
-              <></>
-            )}
-          </DivMain>
-        ) : (
-          ""
-        )}
-      </>
+              </Link>
+              <h4>{t("Description")}</h4>
+              <Description>{cloth.description}</Description>
+              {user === "admin" && (
+                <>
+                  <button onClick={toggleMenu}>
+                    {openMenu ? t("Closed") : t("Amend")}
+                  </button>
+                  {openMenu && (
+                    <>
+                      <DivCorrection>
+                        <Link
+                          href={{
+                            pathname: `/create/update`,
+                            query: { id: _id },
+                          }}
+                        >
+                          {t("Edit")}
+                        </Link>
+                      </DivCorrection>
+                      <div>
+                        <p>
+                          {t("Discount")} {discount} грн
+                        </p>
+                        <DiscountForm id={_id} />
+                      </div>
+                    </>
+                  )}
+                </>
+              )}
+            </DivMain>
+          )}
+        </>
+      )}
     </>
   );
 };

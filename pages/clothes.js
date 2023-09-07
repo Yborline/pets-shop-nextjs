@@ -1,33 +1,33 @@
-import Heading from "../components/Heading/Heading";
 import Head from "next/head";
-import { useState, useEffect } from "react";
-import ClothesListType from "../components/ClothesList/ClothesListType";
+import { useEffect } from "react";
+// import ClothesListType from "../components/ClothesList/ClothesListType";
 import Modal from "../components/Modal";
-import ClothesForm from "../components/ClothesForm/ClothesForm";
-
-import axios from "axios";
+import ClothesListType from "../components/ClothesList/ClothesListType";
 import { useDispatch } from "react-redux";
 import {
   fetchClothes,
   filterSearch,
 } from "../redux/clothes/clothes-operations";
-
 import { useRouter } from "next/router";
-import usePagination from "../hook";
 import { useSelector } from "react-redux";
 import {
   getClothes,
   getCount,
   getLoadingCloth,
 } from "../redux/clothes/clothes-selector";
-
 import PaginationCloth from "../components/Pagination/Pagination";
 import FilterName from "../components/Filter/FilterName/FilterName";
-import ClothesList from "../components/ClothesList/ClothesList/ClothesList";
-import { Div, DivSpinner, DivColumn } from "../styles/clothes.styled";
-import { usePageLoading } from "../hook";
-import { ColorRing } from "react-loader-spinner";
-import { getFetchClothes } from "../services/api";
+import { Div, DivColumn, DivListClothes } from "../styles/clothes.styled";
+import { usePageLoading } from "../hooks/hook";
+import Spinner from "../components/Spinner/Spinner";
+import dynamic from "next/dynamic";
+import { getUser } from "../redux/auth/auth-selectors";
+import Link from "next/link";
+import useToggleSignUpForm from "../hooks/useToggleSignUpForm";
+import SignUpForm from "../components/SignUpForm/SignUpForm";
+import { useContext } from "react";
+import ctxInput from "../context/filterContext";
+import debounce from "lodash.debounce";
 
 // export const getStaticProprs = async (context) => {
 //   const response = await fetch(
@@ -46,96 +46,132 @@ import { getFetchClothes } from "../services/api";
 //   };
 // };
 
-const Clothes = () =>
-  // { clothes, count }
+// const ClothesListType = dynamic(
+//   () => import("../components/ClothesList/ClothesListType"),
+//   {
+//     loading: () => <Spinner />,
+//   }
+// );
+
+const ClothesList = dynamic(
+  () => import("../components/ClothesList/ClothesList/ClothesList"),
   {
-    const { isPageLoading } = usePageLoading();
-    const loadingCloth = useSelector(getLoadingCloth);
-    const clothes = useSelector(getClothes);
-    const count = useSelector(getCount);
-    const [input, setInput] = useState("");
+    loading: () => <Spinner />,
+  }
+);
 
-    // const { pathname } = useRouter();
-    const dispatch = useDispatch();
-    const router = useRouter();
-    const searchPage = router.query.page;
+const Clothes = () => {
+  const [signUpForm, changeForm] = useToggleSignUpForm();
+  const { isPageLoading } = usePageLoading();
+  const loadingCloth = useSelector(getLoadingCloth);
+  const clothes = useSelector(getClothes);
+  const count = useSelector(getCount);
+  const user = useSelector(getUser);
+  const { input, inputIn } = useContext(ctxInput);
+  const { pathname } = useRouter();
 
-    const handleChange = (event, value) => {
-      if (value) {
-        router.query.page = value;
-        router.push(`${router.pathname}?page=${router.query.page}`);
-      }
-      // else {
-      //   router.query.page = stringPage;
-      //   router.push(router);
-      // }
-    };
+  // const { pathname } = useRouter();
+  const dispatch = useDispatch();
+  const router = useRouter();
+  const searchPage = router.query.page;
 
-    useEffect(() => {
-      if (input === "") {
+  const handleChange = (event, value) => {
+    if (value) {
+      router.query.page = value;
+      router.push(`${router.pathname}?page=${router.query.page}`);
+    }
+    // else {
+    //   router.query.page = stringPage;
+    //   router.push(router);
+    // }
+  };
+  // const handleAutocomplete = () => {
+  //   dispatch(filterSearch({ text: input, page: searchPage, limit: 30 }));
+  // };
+
+  // const debounceHandleAutocomplete = debounce(handleAutocomplete, 1500);
+
+  useEffect(() => {
+    console.log(input);
+    if (input === "") {
+      if (searchPage) {
         dispatch(fetchClothes({ page: searchPage }));
       } else {
-        dispatch(filterSearch({ text: input, page: searchPage }));
+        dispatch(fetchClothes({ page: "1" }));
       }
-    }, [dispatch, input, searchPage]);
+    } else {
+      dispatch(filterSearch({ text: input, page: searchPage, limit: 30 }));
+    }
+  }, [dispatch, input, searchPage]);
 
-    return (
-      <Div>
-        <Head>
-          <title>Clothes</title>
-        </Head>
-        <FilterName value={input} saveInput={setInput} />
-        <DivColumn>
-          <ClothesListType clothes={clothes} count={count} />
-          <div>
-            {loadingCloth || isPageLoading ? (
-              <DivSpinner>
-                <ColorRing
-                  visible={true}
-                  height="80"
-                  width="80"
-                  ariaLabel="blocks-loading"
-                  wrapperStyle={{}}
-                  wrapperClass="blocks-wrapper"
-                  colors={[
-                    "#e15b64",
-                    "#f47e60",
-                    "#f8b26a",
-                    "#abbd81",
-                    "#849b87",
-                  ]}
-                />
-              </DivSpinner>
-            ) : (
-              <>
-                <ClothesList clothes={clothes} />
-                {clothes.length === 0 ? (
-                  <></>
-                ) : (
-                  <PaginationCloth
-                    clothes={clothes}
-                    count={count}
-                    handleChange={handleChange}
-                    currentPage={Number(searchPage)}
-                  />
-                )}
-              </>
-            )}
+  return (
+    <Div>
+      <Head>
+        <title>Clothes</title>
+      </Head>
+      {user?.user === "admin" && (
+        <div style={{ display: "flex" }}>
+          <Link href="/create">Створити нову картку</Link>
+          <button onClick={changeForm}>Опт</button>
+        </div>
+      )}
+      <FilterName position="center" value={input} marginbottom="15px" />
+
+      <DivColumn>
+        <ClothesListType clothes={clothes} count={count} />
+
+        {loadingCloth || isPageLoading ? (
+          <div style={{ width: "100%" }}>
+            <Spinner />
           </div>
-        </DivColumn>
-      </Div>
-    );
-  };
+        ) : (
+          <DivListClothes>
+            <ClothesList clothes={clothes} />
+            {clothes.length !== 0 && (
+              <PaginationCloth
+                clothes={clothes}
+                count={count}
+                handleChange={handleChange}
+                currentPage={searchPage ? Number(searchPage) : 1}
+              />
+            )}
+          </DivListClothes>
+        )}
+        {/* </div> */}
+      </DivColumn>
+      {signUpForm && (
+        <Modal path={pathname} close={changeForm}>
+          <div style={{ padding: "20px" }}>
+            <SignUpForm
+              signUpForm={signUpForm}
+              toggleModal={changeForm}
+              changeForm={changeForm}
+            />
+          </div>
+          {/* <CLothesForm onSave={toggleModal} toggleModal={toggleModal} /> */}
+        </Modal>
+      )}
 
-export async function getServerSideProps({ query }) {
-  const data = await getFetchClothes({ page: query.page });
+      {/* {signUpForm && (
+          <SignUpForm
+            signUpForm={signUpForm}
+            // toggleModal={toggleModal}
+            changeForm={changeForm}
+          />
+        )} */}
+    </Div>
+  );
+};
 
-  return {
-    props: {
-      clothes: data.data || null,
-      count: data.allPage || null,
-    },
-  };
-}
+// export async function getServerSideProps({ query }) {
+//   const data = await getFetchClothes({ page: query.page });
+
+//   return {
+//     props: {
+//       clothes: data?.data || null,
+//       count: data?.allPage || null,
+//     },
+//   };
+// }
 
 export default Clothes;

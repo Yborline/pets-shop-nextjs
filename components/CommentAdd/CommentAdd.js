@@ -1,12 +1,7 @@
 import { Formik } from "formik";
-import { useSelector } from "react-redux";
-import styled from "styled-components";
-import { getUserName } from "../../redux/auth/auth-selectors";
 import { addComment } from "../../services/api";
 
 const CommentAdd = ({ save, id }) => {
-  //    const user =  useSelector(getUserName)
-
   return (
     <div>
       <>
@@ -15,16 +10,12 @@ const CommentAdd = ({ save, id }) => {
             text: "",
           }}
           validateOnBlur
-          // validationSchema={validationSchema}
           onSubmit={async (values, props) => {
             console.log(values.text);
             console.log(id._id);
             await addComment({ id: id._id, text: values.text }).then((data) =>
               save(data)
             );
-
-            // navigate('/library');
-            // console.log(values);
           }}
         >
           {({

@@ -1,6 +1,8 @@
 import debounce from "lodash.debounce";
 import { Li, Input } from "./NovaPoshta.styled";
 
+import dog from "../../../public/photo/dog.png";
+import Image from "next/image";
 const NovaPoshta = ({ handleInput, adresses, inputCity, department }) => {
   return (
     <>
@@ -32,38 +34,7 @@ const NovaPoshta = ({ handleInput, adresses, inputCity, department }) => {
           </datalist>
         )}
       </Li>
-      {/* <li>
-              <label name="city" for="ajax">
-                City:
-              </label>
-              <input
-                type="text"
-                name="city"
-                id="ajax"
-                list="json-datalist"
-                placeholder="Ваше місто"
-                onChange={debounce(changeCity, 300)}
 
-                // onChange={(e) => setInputCity(e.target.value)}
-              />
-              {adresses === undefined || adresses.length === 0 ? (
-                <p>Писати тільки українською мовою</p>
-              ) : (
-                <datalist
-                  component="datalist"
-                  onClick={(e) => setInputCity(e.target.value)}
-                  name="city"
-                  id="json-datalist"
-                  onSelect={(e) => setInputCity(e.target.value)}
-                >
-                  {adresses.map((item) => (
-                    <option name="city" key={item.Present} value={item.Present}>
-                      {item.Present}
-                    </option>
-                  ))}
-                </datalist>
-              )}
-            </li> */}
       {inputCity === null ||
       // inputCity.length <= 1 ||
       // adresses?.length === 0 ||

@@ -23,7 +23,18 @@ background-color:${({ theme }) => theme.error};
 margin-bottom: 10px; `
 
 export const ButtonClose = styled.button`
-height: 30px;`
+height: 30px;
+border: 0px;
+ background-color: inherit;
+ color: inherit;
+ font-size: inherit;
+ padding : 0px;
+ text-align: left;
+ cursor: pointer;
+ font-size: 25px;
+ &:hover{
+    color:${({theme})=>theme.red};
+ }`
 
 export const ButtonLog = styled.button`
 margin-top: 15px;
@@ -33,7 +44,7 @@ height: 30px;
 
 export const DivClose = styled.div`
 display:flex;
-justify-content: space-between`
+justify-content: space-between;`
 
 
 export const Li = styled.li`
@@ -44,5 +55,6 @@ width:100%;`
 
 export const Input = styled.input`
 height: 30px;
-width:100%;`
+width:100%;
+border-radius:5px;`
 

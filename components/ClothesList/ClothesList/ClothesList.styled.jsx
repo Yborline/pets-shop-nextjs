@@ -1,8 +1,7 @@
-import styled from "@emotion/styled";
+import styled from "styled-components";
         // margin-left: 200px;
 export const Ul = styled.ul`
 
-margin-left: 20px;
 
     @media screen and (min-width: 768px) {
 
@@ -14,17 +13,17 @@ margin-left: 20px;
            @media screen and (min-width: 1080px) {
    grid-template-columns: repeat(3, 1fr);
        }
-       @media screen and (min-width: 1200px) {
+       @media screen and (min-width: 1240px) {
    grid-template-columns: repeat(4, 1fr);
        }
 
        @media screen and (min-width: 1480px) {
    grid-template-columns: repeat(5, 1fr);
        }
-                     @media screen and (min-width: 1700px) {
+                     @media screen and (min-width: 1750px) {
    grid-template-columns: repeat(6, 1fr);
        }
-              @media screen and (min-width: 1920px) {
+              @media screen and (min-width: 2020px) {
    grid-template-columns: repeat(7, 1fr);
        }
 `

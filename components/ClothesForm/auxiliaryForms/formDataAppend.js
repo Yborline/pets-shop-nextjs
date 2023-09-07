@@ -1,10 +1,7 @@
-import { useSelector } from "react-redux";
-
-export const formDataAppend = (values, img) => {
+ const formDataAppend = (values, img) => {
   const data = new FormData();
 
   data.append("name", values.name);
-  data.append("code", values.code);
   data.append("model", values.model);
   data.append("active", values.active);
   data.append("allprice[xs][price]", values.allprice.xs.price);
@@ -47,7 +44,12 @@ export const formDataAppend = (values, img) => {
   data.append("allprice[xl7][opt]", values.allprice.xl7.opt);
   data.append("allprice[xl7][active]", values.allprice.xl7.active);
   data.append("description", values.description);
-  data.append("image", img);
+  for (let file of img) {
+    data.append("image", file);
+  }
 
   return data;
 };
+
+
+export default formDataAppend;

@@ -1,25 +1,27 @@
 import styled from "styled-components";
 
 
-export const Div = styled.div`
 
-background-color: ${({ theme }) => theme.gray};
-`
 
 
 export const Container = styled.div`
 
 min-height: 100%;
+max-width:100vw;
 display: flex;
+flex-direction: column;
 justify-content: center;
-align-items: stretch;
+align-items: center;
+
+
+ @media screen and (min-width: 768px) {
+
+margin-top: 20px;
+}
+
 `
 
-export const DivList = styled.div`
-display: flex;
-border-left: 1px solid;
-margin-left: 20px;
-`
+
 
 export const Ul = styled.ul`
 padding:20px;
@@ -35,6 +37,9 @@ padding:20px;
        }
 `
 
-export const DivSpinner = styled.div`
-display: flex; 
-justify-content: center;`
+
+
+export const H2 = styled.h2`
+
+    text-align: center;
+width: 100%;`

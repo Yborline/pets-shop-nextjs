@@ -5,8 +5,8 @@ const Clothes = () => (
     <Head>
       <title>Cat</title>
     </Head>
-    <Heading text="Hello Dog" />
-    <Heading tag="h2" text="list Posts: ..." />
+    <Heading text="Hello" />
+    <Heading tag="h2" text="Ця сторінка ще в розробці" />
   </>
 );
 

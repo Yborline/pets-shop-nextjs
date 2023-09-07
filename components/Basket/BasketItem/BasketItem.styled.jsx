@@ -1,5 +1,5 @@
 import styled from "styled-components";
-
+import Image from "next/image";
 
 export const Ul = styled.ul`
 
@@ -17,10 +17,10 @@ export const Div = styled.div`
 
 export const Li = styled.li`
 
-border: 1px solid;
+
 border-radius:5px;
 background-color: ${({theme})=> theme.basketList};
-:not(:last-child){
+&:not(:last-child){
   margin-bottom: 15px;
 }
 display: flex;
@@ -69,8 +69,12 @@ align-items: flex-end;
 `
 export const TitleCard = styled.h3`
  word-break: break-all; 
-:not(:last-child){
+&:not(:last-child){
   margin-bottom: 10px;
 }
+`
+
+export const Img = styled(Image)`
+object-fit:contain ;
 `
 

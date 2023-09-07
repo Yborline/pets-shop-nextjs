@@ -1,11 +1,7 @@
-import { Field, Formik, FormikProps } from "formik";
+import { Field, Formik } from "formik";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  addClothes,
-  fetchClothes,
-  updateById,
-} from "../../redux/clothes/clothes-operations";
+import { useDispatch } from "react-redux";
+import { addClothes, updateById } from "../../redux/clothes/clothes-operations";
 import {
   Form,
   DivPrice,
@@ -14,34 +10,19 @@ import {
   TextArea,
   InputImg,
   DivInputTop,
-} from "./ClothesForm.styled";
-
+} from "./ClothesForm.styled.jsx";
 import LabelInput from "./LabelInput/LabelInput";
-import { formDataAppend } from "./auxiliaryForms/formDataAppend";
-import { options } from "./auxiliaryForms/options";
+import formDataAppend from "./auxiliaryForms/formDataAppend";
+import options from "./auxiliaryForms/options";
 import Button from "../Button/Button";
-import { DivInput } from "./LabelInput/LabelInput.styled";
-import { getClothes, getClothesId } from "../../redux/clothes/clothes-selector";
-import { useEffect } from "react";
 import validationSchema from "../../validation/clothes";
 import { useRouter } from "next/router";
 
 const CLothesForm = ({ initial, notify, cloth, id }) => {
   const dispatch = useDispatch();
-  // const cloth = useSelector(getClothesId);
-  const clothes = useSelector(getClothes);
 
   const { pathname } = useRouter();
   const [img, setImage] = useState(null);
-  // useEffect(() => {
-  //   const thisCloth = clothes.filter((item) => item._id === id);
-  // }, [clothes, id]);
-
-  // useEffect(() => {
-  //   dispatch(fetchClothes());
-  // }, [dispatch]);
-  // const thisCloth = clothes.filter((item) => console.log(item._id));c
-  // console.log(cloth);
 
   console.log(pathname);
 
@@ -51,19 +32,24 @@ const CLothesForm = ({ initial, notify, cloth, id }) => {
       alidateOnBlur
       validationSchema={validationSchema}
       onSubmit={(values, formikProps) => {
-        console.log(values);
-        const exit = clothes.find((item) => item.code === values.code);
-
+        if (img.length > 3) {
+          alert("Не більше 3 фото");
+          return;
+        }
         if (pathname === "/create") {
-          if (exit) {
-            alert("Такой код уже есть");
-            return;
-          }
+          console.log(values);
+          console.log(img);
+
           dispatch(addClothes(formDataAppend(values, img)));
           formikProps.resetForm(initial);
           notify(values.name, "библиотеку");
         } else {
-          dispatch(updateById({ id, values: formDataAppend(values, img) }));
+          dispatch(
+            updateById({
+              id,
+              values: formDataAppend(values, img),
+            })
+          );
           notify(values.name);
           formikProps.resetForm("");
         }
@@ -92,11 +78,12 @@ const CLothesForm = ({ initial, notify, cloth, id }) => {
             <DivInputTop>
               <Label>image</Label>
               <InputImg
+                multiple
                 id="image"
                 name="image"
                 type="file"
                 onChange={(event) => {
-                  setImage(event.target.files[0]);
+                  setImage(event.target.files);
                 }}
               />
               {errors.image && touched.image && errors.image}
@@ -113,19 +100,11 @@ const CLothesForm = ({ initial, notify, cloth, id }) => {
               {errors.name && touched.name && errors.name}
             </DivInputTop>
             <DivInputTop>
-              <Label>code</Label>
-              <input
-                type="text"
-                name="code"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.code}
-              />
-              {errors.code && touched.code && errors.code}
-            </DivInputTop>
-            <DivInputTop>
-              <Label>model</Label>
+              <Label>Model</Label>
               <Field component="select" name="model">
+                <option value="" defaultValue={"Choose here"} disabled hidden>
+                  Виберіть модель
+                </option>
                 {options.map((option) => (
                   <option key={option.value} value={option.value}>
                     {option.label}
@@ -165,24 +144,24 @@ const CLothesForm = ({ initial, notify, cloth, id }) => {
               handleBlur={handleBlur}
               value={values.allprice.xs}
               valueError={values}
-              // errors={errors.allprice.xs}
-              // touched={errors.allprice.xs}
+              errors={errors.allprice?.xs}
+              touched={errors.allprice?.xs}
             />
             <LabelInput
               name="s"
               handleChange={handleChange}
               handleBlur={handleBlur}
               value={values.allprice.s}
-              // errors={errors.allprice.s}
-              // touched={errors.allprice.s}
+              errors={errors.allprice?.s}
+              touched={errors.allprice?.s}
             />
             <LabelInput
               name="sm"
               handleChange={handleChange}
               handleBlur={handleBlur}
               value={values.allprice.sm}
-              // errors={errors.allprice.sm}
-              // touched={errors.allprice.sm}
+              errors={errors.allprice?.sm}
+              touched={errors.allprice?.sm}
             />
 
             <LabelInput
@@ -190,95 +169,82 @@ const CLothesForm = ({ initial, notify, cloth, id }) => {
               handleChange={handleChange}
               handleBlur={handleBlur}
               value={values.allprice.m}
-              // errors={errors.allprice.m}
-              // touched={errors.allprice.m}
+              errors={errors.allprice?.m}
+              touched={errors.allprice?.m}
             />
             <LabelInput
               name="ml"
               handleChange={handleChange}
               handleBlur={handleBlur}
               value={values.allprice.ml}
-              // errors={errors.allprice.ml}
-              // touched={touched.allprice.ml}
+              errors={errors.allprice?.ml}
+              touched={touched.allprice?.ml}
             />
             <LabelInput
               name="l"
               handleChange={handleChange}
               handleBlur={handleBlur}
               value={values.allprice.l}
-              // errors={errors.allprice.l}
-              // touched={touched.allprice.l}
+              errors={errors.allprice?.l}
+              touched={touched.allprice?.l}
             />
             <LabelInput
               name="xl"
               handleChange={handleChange}
               handleBlur={handleBlur}
               value={values.allprice.xl}
-              // errors={errors.allprice.xl}
-              // touched={touched.allprice.xl}
+              errors={errors.allprice?.xl}
+              touched={touched.allprice?.xl}
             />
             <LabelInput
               name="xxl"
               handleChange={handleChange}
               handleBlur={handleBlur}
               value={values.allprice.xxl}
-              // errors={errors.allprice.xxl}
-              // touched={touched.allprice.xxl}
+              errors={errors.allprice?.xxl}
+              touched={touched.allprice?.xxl}
             />
             <LabelInput
               name="xl3"
               handleChange={handleChange}
               handleBlur={handleBlur}
               value={values.allprice.xl3}
-              // errors={errors.allprice.xl3}
-              // touched={touched.allprice.xl3}
+              errors={errors.allprice?.xl3}
+              touched={touched.allprice?.xl3}
             />
             <LabelInput
               name="xl4"
               handleChange={handleChange}
               handleBlur={handleBlur}
               value={values.allprice.xl4}
-              // errors={errors.allprice.xl4}
-              // touched={touched.allprice.xl4}
+              errors={errors.allprice?.xl4}
+              touched={touched.allprice?.xl4}
             />
             <LabelInput
               name="xl5"
               handleChange={handleChange}
               handleBlur={handleBlur}
               value={values.allprice.xl5}
-              // errors={errors.allprice.xl5}
-              // touched={touched.allprice.xl5}
+              errors={errors.allprice?.xl5}
+              touched={touched.allprice?.xl5}
             />
             <LabelInput
               name="xl6"
               handleChange={handleChange}
               handleBlur={handleBlur}
               value={values.allprice.xl6}
-              // errors={errors.allprice.xl6}
-              // touched={touched.allprice.xl6}
+              errors={errors.allprice?.xl6}
+              touched={touched.allprice?.xl6}
             />
             <LabelInput
               name="xl7"
               handleChange={handleChange}
               handleBlur={handleBlur}
               value={values.allprice.xl7}
-              // errors={errors.allprice.xl7}
-              // touched={touched.allprice.xl7}
+              errors={errors.allprice?.xl7}
+              touched={touched.allprice?.xl7}
             />
           </DivPrice>
-          {/* <select
-            nema="model"
-            type="model"
-            value={values.model}
-            onBlur={handleBlur}
-            onChange={handleChange}
-          > */}{" "}
-          {/* {options.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))} */}
-          {/* </select> */}
           <Button
             marginT="50px;"
             width="100%"

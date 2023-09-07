@@ -59,8 +59,8 @@ export const items = createReducer(
     [updateById.fulfilled]: (state, { payload }) => ({
       ...state,
       clothes: [
-        ...state.clothes.filter((item) => item._id !== payload._id),
-        payload.data.result,
+        ...state.clothes.filter((item) => item._id !== payload.result._id),
+        payload.result,
       ],
     }),
     [deleteClothes.fulfilled]: (state, { payload }) => ({
@@ -144,6 +144,11 @@ export const shoppingCart = createReducer(
 //     }),
 //   }
 // );
+export const loadingAllCloth = createReducer(false, {
+  [fetchAllClothes.pending]: () => true,
+  [fetchAllClothes.fulfilled]: () => false,
+  [fetchAllClothes.rejected]: () => false,
+});
 
 export const loadingCloth = createReducer(false, {
   [filterSearch.pending]: () => true,
@@ -152,10 +157,6 @@ export const loadingCloth = createReducer(false, {
   [fetchClothes.pending]: () => true,
   [fetchClothes.fulfilled]: () => false,
   [fetchClothes.rejected]: () => false,
-  [fetchAllClothes.pending]: () => true,
-  [fetchAllClothes.fulfilled]: () => false,
-  [fetchAllClothes.rejected]: () => false,
-
   [addClothes.pending]: () => true,
   [addClothes.fulfilled]: () => false,
   [addClothes.rejected]: () => false,
@@ -176,6 +177,6 @@ export const errorCloth = createReducer(null, {
   [fetchClothes.pending]: () => null,
   [filterSearch.rejected]: (_, action) => action.payload,
   [filterSearch.pending]: () => null,
-  [filterSearch.rejected]: (_, action) => action.payload,
-  [filterSearch.pending]: () => null,
+  [fetchClothesId.rejected]: (_, action) => action.payload,
+  [fetchClothesId.pending]: () => null,
 });

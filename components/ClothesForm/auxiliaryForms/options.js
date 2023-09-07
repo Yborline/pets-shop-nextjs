@@ -1,11 +1,9 @@
-export const options = [
-  { value: "Choose a model", label: "Виберіть модель" },
+const options = [
   { value: "overall", label: "комбінезон" },
   { value: "vest", label: "Жилет" },
   { value: "blanket", label: "Попон" },
   { value: "jacket", label: "Куртк" },
   { value: "suit", label: "Костюм" },
-  { value: "skinny", label: "Худі" },
   { value: "bomber", label: "Бомбер" },
   { value: "sweatshirt", label: "Світшот" },
   { value: "trousers", label: "штанці" },
@@ -22,3 +20,5 @@ export const options = [
   { value: "footwear", label: "Взуття" },
   { value: "couch", label: "Лежанка" },
 ];
+
+export default options; 

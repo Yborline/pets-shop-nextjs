@@ -1,9 +1,6 @@
-import Link from "next/link";
-import { LinkActive, LinkNormal, Li } from "./ClothesType.styled";
+import { LiActive, LiNormal } from "./ClothesType.styled";
 import { useRouter } from "next/router";
-import usePagination from "../../../hook";
-import { useSelector } from "react-redux";
-import { getClothes } from "../../../redux/clothes/clothes-selector";
+import Link from "next/link";
 
 const ClothesType = ({ id, title, page, type, parent }) => {
   const { query } = useRouter();
@@ -17,15 +14,11 @@ const ClothesType = ({ id, title, page, type, parent }) => {
           query: { page: page, type: type },
         }}
       >
-        <Li parent={parent}>
-          {type === query.type ? (
-            <LinkActive>{title}</LinkActive>
-          ) : (
-            <LinkNormal parent={parent}>{title}</LinkNormal>
-          )}
-
-          {/* <Link href={path}>{title}</Link> */}
-        </Li>
+        {type === query.type ? (
+          <LiActive>{title}</LiActive>
+        ) : (
+          <LiNormal>{title}</LiNormal>
+        )}
       </Link>
     </>
   );

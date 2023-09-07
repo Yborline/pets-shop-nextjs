@@ -1,25 +1,10 @@
 import { useRouter } from "next/router";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import CLothesForm from "../../components/ClothesForm/ClothesForm";
-import { fetchClothesId } from "../../redux/clothes/clothes-operations";
-import { getClothesId } from "../../redux/clothes/clothes-selector";
 import { getFetchClothesId } from "../../services/api";
 const CorrectionCloth = ({ cloth }) => {
-  const dispatch = useDispatch();
   const router = useRouter();
   const { id } = router.query;
   console.log(cloth);
-  // const cloth = useSelector(getClothesId);
-
-  // useEffect(() => {
-  //   if (id) {
-  //     dispatch(fetchClothesId(id));
-  //   }
-  // }, [dispatch, id]);
-
-  // console.log(cloth);
-
   const {
     description,
     _id,
@@ -34,7 +19,6 @@ const CorrectionCloth = ({ cloth }) => {
 
   const correctionCloth = {
     name: name,
-    code: code,
     allprice: {
       xs: {
         price: xs?.price,
@@ -109,21 +93,26 @@ const CorrectionCloth = ({ cloth }) => {
 
   return (
     <>
-      {cloth.name ? (
+      {cloth.name && (
         <CLothesForm initial={correctionCloth} cloth={cloth} id={id} />
-      ) : (
-        <></>
       )}
     </>
   );
 };
 
 export async function getServerSideProps({ query }) {
-  const data = await getFetchClothesId(query.id);
+  if (query.id) {
+    const data = await getFetchClothesId(query.id);
 
+    return {
+      props: {
+        cloth: data || null,
+      },
+    };
+  }
   return {
     props: {
-      cloth: data || null,
+      cloth: null,
     },
   };
 }

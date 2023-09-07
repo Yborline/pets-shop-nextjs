@@ -16,7 +16,7 @@ import { HiOutlineShoppingCart } from "react-icons/hi";
 import { changeShoppingCard } from "../../redux/clothes/clothes-actions";
 import { getBasket } from "../../redux/clothes/clothes-selector";
 import Link from "next/link";
-import DiscountForm from "../discountForm/discountForm";
+import DiscountForm from "../DiscountForm/DiscountForm.js";
 import onSale from "../../calculation/makeDiscount";
 import Button from "../Button/Button";
 import { useTranslation } from "react-i18next";

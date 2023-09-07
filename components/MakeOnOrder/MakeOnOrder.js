@@ -422,25 +422,3 @@ const MakeOnOrder = ({ clothes, setOpenOrder, notify, deleteBasket }) => {
 
 export default MakeOnOrder;
 
-// <li>
-//   <input
-//     // onChange={debounce(changeDepartment, 300)}
-//     onChange={debounce(handleInput, 300)}
-//     type="text"
-//     name="department"
-//     id="department"
-//     list="num"
-//   />
-//   {/* {number === undefined || number.length === 0 ? (
-//     <p>Писати тільки українською мовою</p>
-//   ) : ( */}
-//   <datalist id="num">
-//     {/* {number.map((item) => {
-//         return ( */}
-//     <option key={department} value={department}>
-//       {department}
-//     </option>
-//     {/* ); })} */}
-//   </datalist>
-//   {/* )} */}
-// </li>

@@ -7,17 +7,17 @@ const SocialIcons = () => {
   return (
     <UlIcons>
       <LiIcons>
-        <AIcons href="">
+        <AIcons href="https://www.instagram.com/ua.petshop/?igshid=MzRlODBiNWFlZA%3D%3D">
           <RiInstagramFill size="23px" />
         </AIcons>
       </LiIcons>
       <LiIcons>
-        <AIcons href="">
+        <AIcons href="https://invite.viber.com/?g2=AQAjHgNFMHIn9U%2BXhHhoj1CyUKlZnfC8aniE6JqzoKJifNcJWazgN00YjIw0FJzl&lang=en">
           <FaViber size="23px" />
         </AIcons>
       </LiIcons>
       <LiIcons>
-        <AIcons href="">
+        <AIcons href="https://t.me/uapetshop">
           <BsTelegram size="22px" />
         </AIcons>
       </LiIcons>

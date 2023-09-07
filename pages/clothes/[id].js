@@ -6,9 +6,9 @@ import { notifySuccess, notifyError } from "../../notify/notify";
 import "react-toastify/dist/ReactToastify.css";
 
 import { getClothById, getComments } from "../../services/api";
-import Comments from "../../components/Comments/Comments";
+// import Comments from "../../components/Comments/Comments";
 import { usePageLoading } from "../../hooks/hook";
-import CommentAdd from "../../components/CommentAdd/CommentAdd";
+// import CommentAdd from "../../components/CommentAdd/CommentAdd";
 import Spinner from "../../components/Spinner/Spinner";
 import dynamic from "next/dynamic";
 

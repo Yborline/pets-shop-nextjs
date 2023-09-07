@@ -20,7 +20,7 @@ export const lightTheme = {
   hover: "#C71585",
   hoverButton: "#FFB6C1",
   error: "#FFB6C1",
-  backgroundCart: "#FFF0F5",
+  backgroundCart: "#FFDDE1",
   li1: "#ffffff",
   li2: "#fffff7",
   li3: "#fffeef",

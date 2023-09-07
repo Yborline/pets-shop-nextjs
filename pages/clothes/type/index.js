@@ -70,14 +70,23 @@ const Type = ({ clothes, count }) => {
 // }
 
 export async function getServerSideProps({ query }) {
-  if (query.type || query.page) {
-    const data = await getFetchType({ page: query.page, path: query.type });
-    const { type, allPage } = await data;
+  try {
+    if (query.type || query.page) {
+      const data = await getFetchType({ page: query.page, path: query.type });
+      const { type, allPage } = await data;
 
+      return {
+        props: {
+          clothes: type || null,
+          count: allPage || null,
+        },
+      };
+    }
+  } catch {
     return {
       props: {
-        clothes: type || null,
-        count: allPage || null,
+        clothes: null,
+        count: null,
       },
     };
   }

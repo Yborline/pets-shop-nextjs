@@ -21,6 +21,15 @@ const HomeSection = () => {
     <>
       {" "}
       <Heading text="Welcome to PetShop" />
+      {width < 768 && (
+        <ButtonLink href="/clothes">
+          <ButtonPulse
+            width={"400px"}
+            height={"40px"}
+            text="КОЛЕКЦІЯ ОДЯГУ"
+          ></ButtonPulse>
+        </ButtonLink>
+      )}
       <Section>
         {width < 768 && <H2>UA.Petshop цінує індивідуальність</H2>}
         <DivImage>

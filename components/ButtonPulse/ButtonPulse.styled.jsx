@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { heart } from "../../styles/animation";
 
 export const Btn = styled.button `
+font-size:17px;
   display: flex;
   align-items: center;
   justify-content: center;

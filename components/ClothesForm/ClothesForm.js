@@ -18,13 +18,13 @@ import Button from "../Button/Button";
 import validationSchema from "../../validation/clothes";
 import { useRouter } from "next/router";
 
-const CLothesForm = ({ initial, notify, cloth, id }) => {
+const CLothesForm = ({ loading, initial, notify, cloth, id }) => {
   const dispatch = useDispatch();
 
   const { pathname } = useRouter();
   const [img, setImage] = useState(null);
 
-  console.log(pathname);
+  console.log(loading);
 
   return (
     <Formik
@@ -50,7 +50,7 @@ const CLothesForm = ({ initial, notify, cloth, id }) => {
               values: formDataAppend(values, img),
             })
           );
-          notify(values.name);
+
           // formikProps.resetForm("");
         }
       }}

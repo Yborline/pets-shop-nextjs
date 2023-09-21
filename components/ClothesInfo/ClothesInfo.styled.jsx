@@ -91,10 +91,13 @@ text-align:center;
 width: 200px;`
 
 export const Description = styled.pre`
-whiteSpace: "pre-wrap";
+hyphens: auto;
+font-size: 15px;
+white-space: pre-line;
+
 margin-bottom: 15px;
 max-width: 300px;
-word-break: break-all;
+
  @media screen and (min-width: 768px) {
 max-width: 700px;
 }

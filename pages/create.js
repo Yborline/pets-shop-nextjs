@@ -7,8 +7,10 @@ import { notifySuccess } from "../notify/notify";
 import "react-toastify/dist/ReactToastify.css";
 
 import ToastifyContainer from "../components/ToastifyContainer/ToastifyContainer";
+import { getLoadingCloth } from "../redux/clothes/clothes-selector";
 
 const Create = () => {
+  const loading = useSelector(getLoadingCloth);
   const type = useSelector(getUser);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -40,7 +42,11 @@ const Create = () => {
     <>
       <>
         {type?.user === "admin" ? (
-          <CLothesForm notify={notifySuccess} initial={create} />
+          <CLothesForm
+            loading={loading}
+            notify={notifySuccess}
+            initial={create}
+          />
         ) : (
           <h2>Такой страницы нет</h2>
         )}

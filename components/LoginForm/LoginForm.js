@@ -221,48 +221,6 @@ const LoginForm = ({ toggleModal }) => {
       )}
     </Div>
   );
-
-  {
-    /* <Div>
-      {signUpForm ? (
-        <SignUpForm toggleModal={toggleModal} changeForm={changeForm} />
-      ) : (
-        <>
-          <DivClose>
-            <h3>Login</h3>
-            <button onClick={toggleModal}>X</button>
-          </DivClose>
-          <form autoComplete="off" onSubmit={handleSubmit}>
-            <label>
-              name
-              <input
-                type="email"
-                name="email"
-                value={email}
-                onChange={handleChange}
-              />
-            </label>
-            <br />
-            <label>
-              name
-              <input
-                type="password"
-                name="password"
-                value={password}
-                onChange={handleChange}
-              />
-            </label>
-            <br />
-            <button type="submit">Login</button>
-          </form>
-
-          <button onClick={changeForm}>SignUp</button>
-        </>
-      )}
-
-      <button onClick={() => dispatch(authOperations.logout())}>exit</button>
-    </Div> */
-  }
 };
 
 export default LoginForm;

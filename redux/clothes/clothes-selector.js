@@ -97,7 +97,7 @@ export const getActualCard = createSelector(
       // ddddd.push(arrayBasketNormalId);
       return;
     });
-    console.log(add);
+
     return add;
   }
 );

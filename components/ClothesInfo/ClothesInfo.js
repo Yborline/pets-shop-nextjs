@@ -141,6 +141,25 @@ const ClothesInfo = ({ id, cloth = {}, notifyError, notifySuccess }) => {
         return changeBtn(xl7, "xl7");
     }
   };
+
+  // const newDescription = cloth.description.replace(/\\n/g, "\n");
+  // console.log(cloth.description);
+
+  // function parseTextToHTML(text) {
+  //   const paragraphs = text.split("\r\n");
+  //   console.log(paragraphs);
+
+  //   const htmlParagraphs = paragraphs.map((paragraph) => {
+  //     if (paragraph) return <p>{paragraph}</p>;
+  //     return "<br>";
+  //   });
+  //   console.log(htmlParagraphs);
+  //   const HtmlContent = htmlParagraphs.join("\n");
+
+  //   return console.log(<HtmlContent />);
+  // }
+  // parseTextToHTML(cloth.description);
+
   return (
     <>
       {!cloth ? (
@@ -204,7 +223,11 @@ const ClothesInfo = ({ id, cloth = {}, notifyError, notifySuccess }) => {
                 ></Button>
               </Link>
               <h4>{t("Description")}</h4>
-              <Description>{cloth.description}</Description>
+              <div>
+                {" "}
+                <Description>{cloth.description}</Description>
+              </div>
+
               {user === "admin" && (
                 <>
                   <button onClick={toggleMenu}>

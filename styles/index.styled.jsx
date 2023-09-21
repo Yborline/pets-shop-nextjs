@@ -24,7 +24,7 @@ margin-top: 20px;
 
 
 export const Ul = styled.ul`
-padding:20px;
+
 
     @media screen and (min-width: 768px) {
    display: grid;

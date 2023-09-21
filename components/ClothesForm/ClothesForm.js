@@ -37,11 +37,11 @@ const CLothesForm = ({ initial, notify, cloth, id }) => {
           return;
         }
         if (pathname === "/create") {
-          console.log(values);
+          console.log(values.description);
           console.log(img);
 
           dispatch(addClothes(formDataAppend(values, img)));
-          formikProps.resetForm(initial);
+          // formikProps.resetForm(initial);
           notify(values.name, "библиотеку");
         } else {
           dispatch(
@@ -51,7 +51,7 @@ const CLothesForm = ({ initial, notify, cloth, id }) => {
             })
           );
           notify(values.name);
-          formikProps.resetForm("");
+          // formikProps.resetForm("");
         }
       }}
     >
@@ -133,6 +133,7 @@ const CLothesForm = ({ initial, notify, cloth, id }) => {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.description}
+                style={{ whiteSpace: "pre-wrap" }}
               />
               {errors.description && touched.description && errors.description}
             </DivInputTop>

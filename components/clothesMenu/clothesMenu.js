@@ -1,5 +1,5 @@
 const clothesMenu = [
-  { id: 1, title: "Overalls", page: "1", type: "overalls", parent: "1" },
+  { id: 1, title: "Overalls", page: "1", type: "overall", parent: "1" },
   {
     id: 2,
     title: "Vest",

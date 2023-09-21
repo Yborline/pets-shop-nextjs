@@ -70,8 +70,9 @@ display: flex;
 justify-content: space-around;
 height:50px;
 align-items: center;
-padding: 0px 20px 0px 20px;
+
  @media screen and (min-width: 768px) {
+  padding: 0px 20px 0px 20px;
         z-index: 3;
 justify-content: space-between;
 }

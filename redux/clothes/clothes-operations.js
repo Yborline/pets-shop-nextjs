@@ -55,7 +55,7 @@ export const fetchClothesId = createAsyncThunk(
   async (id, thunkAPI) => {
     try {
       const { data } = await axios.get(`/clothes/${id}`);
-      return data;
+      return JSON.parse(data);
     } catch (error) {
       thunkAPI.rejectWithValue(error.message);
     }

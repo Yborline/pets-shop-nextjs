@@ -7,6 +7,7 @@ display: flex;
 flex-direction:column;
 align-items: center;
 padding-left: 0px;
+font-size: 12px;
 `
 
 export const TitleSumm = styled.h4`
@@ -15,7 +16,7 @@ margin-right: 5px;`
 export const Div = styled.div`
 
   margin-top: 0px;
-  padding: 20px;
+
       @media screen and (min-width: 768px) {
           margin-top: 30px;
   padding: 0px 60px 0px  60px;

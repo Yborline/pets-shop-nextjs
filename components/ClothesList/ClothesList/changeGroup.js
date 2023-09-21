@@ -2,7 +2,7 @@ const changeGroup = (path, clothes) => {
   switch (path) {
     case "":
       return clothes;
-    case "overalls":
+    case "overall":
       const overall = clothes.filter((item) => item.model === "overall");
 
       return overall;

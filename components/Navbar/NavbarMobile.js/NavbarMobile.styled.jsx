@@ -47,19 +47,18 @@ list-style-type: none;
 margin-left: 10px;
 `
 export const Ul = styled.ul`
-font-size: 17px;
-display:flex;
-align-items: flex-start;
-padding: 10px 10px 0px 10px;
-justify-content: space-between;
-background-color: ${({theme}) => theme.mobilMenu};
-position: absolute;
-height:100%;
-width: 100vw;
-right: 0px;
-top: 0px;
-z-index: 3;
+width: 65vw;
+display: flex;
+flex-direction: column;
+justify-content: flex-end;
+padding-top:20px;
+text-align:center;
+
+
 `
+
+export const LiMobile = styled.li`
+height: 30px;`
 
 
 export const DivMenu = styled.div`
@@ -84,15 +83,18 @@ margin: 0px 0px 0px 0pxy;
 
 export const DivNumber = styled.div`
 width:15px;
-postiton: absolute;
+
 
 `
 
 export const DivTwo = styled.div`
 display:flex;
 justify-content: space-between;
-position:relative;
 
+padding: 0px 25px 0px 20px;
+height: 55px;
+background-color: ${({ theme }) => theme.headerlist };
+align-items: center;
 
 `
 export const Svg = styled(Sprite)`
@@ -120,7 +122,10 @@ display: flex;
     justify-content: center;
 position: absolute;
     width: 100%;
-top:-23%;
+   
+    top:4px;
+
+
 `
 
 export const H1 = styled.h1`
@@ -141,3 +146,7 @@ line-height: 16px;
 
 }
 `
+
+export const DivOther = styled.div`
+display:flex;
+justify-content: space-between;`

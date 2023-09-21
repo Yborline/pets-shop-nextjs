@@ -86,7 +86,7 @@ const Navbar = () => {
       {width > 767 && (
         <>
           <DivAbout>
-            <AboutUs />
+            <AboutUs row={"row"} />
             <DivUser>
               <DivOther>
                 <ButtonSmall

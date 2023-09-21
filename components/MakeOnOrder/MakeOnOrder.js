@@ -152,7 +152,7 @@ const MakeOnOrder = ({ clothes, setOpenOrder, notify, deleteBasket }) => {
     deleteBasket();
 
     notify(
-      `Ваше замовлення відправленнinputCityо, найближчим часом з вами зв'яжуться!`,
+      `Ваше замовлення відправленно, найближчим часом з вами зв'яжуться!`,
       numOrder
     );
 
@@ -421,4 +421,3 @@ const MakeOnOrder = ({ clothes, setOpenOrder, notify, deleteBasket }) => {
 };
 
 export default MakeOnOrder;
-

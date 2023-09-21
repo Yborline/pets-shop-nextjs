@@ -90,8 +90,9 @@ border : 1px solid;
 text-align:center;
 width: 200px;`
 
-export const Description = styled.p`
-margin-top: 15px;
+export const Description = styled.pre`
+whiteSpace: "pre-wrap";
+margin-bottom: 15px;
 max-width: 300px;
 word-break: break-all;
  @media screen and (min-width: 768px) {

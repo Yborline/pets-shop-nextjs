@@ -6,7 +6,7 @@ export const DivContact = styled.div`
 `
 
 export const FooterDiv = styled.footer`
-margin: 20px 0px 0px 0px;
+
 padding-bottom:20px;
 border-top: 1px solid  black;
 width: 100%;

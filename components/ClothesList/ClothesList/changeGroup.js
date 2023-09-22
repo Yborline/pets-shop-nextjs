@@ -22,8 +22,8 @@ const changeGroup = (path, clothes) => {
       const suit = clothes.filter((item) => item.model === "suit");
 
       return suit;
-    case "skinny":
-      const skinny = clothes.filter((item) => item.model === "skinny");
+    case "hoodies":
+      const skinny = clothes.filter((item) => item.model === "hoodies");
 
       return skinny;
     case "bomber":
@@ -76,6 +76,14 @@ const changeGroup = (path, clothes) => {
       const briefs = clothes.filter((item) => item.model === "briefs");
 
       return briefs;
+    case "couch":
+      const couch = clothes.filter((item) => item.model === "couch");
+
+      return couch;
+    case "footwear":
+      const footwear = clothes.filter((item) => item.model === "footwear");
+
+      return footwear;
 
     default:
       return clothes;

@@ -50,6 +50,8 @@ justify-content: flex-start;
 }`
 
 export const Select = styled.select`
+background-color: ${({ theme }) => theme.input};
+color: ${({ theme }) => theme.text};
 border: 1.5px solid;
   border-radius: 5px;
 height: 30px;

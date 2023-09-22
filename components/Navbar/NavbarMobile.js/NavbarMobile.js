@@ -16,6 +16,7 @@ import {
   Svg,
   DivOther,
   LiMobile,
+  BoxNavBarMobile,
 } from "./NavbarMobile.styled";
 import AboutUs from "../AboutUs.js/AboutUs";
 import ButtonUser from "../../ButtonUser/ButtonUser";
@@ -82,80 +83,70 @@ const NavbarMobile = ({
   };
 
   const list = () => (
-    <Box
+    <BoxNavBarMobile
       sx={{ width: "auto" }}
       role="presentation"
       onClick={toggleDrawer(false)}
       onKeyDown={toggleDrawer(false)}
     >
-      <DivOther style={{ marginRight: "10px", display: "flex" }}>
-        <div style={{ display: "flex" }}>
-          <ButtonSmall
-            marginright="5px"
-            handleClick={
-              themes === "light"
-                ? () => toggleTheme("dark")
-                : () => toggleTheme("light")
-            }
-            text={
-              themes === "light" ? (
-                <BsMoonFill size="18px" />
-              ) : (
-                <BsFillSunFill size="18px" />
-              )
-            }
-          />
-          <ButtonSmall
-            text={language === "ua" ? t("EN") : t("UA")}
-            handleClick={handleLenguageChange}
-          />
+      <div>
+        <DivOther style={{ marginRight: "10px", display: "flex" }}>
+          <div style={{ display: "flex" }}>
+            <ButtonSmall
+              marginright="5px"
+              handleClick={
+                themes === "light"
+                  ? () => toggleTheme("dark")
+                  : () => toggleTheme("light")
+              }
+              text={
+                themes === "light" ? (
+                  <BsMoonFill size="18px" />
+                ) : (
+                  <BsFillSunFill size="18px" />
+                )
+              }
+            />
+            <ButtonSmall
+              text={language === "ua" ? t("EN") : t("UA")}
+              handleClick={handleLenguageChange}
+            />
+          </div>
+
+          {logged ? (
+            <Button
+              height="30px"
+              marginB="15px"
+              width="50px"
+              handleClick={() => dispatch(authOperations.logout())}
+            >
+              {t("Exit")}
+            </Button>
+          ) : (
+            <ButtonUser toggleModal={toggleModal} />
+          )}
+        </DivOther>
+        <Ul>
+          {pathNavbar.map(({ path, title, id }) => (
+            <LiMobile key={id}>
+              <Link href={{ pathname: path }}>
+                {pathname === path ? (
+                  <LinkActive>{title}</LinkActive>
+                ) : (
+                  <LinkNormal>{title}</LinkNormal>
+                )}
+                {/* <p className={pathname === path ? s.active : null}>{title}</p> */}
+              </Link>
+            </LiMobile>
+          ))}
+        </Ul>
+      </div>
+      <div>
+        <Divider />
+
+        <div style={{ marginTop: "20px" }}>
+          <AboutUs />
         </div>
-
-        {logged ? (
-          <Button
-            height="30px"
-            marginB="15px"
-            width="50px"
-            handleClick={() => dispatch(authOperations.logout())}
-          >
-            {t("Exit")}
-          </Button>
-        ) : (
-          <ButtonUser toggleModal={toggleModal} />
-        )}
-      </DivOther>
-      <Ul>
-        {pathNavbar.map(({ path, title, id }) => (
-          <LiMobile key={id}>
-            <Link href={{ pathname: path }}>
-              {pathname === path ? (
-                <LinkActive>{title}</LinkActive>
-              ) : (
-                <LinkNormal>{title}</LinkNormal>
-              )}
-              {/* <p className={pathname === path ? s.active : null}>{title}</p> */}
-            </Link>
-          </LiMobile>
-        ))}
-      </Ul>
-
-      <Divider />
-      <div style={{ marginTop: "20px" }}>
-        <AboutUs />
-        {/* {!logged && <ButtonUser toggleModal={toggleModal} />} */}
-
-        {/* {logged ? (
-          <Button
-            height="30px"
-            marginB="15px"
-            width="100%"
-            handleClick={() => dispatch(authOperations.logout())}
-          >
-            {t("Exit")}
-          </Button>
-        ) : (
-          <ButtonUser toggleModal={toggleModal} />
-        )} */}
       </div>
       {/* <List>
         {["All mail", "Trash", "Spam"].map((text, index) => (
@@ -166,7 +157,7 @@ const NavbarMobile = ({
           </ListItem>
         ))}
       </List> */}
-    </Box>
+    </BoxNavBarMobile>
   );
 
   return (

@@ -1,5 +1,15 @@
 import styled from "styled-components";
 import Sprite from "../../../public/sprite/image.svg";
+import Box from "@mui/material/Box";
+
+
+export const BoxNavBarMobile = styled(Box)`
+display:flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
+  padding: 20px;
+`
 
 export const LinkActive = styled.span`
 

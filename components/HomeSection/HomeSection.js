@@ -24,7 +24,7 @@ const HomeSection = () => {
       {width < 768 && (
         <ButtonLink href="/clothes">
           <ButtonPulse
-            width={"400px"}
+            width={"300px"}
             height={"40px"}
             text="КОЛЕКЦІЯ ОДЯГУ"
           ></ButtonPulse>

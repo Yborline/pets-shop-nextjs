@@ -106,7 +106,7 @@ const validationSchema = yup.object().shape({
       "blanket",
       "jacket",
       "suit",
-      "skinny",
+      "hoodies",
       "bomber",
       "sweatshirt",
       "trousers",
@@ -119,6 +119,8 @@ const validationSchema = yup.object().shape({
       "dress",
       "skirt",
       "briefs",
+      "footwear",
+      "couch",
     ])
     .required(required),
 });

@@ -45,9 +45,7 @@ import authOperations from "../../redux/auth/auth-operatins";
 import NavbarMobile from "./NavbarMobile.js/NavbarMobile";
 import Image from "next/image";
 import Button from "../Button/Button";
-import { ReactSVG } from "react-svg";
-import sprite from "../../public/sprite/image.svg";
-
+import "react-toastify/dist/ReactToastify.css";
 const Navbar = () => {
   const { input, inputIn } = useContext(ctxInput);
   const [showModal, toggleModal] = useToggleModal();

@@ -4,7 +4,6 @@ import { getUser } from "../redux/auth/auth-selectors";
 import { use, useEffect } from "react";
 import { fetchClothes } from "../redux/clothes/clothes-operations";
 import { notifySuccess } from "../notify/notify";
-import "react-toastify/dist/ReactToastify.css";
 
 import ToastifyContainer from "../components/ToastifyContainer/ToastifyContainer";
 import { getLoadingCloth } from "../redux/clothes/clothes-selector";

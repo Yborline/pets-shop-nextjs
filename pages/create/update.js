@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import CLothesForm from "../../components/ClothesForm/ClothesForm";
 import { getFetchClothesId } from "../../services/api";
+import ToastifyContainer from "../../components/ToastifyContainer/ToastifyContainer";
 const CorrectionCloth = ({ cloth }) => {
   const router = useRouter();
   const { id } = router.query;
@@ -96,6 +97,7 @@ const CorrectionCloth = ({ cloth }) => {
       {cloth.name && (
         <CLothesForm initial={correctionCloth} cloth={cloth} id={id} />
       )}
+      <ToastifyContainer />
     </>
   );
 };

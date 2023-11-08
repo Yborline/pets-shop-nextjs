@@ -27,28 +27,67 @@ const CLothesForm = ({ loading, initial, notify, cloth, id }) => {
   const [img, setImage] = useState(null);
   const [_, setClick] = useLoadingNotify();
 
+  const incrementPercentage = 0.05;
+  const incrementPercentageOpt = 0.35;
+  const allprice = {};
+  let currentPrice = "";
+  const getAllPrice = (values) => {
+    currentPrice = values;
+    const keys = [
+      "xs",
+      "s",
+      "sm",
+      "m",
+      "ml",
+      "l",
+      "xl",
+      "xxl",
+      "xl3",
+      "xl4",
+      "xl5",
+      "xl6",
+      "xl7",
+    ];
+
+    for (let i = 0; i < keys.length; i++) {
+      const ceilNumber = Math.ceil(currentPrice);
+      allprice[keys[i]] = {
+        price: ceilNumber,
+        opt: Math.ceil(ceilNumber - ceilNumber * incrementPercentageOpt),
+        active: true,
+      };
+      currentPrice = currentPrice + currentPrice * incrementPercentage;
+    }
+  };
+
   return (
     <Formik
       initialValues={initial}
       alidateOnBlur
       validationSchema={validationSchema}
       onSubmit={(values, formikProps) => {
+        const { price, ...rest } = values;
         if (img.length > 3) {
           alert("Не більше 3 фото");
           return;
         }
-        if (pathname === "/create") {
-          console.log(values.description);
-          console.log(img);
 
-          dispatch(addClothes(formDataAppend(values, img)));
+        getAllPrice(price);
+
+        const newObj = {
+          ...rest,
+          allprice,
+        };
+        if (pathname === "/create") {
+          console.log(newObj);
+          dispatch(addClothes(formDataAppend(newObj, img)));
           // formikProps.resetForm(initial);
           setClick(values.name, "библиотеку");
         } else {
           dispatch(
             updateById({
               id,
-              values: formDataAppend(values, img),
+              values: formDataAppend(newObj, img),
             })
           );
           setClick(values.name, "библиотеку");
@@ -155,12 +194,12 @@ const CLothesForm = ({ loading, initial, notify, cloth, id }) => {
                   name="xs"
                   handleChange={handleChange}
                   handleBlur={handleBlur}
-                  value={values.allprice.xs}
+                  value={values}
                   valueError={values}
-                  errors={errors.allprice?.xs}
-                  touched={errors.allprice?.xs}
+                  errors={errors}
+                  touched={errors}
                 />
-                <LabelInput
+                {/* <LabelInput
                   name="s"
                   handleChange={handleChange}
                   handleBlur={handleBlur}
@@ -256,7 +295,7 @@ const CLothesForm = ({ loading, initial, notify, cloth, id }) => {
                   value={values.allprice.xl7}
                   errors={errors.allprice?.xl7}
                   touched={touched.allprice?.xl7}
-                />
+                /> */}
               </DivPrice>
               <Button
                 marginT="50px;"

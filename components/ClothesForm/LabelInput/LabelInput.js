@@ -16,7 +16,7 @@ const LabelInput = ({
         <Input
           type="number"
           min="1"
-          name={`allprice.${name}.price`}
+          name={`price`}
           onChange={handleChange}
           onBlur={handleBlur}
           value={value.price}
@@ -24,7 +24,7 @@ const LabelInput = ({
 
         {errors.price && touched.price && errors.price}
       </DivInput>
-      <DivInput>
+      {/* <DivInput>
         <label>opt</label>
         <Input
           type="number"
@@ -47,7 +47,7 @@ const LabelInput = ({
           value={value.active}
         />
         {errors.active && touched.active && errors.active}
-      </DivInput>
+      </DivInput> */}
     </div>
   );
 };

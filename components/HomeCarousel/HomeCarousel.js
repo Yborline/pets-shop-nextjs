@@ -18,7 +18,6 @@ const HomeCarousel = ({ clothes }) => {
   const [activeItemIndex, setActiveItemIndex] = useState(0);
   const width = useWindowWidth();
   const chevronWidth = 50;
-  console.log(clothes);
   return (
     <DivMain style={{ padding: `0 ${chevronWidth}px`, overflowY: "hidden" }}>
       <ItemsCarousel

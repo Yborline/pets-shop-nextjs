@@ -12,76 +12,77 @@ const validationSchema = yup.object().shape({
     )
     .max(40, "Не більше 40 символів")
     .required(required),
-
-  allprice: yup
-    .object({
-      xs: yup.object({
-        price: yup.number().positive().required(required),
-        opt: yup.number().positive().required(required),
-        active: yup.boolean().required(required),
-      }),
-      s: yup.object({
-        price: yup.number().positive().required(required),
-        opt: yup.number().positive().required(required),
-        active: yup.boolean().required(required),
-      }),
-      sm: yup.object({
-        price: yup.number().positive().required(required),
-        opt: yup.number().positive().required(required),
-        active: yup.boolean().required(required),
-      }),
-      m: yup.object({
-        price: yup.number().positive().required(required),
-        opt: yup.number().positive().required(required),
-        active: yup.boolean().required(required),
-      }),
-      ml: yup.object({
-        price: yup.number().positive().required(required),
-        opt: yup.number().positive().required(required),
-        active: yup.boolean().required(required),
-      }),
-      l: yup.object({
-        price: yup.number().positive().required(required),
-        opt: yup.number().positive().required(required),
-        active: yup.boolean().required(required),
-      }),
-      xl: yup.object({
-        price: yup.number().positive().required(required),
-        opt: yup.number().positive().required(required),
-        active: yup.boolean().required(required),
-      }),
-      xxl: yup.object({
-        price: yup.number().positive().required(required),
-        opt: yup.number().positive().required(required),
-        active: yup.boolean().required(required),
-      }),
-      xl3: yup.object({
-        price: yup.number().positive().required(required),
-        opt: yup.number().positive().required(required),
-        active: yup.boolean().required(required),
-      }),
-      xl4: yup.object({
-        price: yup.number().positive().required(required),
-        opt: yup.number().positive().required(required),
-        active: yup.boolean().required(required),
-      }),
-      xl5: yup.object({
-        price: yup.number().positive().required(required),
-        opt: yup.number().positive().required(required),
-        active: yup.boolean().required(required),
-      }),
-      xl6: yup.object({
-        price: yup.number().positive().required(required),
-        opt: yup.number().positive().required(required),
-        active: yup.boolean().required(required),
-      }),
-      xl7: yup.object({
-        price: yup.number().positive().required(required),
-        opt: yup.number().positive().required(required),
-        active: yup.boolean().required(required),
-      }),
-    })
-    .required(""),
+  // xs: yup.object({
+  price: yup.number().positive().required(required),
+  // allprice: yup
+  //   .object({
+  //     xs: yup.object({
+  //       price: yup.number().positive().required(required),
+  //       // opt: yup.number().positive().required(required),
+  //       // active: yup.boolean().required(required),
+  //     }),
+  // s: yup.object({
+  //   price: yup.number().positive().required(required),
+  //   opt: yup.number().positive().required(required),
+  //   active: yup.boolean().required(required),
+  // }),
+  // sm: yup.object({
+  //   price: yup.number().positive().required(required),
+  //   opt: yup.number().positive().required(required),
+  //   active: yup.boolean().required(required),
+  // }),
+  // m: yup.object({
+  //   price: yup.number().positive().required(required),
+  //   opt: yup.number().positive().required(required),
+  //   active: yup.boolean().required(required),
+  // }),
+  // ml: yup.object({
+  //   price: yup.number().positive().required(required),
+  //   opt: yup.number().positive().required(required),
+  //   active: yup.boolean().required(required),
+  // }),
+  // l: yup.object({
+  //   price: yup.number().positive().required(required),
+  //   opt: yup.number().positive().required(required),
+  //   active: yup.boolean().required(required),
+  // }),
+  // xl: yup.object({
+  //   price: yup.number().positive().required(required),
+  //   opt: yup.number().positive().required(required),
+  //   active: yup.boolean().required(required),
+  // }),
+  // xxl: yup.object({
+  //   price: yup.number().positive().required(required),
+  //   opt: yup.number().positive().required(required),
+  //   active: yup.boolean().required(required),
+  // }),
+  // xl3: yup.object({
+  //   price: yup.number().positive().required(required),
+  //   opt: yup.number().positive().required(required),
+  //   active: yup.boolean().required(required),
+  // }),
+  // xl4: yup.object({
+  //   price: yup.number().positive().required(required),
+  //   opt: yup.number().positive().required(required),
+  //   active: yup.boolean().required(required),
+  // }),
+  // xl5: yup.object({
+  //   price: yup.number().positive().required(required),
+  //   opt: yup.number().positive().required(required),
+  //   active: yup.boolean().required(required),
+  // }),
+  // xl6: yup.object({
+  //   price: yup.number().positive().required(required),
+  //   opt: yup.number().positive().required(required),
+  //   active: yup.boolean().required(required),
+  // }),
+  // xl7: yup.object({
+  //   price: yup.number().positive().required(required),
+  //   opt: yup.number().positive().required(required),
+  //   active: yup.boolean().required(required),
+  // }),
+  // })
+  // .required(""),
   // code: yup
   //   .string()
   //   .min(9, "Не менше 9 цифр")
